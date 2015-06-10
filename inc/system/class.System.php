@@ -10,14 +10,36 @@
  */
 class System {
 	/**
+	 * Content of assets.json
+	 * @var array
+	 */
+	static $ASSETS = array();
+
+	/**
+	 * @return array
+	 */
+	public static function getAssets() {
+		if (empty(self::$ASSETS)) {
+			self::$ASSETS = json_decode(file_get_contents(FRONTEND_PATH.'../assets.json'), true);
+		}
+
+		return self::$ASSETS;
+	}
+
+	/**
 	 * Get code to include all local JS-files
 	 * @return string 
 	 */
 	static public function getCodeForLocalJSFiles() {
-		if (self::isAtLocalhost())
-			return '<script src="build/scripts.js"></script>';
+		$Code = '';
+		$Assets = self::getAssets();
+		$Mode = self::isAtLocalhost() ? 'dev' : 'prod';
 
-		return '<script src="build/scripts.min.js"></script>';
+		foreach ($Assets['js'][$Mode] as $assetPath) {
+			$Code .= '<script src="'.$assetPath.'"></script>';
+		}
+
+		return $Code;
 	}
 
 	/**
@@ -33,7 +55,15 @@ class System {
 	 * @return string 
 	 */
 	static public function getCodeForAllCSSFiles() {
-		return '<link rel="stylesheet" href="lib/less/runalyze-style.css">';
+		$Code = '';
+		$Assets = self::getAssets();
+		$Mode = self::isAtLocalhost() ? 'dev' : 'prod';
+
+		foreach ($Assets['css'][$Mode] as $assetPath) {
+			$Code .= '<link rel="stylesheet" href="'.$assetPath.'">';
+		}
+
+		return $Code;
 	}
 
 	/**
