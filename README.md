@@ -1,15 +1,15 @@
 # [Runalyze v2.0](http://blog.runalyze.com)
 
-[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Runalyze/Runalyze?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Build Status](https://travis-ci.org/Runalyze/Runalyze.svg?branch=master)](https://travis-ci.org/Runalyze/Runalyze)
 [![Code Coverage](https://scrutinizer-ci.com/g/Runalyze/Runalyze/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/Runalyze/Runalyze/?branch=master)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Runalyze/Runalyze/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Runalyze/Runalyze/?branch=master)
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Runalyze/Runalyze?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 
 Runalyze is a web application for analyzing your training - more detailed than any other sports diary.  
 Runalyze is mainly developed by [laufhannes](https://github.com/laufhannes) and [mipapo](https://github.com/mipapo).
 
-## Install / Development
+## Development / Install
 Runalyze v2.1+ requires [composer](https://getcomposer.org/doc/00-intro.md#system-requirements) and
 v2.2+ will probably require [npm](https://nodejs.org/download/),
 [bower](http://bower.io/) (`sudo npm install -g bower`) and
@@ -23,8 +23,19 @@ npm install
 grunt
 ```
 
+## Development / Update
+
 Still, we don't have any automated migration script for the database so far.
-You have to apply recent changes from the respective update files in `inc/install/` by hand.
+You have to apply recent changes from the respective update file `inc/install/update-vX.X-to-vX.X.sql` by hand.
+
+To update all dependencies and create current translations:
+```
+php build/build.php translations
+composer update
+bower update
+npm update
+grunt
+```
 
 ## License
 * TODO - we're currently seeking for the right license to choose
