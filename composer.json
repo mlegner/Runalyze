@@ -5,6 +5,7 @@
         "symfony/routing": "2.*",
         "symfony/class-loader": "@stable",
         "symfony/yaml": "@stable",
-        "swiftmailer/swiftmailer": "@stable"
+        "swiftmailer/swiftmailer": "@stable",
+        "twig/extensions": "^1.2"
     }
 }

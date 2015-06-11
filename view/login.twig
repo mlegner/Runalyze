@@ -10,7 +10,7 @@
 	<link rel="alternate" href="http://localhost/runalyze/index.php?lang=de" hreflang="de" />
 	<link rel="alternate" href="http://localhost/runalyze/index.php?lang=pl" hreflang="pl" />
 	<link rel="alternate" href="http://localhost/runalyze/index.php?lang=ca" hreflang="ca" />
-	<title>Runalyze v{{ RUNALYZE_VERSION }} - Bitte einloggen</title>
+	<title>Runalyze v{{ RUNALYZE_VERSION }} - {% trans "Please login" %}</title>
 
 	<script src="web/vendor/jquery/dist/jquery.js"></script><script src="lib/jquery.form.js"></script><script src="lib/jquery.metadata.js"></script><script src="lib/jquery.tablesorter-2.18.4.js"></script><script src="lib/jquery.tablesorter-2.18.4.pager.js"></script><script src="lib/bootstrap-tooltip.js"></script><script src="lib/fineuploader-3.5.0.min.js"></script><script src="lib/jquery.datepicker.js"></script><script src="lib/jquery.chosen.min.js"></script><script src="lib/runalyze.lib.js"></script><script src="lib/runalyze.lib.plot.js"></script><script src="lib/runalyze.lib.plot.options.js"></script><script src="lib/runalyze.lib.plot.saver.js"></script><script src="lib/runalyze.lib.plot.events.js"></script><script src="lib/runalyze.lib.tablesorter.js"></script><script src="lib/runalyze.lib.log.js"></script><script src="lib/runalyze.lib.options.js"></script><script src="lib/runalyze.lib.config.js"></script><script src="lib/runalyze.lib.overlay.js"></script><script src="lib/runalyze.lib.panels.js"></script><script src="lib/runalyze.lib.databrowser.js"></script><script src="lib/runalyze.lib.statistics.js"></script><script src="lib/runalyze.lib.training.js"></script><script src="lib/runalyze.lib.feature.js"></script><script src="lib/flot-0.8.3/base64.js"></script><script src="lib/flot-0.8.3/jquery.flot.min.js"></script><script src="lib/flot-0.8.3/jquery.flot.resize.min.js"></script><script src="lib/flot-0.8.3/jquery.flot.selection.js"></script><script src="lib/flot-0.8.3/jquery.flot.crosshair.js"></script><script src="lib/flot-0.8.3/jquery.flot.navigate.min.js"></script><script src="lib/flot-0.8.3/jquery.flot.hiddengraphs.js"></script><script src="lib/flot-0.8.3/jquery.flot.stack.js"></script><script src="lib/flot-0.8.3/jquery.flot.textLegend.js"></script><script src="lib/flot-0.8.3/jquery.flot.orderBars.js"></script><script src="lib/flot-0.8.3/jquery.flot.canvas.js"></script><script src="lib/flot-0.8.3/jquery.flot.time.min.js"></script><script src="lib/flot-0.8.3/jquery.flot.curvedLines.js"></script><script src="web/vendor/leaflet/dist/leaflet.js"></script><script src="lib/leaflet/runalyze.leaflet.js"></script><script src="lib/leaflet/runalyze.leaflet.layers.js"></script><script src="lib/leaflet/runalyze.leaflet.routes.js"></script><script src="web/vendor/fontIconPicker/jquery.fonticonpicker.js"></script>
 </head>
@@ -19,7 +19,7 @@
 
 <div id="headline">
 	<a class="tab logo" href="http://www.runalyze.de/" target="_blank">Runalyze v{{ RUNALYZE_VERSION }}</a>
-	<a class="tab right" href="login.php"><i class="fa fa-fw fa-sign-in"></i> Bitte einloggen</a>
+	<a class="tab right" href="login.php"><i class="fa fa-fw fa-sign-in"></i> {% trans "Please login" %}</a>
 </div>
 
 <script>(function($){$(document).ready(function(){ Runalyze.init(); });})(jQuery);</script>
@@ -32,7 +32,7 @@
 			<ul>
 			<li><a href="?lang=en">English</a></li><li class="triggered"><a href="?lang=de">Deutsch</a></li><li><a href="?lang=pl">Polski</a></li><li><a href="?lang=ca">Català</a></li>			</ul>
 		</div>
-		<h1>Runalyze {{ RUNALYZE_VERSION }} - Bitte einloggen</h1>
+		<h1>Runalyze {{ RUNALYZE_VERSION }} - {% trans "Please login" %}</h1>
 	</div>
 	<div class="panel-content">
 		<div class="installer-window-container"><div class="w50" id="login-window">
@@ -41,24 +41,24 @@
 
 			
 						<fieldset>
-				<legend>Einloggen</legend>
+				<legend>{% trans "Login" %}</legend>
 				<div class="w100">
-					<label for="username">Nutzername</label>
+					<label for="username">{% trans "Username" %}</label>
 					<input id="username" name="username" class="middle-size " type="text" value="">
 				</div>
 				<div class="w100 clear">
-					<label for="password">Passwort</label>
+					<label for="password">{% trans "Password" %}</label>
 					<input id="password" name="password" class="middle-size " type="password">
 				</div>
 				<div class="w100 clear">
-					<label for="autologin" class="small">Eingeloggt bleiben</label>
+					<label for="autologin" class="small">{% trans "Remember me" %}</label>
 					<input id="autologin" name="autologin" type="checkbox">
 				</div>
 			</fieldset>
 
 			
 			<div class="c">
-				<input type="submit" value="Einloggen" name="submit">
+				<input type="submit" value="{% trans "Login" %}" name="submit">
 			</div>
 					</form>
 	</div>
@@ -114,8 +114,24 @@ function show(what) {
 
 <p class="text"></p>
 <p class="text small c login-window-stats">
-	Bisher ist <strong>{{ numUser }}</strong> Athlet bei uns registriert und hat <strong>{{ numKm|raw }}</strong> erfasst.<br>
-	<strong>{{ numUserOnline }}</strong> Athleten sind online.<br>
+	{% trans %}
+		Until now <strong>{{ numUser }}</strong> athlete is registered and
+	{% plural numUser %}
+		Until now <strong>{{ numUser }}</strong> athletes are registered and
+	{% endtrans %}
+	{% trans %}
+		has logged <strong>{{ numKm }}</strong>.
+	{% plural numUser %}
+		have logged <strong>{{ numKm }}</strong>.
+	{% endtrans %}
+
+	<br>
+
+	{% trans %}
+		<strong>{{ numUserOnline }}</strong> athlete is online.
+	{% plural numUser %}
+		<strong>{{ numUserOnline }}</strong> athletes are online.
+	{% endtrans %}
 </p>
 
 		<div class="small installer-footer-text">
