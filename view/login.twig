@@ -1,21 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+{% extends "_layout.html" %}
 
-	<link rel="stylesheet" href="web/_static/runalyze.css"><link rel="stylesheet" href="web/vendor/font-awesome/css/font-awesome.css">
-	<link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
-	<link rel="alternate" href="http://localhost/runalyze/index.php?lang=en" hreflang="en" />
-	<link rel="alternate" href="http://localhost/runalyze/index.php?lang=de" hreflang="de" />
-	<link rel="alternate" href="http://localhost/runalyze/index.php?lang=pl" hreflang="pl" />
-	<link rel="alternate" href="http://localhost/runalyze/index.php?lang=ca" hreflang="ca" />
-	<title>Runalyze v{{ RUNALYZE_VERSION }} - Bitte einloggen</title>
+{% block content %}
 
-	<script src="web/vendor/jquery/dist/jquery.js"></script><script src="lib/jquery.form.js"></script><script src="lib/jquery.metadata.js"></script><script src="lib/jquery.tablesorter-2.18.4.js"></script><script src="lib/jquery.tablesorter-2.18.4.pager.js"></script><script src="lib/bootstrap-tooltip.js"></script><script src="lib/fineuploader-3.5.0.min.js"></script><script src="lib/jquery.datepicker.js"></script><script src="lib/jquery.chosen.min.js"></script><script src="lib/runalyze.lib.js"></script><script src="lib/runalyze.lib.plot.js"></script><script src="lib/runalyze.lib.plot.options.js"></script><script src="lib/runalyze.lib.plot.saver.js"></script><script src="lib/runalyze.lib.plot.events.js"></script><script src="lib/runalyze.lib.tablesorter.js"></script><script src="lib/runalyze.lib.log.js"></script><script src="lib/runalyze.lib.options.js"></script><script src="lib/runalyze.lib.config.js"></script><script src="lib/runalyze.lib.overlay.js"></script><script src="lib/runalyze.lib.panels.js"></script><script src="lib/runalyze.lib.databrowser.js"></script><script src="lib/runalyze.lib.statistics.js"></script><script src="lib/runalyze.lib.training.js"></script><script src="lib/runalyze.lib.feature.js"></script><script src="lib/flot-0.8.3/base64.js"></script><script src="lib/flot-0.8.3/jquery.flot.min.js"></script><script src="lib/flot-0.8.3/jquery.flot.resize.min.js"></script><script src="lib/flot-0.8.3/jquery.flot.selection.js"></script><script src="lib/flot-0.8.3/jquery.flot.crosshair.js"></script><script src="lib/flot-0.8.3/jquery.flot.navigate.min.js"></script><script src="lib/flot-0.8.3/jquery.flot.hiddengraphs.js"></script><script src="lib/flot-0.8.3/jquery.flot.stack.js"></script><script src="lib/flot-0.8.3/jquery.flot.textLegend.js"></script><script src="lib/flot-0.8.3/jquery.flot.orderBars.js"></script><script src="lib/flot-0.8.3/jquery.flot.canvas.js"></script><script src="lib/flot-0.8.3/jquery.flot.time.min.js"></script><script src="lib/flot-0.8.3/jquery.flot.curvedLines.js"></script><script src="web/vendor/leaflet/dist/leaflet.js"></script><script src="lib/leaflet/runalyze.leaflet.js"></script><script src="lib/leaflet/runalyze.leaflet.layers.js"></script><script src="lib/leaflet/runalyze.leaflet.routes.js"></script><script src="web/vendor/fontIconPicker/jquery.fonticonpicker.js"></script>
-</head>
 
-<body id="installer">
 
 <div id="headline">
 	<a class="tab logo" href="http://www.runalyze.de/" target="_blank">Runalyze v{{ RUNALYZE_VERSION }}</a>
@@ -155,7 +142,7 @@ function show(what) {
 		</div>
 			<p class="small clearfix">
 				<a class="right" href="http://blog.runalyze.com/" title="Runalyze - Lauftagebuch">Runalyze</a>
-				&copy; 2015 Runalyze Team.
+				&copy; 2015 Runalyze Team.!!
 			</p>
 		</div>
 	</div>
@@ -164,3 +151,5 @@ function show(what) {
 
 </body>
 </html>
+
+{% endblock %}
