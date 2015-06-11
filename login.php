@@ -42,7 +42,10 @@ DB::getInstance()->startAddingAccountID();
 $NumUserOn = SessionAccountHandler::getNumberOfUserOnline();
 
 Twig_Autoloader::register();
+
 $Twig = new Twig_Environment(new Twig_Loader_Filesystem(FRONTEND_PATH.'../view'));
+$Twig->addExtension(new Twig_Extensions_Extension_I18n());
+
 echo $Twig->loadTemplate('login.twig')->render(array(
 	'RUNALYZE_VERSION' => RUNALYZE_VERSION,
 	'numUserOnline' => $NumUserOn,
