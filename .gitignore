@@ -26,3 +26,4 @@ composer.lock
 #assets
 node_modules/
 web/_static/
+view/cache/

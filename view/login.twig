@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="stylesheet" href="web/_static/runalyze.css"><link rel="stylesheet" href="web/vendor/font-awesome/css/font-awesome.css">
+	<link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
+	<link rel="alternate" href="http://localhost/runalyze/index.php?lang=en" hreflang="en" />
+	<link rel="alternate" href="http://localhost/runalyze/index.php?lang=de" hreflang="de" />
+	<link rel="alternate" href="http://localhost/runalyze/index.php?lang=pl" hreflang="pl" />
+	<link rel="alternate" href="http://localhost/runalyze/index.php?lang=ca" hreflang="ca" />
+	<title>Runalyze v{{ RUNALYZE_VERSION }} - Bitte einloggen</title>
+
+	<script src="web/vendor/jquery/dist/jquery.js"></script><script src="lib/jquery.form.js"></script><script src="lib/jquery.metadata.js"></script><script src="lib/jquery.tablesorter-2.18.4.js"></script><script src="lib/jquery.tablesorter-2.18.4.pager.js"></script><script src="lib/bootstrap-tooltip.js"></script><script src="lib/fineuploader-3.5.0.min.js"></script><script src="lib/jquery.datepicker.js"></script><script src="lib/jquery.chosen.min.js"></script><script src="lib/runalyze.lib.js"></script><script src="lib/runalyze.lib.plot.js"></script><script src="lib/runalyze.lib.plot.options.js"></script><script src="lib/runalyze.lib.plot.saver.js"></script><script src="lib/runalyze.lib.plot.events.js"></script><script src="lib/runalyze.lib.tablesorter.js"></script><script src="lib/runalyze.lib.log.js"></script><script src="lib/runalyze.lib.options.js"></script><script src="lib/runalyze.lib.config.js"></script><script src="lib/runalyze.lib.overlay.js"></script><script src="lib/runalyze.lib.panels.js"></script><script src="lib/runalyze.lib.databrowser.js"></script><script src="lib/runalyze.lib.statistics.js"></script><script src="lib/runalyze.lib.training.js"></script><script src="lib/runalyze.lib.feature.js"></script><script src="lib/flot-0.8.3/base64.js"></script><script src="lib/flot-0.8.3/jquery.flot.min.js"></script><script src="lib/flot-0.8.3/jquery.flot.resize.min.js"></script><script src="lib/flot-0.8.3/jquery.flot.selection.js"></script><script src="lib/flot-0.8.3/jquery.flot.crosshair.js"></script><script src="lib/flot-0.8.3/jquery.flot.navigate.min.js"></script><script src="lib/flot-0.8.3/jquery.flot.hiddengraphs.js"></script><script src="lib/flot-0.8.3/jquery.flot.stack.js"></script><script src="lib/flot-0.8.3/jquery.flot.textLegend.js"></script><script src="lib/flot-0.8.3/jquery.flot.orderBars.js"></script><script src="lib/flot-0.8.3/jquery.flot.canvas.js"></script><script src="lib/flot-0.8.3/jquery.flot.time.min.js"></script><script src="lib/flot-0.8.3/jquery.flot.curvedLines.js"></script><script src="web/vendor/leaflet/dist/leaflet.js"></script><script src="lib/leaflet/runalyze.leaflet.js"></script><script src="lib/leaflet/runalyze.leaflet.layers.js"></script><script src="lib/leaflet/runalyze.leaflet.routes.js"></script><script src="web/vendor/fontIconPicker/jquery.fonticonpicker.js"></script>
+</head>
+
+<body id="installer">
+
+<div id="headline">
+	<a class="tab logo" href="http://www.runalyze.de/" target="_blank">Runalyze v{{ RUNALYZE_VERSION }}</a>
+	<a class="tab right" href="login.php"><i class="fa fa-fw fa-sign-in"></i> Bitte einloggen</a>
+</div>
+
+<script>(function($){$(document).ready(function(){ Runalyze.init(); });})(jQuery);</script>
+<div id="overlay" style="display:block;"></div>
+
+<div id="ajax-outer">
+<div id="ajax" class="panel" style="display:block;">
+	<div class="panel-heading">
+		<div class="panel-menu">
+			<ul>
+			<li><a href="?lang=en">English</a></li><li class="triggered"><a href="?lang=de">Deutsch</a></li><li><a href="?lang=pl">Polski</a></li><li><a href="?lang=ca">Català</a></li>			</ul>
+		</div>
+		<h1>Runalyze {{ RUNALYZE_VERSION }} - Bitte einloggen</h1>
+	</div>
+	<div class="panel-content">
+		<div class="installer-window-container"><div class="w50" id="login-window">
+	<div id="login">
+		<form action="login.php" method="post">
+
+			
+						<fieldset>
+				<legend>Einloggen</legend>
+				<div class="w100">
+					<label for="username">Nutzername</label>
+					<input id="username" name="username" class="middle-size " type="text" value="">
+				</div>
+				<div class="w100 clear">
+					<label for="password">Passwort</label>
+					<input id="password" name="password" class="middle-size " type="password">
+				</div>
+				<div class="w100 clear">
+					<label for="autologin" class="small">Eingeloggt bleiben</label>
+					<input id="autologin" name="autologin" type="checkbox">
+				</div>
+			</fieldset>
+
+			
+			<div class="c">
+				<input type="submit" value="Einloggen" name="submit">
+			</div>
+					</form>
+	</div>
+
+	<div id="registerFormular" style="display:none;">
+		<form action="login.php" method="post">
+			<fieldset>
+				<legend onclick="show('log');">Neuen Account erstellen</legend>
+			<div class="w100 block "><label for="new_username">Nutzername</label> <span class="input-with-unit"><input type="text" name="new_username" value="" id="new_username" class="middle-size"><label for="new_username" class="input-unit">&nbsp;<i class="fa fa-fw fa-user"></i></label></span></div><div class="w100 block "><label for="name">Name</label> <span class="input-with-unit"><input type="text" name="name" value="" id="name" class="middle-size"><label for="name" class="input-unit">&nbsp;<i class="fa fa-fw fa-user"></i></label></span></div><div class="w100 block "><label for="email">E-Mail-Adresse</label> <span class="input-with-unit"><input type="text" name="email" value="" id="email" class="middle-size"><label for="email" class="input-unit">&nbsp;<i class="fa fa-fw fa-envelope"></i></label></span></div><div class="w100 block "><label for="password">Passwort</label> <span class="input-with-unit"><input type="password" name="password" value="" id="password" class="middle-size"><label for="password" class="input-unit">&nbsp;<i class="fa fa-fw fa-lock"></i></label></span></div><div class="w100 block "><label for="password_again">Passwort wiederholen</label> <span class="input-with-unit"><input type="password" name="password_again" value="" id="password_again" class="middle-size"><label for="password_again" class="input-unit">&nbsp;<i class="fa fa-fw fa-lock"></i></label></span></div>
+						</fieldset>
+
+						<div class="c">
+				<input type="submit" value="Registrieren" name="submit">
+			</div>
+					</form>
+	</div>
+
+	<div id="forgotPassword" style="display:none;">
+		<form action="login.php" method="post">
+			<fieldset>
+				<legend onclick="show('log');">Passwort vergessen?</legend>
+				<div class="w100">
+					<label for="send_username">Nutzername</label>
+					<input id="send_username" name="send_username" class="middle-size" type="text" value="">
+				</div>
+
+							<p class="info small">
+					Ein Link zur Passwortänderung wird an deine eingetragene E-Mail-Adresse gesendet.				</p>
+						</fieldset>
+
+			<div class="c">
+				<input type="submit" value="Link senden" name="submit">
+			</div>
+		</form>
+	</div>
+</div>
+
+<div id="login-panel">
+	<a id="login-link" href="#" onclick="show('log')"><i class="fa fa-fw fa-lg fa-sign-in"></i> Einloggen</a>
+	<a id="register-link" href="#" onclick="show('reg')"><i class="fa fa-fw fa-lg fa-user"></i> Neuen Account erstellen</a>
+	<a id="password-link" href="#" onclick="show('pwf');"><i class="fa fa-fw fa-lg fa-lock"></i> Passwort vergessen?</a>
+</div>
+
+<script type="text/javascript">
+function show(what) {
+	var $log = $("#login"), $reg = $("#registerFormular"), $pwf = $("#forgotPassword");
+	if (what == 'reg') { $reg.show(); $log.hide(); $pwf.hide();	}
+	else if (what == 'pwf') { $pwf.show(); $reg.hide(); $log.hide(); }
+	else if (what == 'log') { $log.show(); $pwf.hide(); $reg.hide(); }
+}
+</script>
+
+
+<p class="text"></p>
+<p class="text small c login-window-stats">
+	Bisher ist <strong>{{ numUser }}</strong> Athlet bei uns registriert und hat <strong>{{ numKm|raw }}</strong> erfasst.<br>
+	<strong>{{ numUserOnline }}</strong> Athleten sind online.<br>
+</p>
+
+		<div class="small installer-footer-text">
+			<div class="text-badge">
+				<i class="fa fa-fw fa-2x fa-bar-chart-o"></i>
+				<p>
+					<strong>Statistiken</strong>
+					Runalyze analysiert dein komplettes Training, berechnet deine Form, stellt Prognosen auf und visualisiert dein Training in Diagrammen - so ausführlich wie kein anderes Lauftagebuch.				</p>
+			</div>
+			<div class="text-badge">
+				<i class="fa fa-fw fa-2x fa-cog"></i>
+				<p>
+					<strong>Konfiguration</strong>
+					Runalyze ist vollständig konfigurierbar. Du kannst selbst bestimmen, welche Daten du für deine Trainings erfassen möchtest und welche Statistiken dir wo angezeigt werden.				</p>
+			</div>
+			<div class="text-badge">
+				<i class="fa fa-fw fa-2x fa-heart"></i>
+				<p>
+					<strong>Von Läufern für Läufer</strong>
+					Runalyze kommt von Läufern für Läufer. Wann immer du Anmerkungen, Probleme oder Wünsche hast: Sag uns Bescheid, es liegt uns am Herzen!				</p>
+			</div>
+
+			<p class="text clear">
+				&nbsp;
+			</p>
+
+			<p class="c">
+				<a href="https://github.com/Runalyze/Runalyze" title="GitHub: Runalyze"><i class="fa fa-fw fa-2x fa-github-alt"></i></a>
+				<a href="http://twitter.com/RunalyzeDE" title="Twitter: Runalyze"><i class="fa fa-fw fa-2x fa-twitter"></i></a>
+				<a href="http://www.facebook.com/Runalyze" title="Facebook: Runalyze"><i class="fa fa-fw fa-2x fa-facebook"></i></a>
+				<a href="https://plus.google.com/communities/116260192529858591171" title="Google+: Runalyze"><i class="fa fa-fw fa-2x fa-google-plus"></i></a>
+			</p>
+
+			<p>
+				&nbsp;
+			</p>
+		</div>
+			<p class="small clearfix">
+				<a class="right" href="http://blog.runalyze.com/" title="Runalyze - Lauftagebuch">Runalyze</a>
+				&copy; 2015 Runalyze Team.
+			</p>
+		</div>
+	</div>
+</div>
+</div>
+
+</body>
+</html>
