@@ -7,7 +7,7 @@
 
 	<?php echo System::getCodeForAllCSSFiles(); ?>
 
-	<link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico" >
+	<link rel="shortcut icon" type="image/x-icon" href="web/favicon.ico" >
 
 	<title><?php echo $this->getPageTitle(); ?> - Runalyze v<?php echo RUNALYZE_VERSION; ?></title>
 

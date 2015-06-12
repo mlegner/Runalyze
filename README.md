@@ -20,7 +20,7 @@ To install all dependencies:
 composer install
 bower install
 npm install
-grunt
+grunt build
 ```
 
 ## Development / Update
@@ -34,7 +34,7 @@ php build/build.php translations
 composer update
 bower update
 npm update
-grunt
+grunt dev
 ```
 
 ## License

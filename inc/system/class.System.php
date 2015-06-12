@@ -10,36 +10,11 @@
  */
 class System {
 	/**
-	 * Content of assets.json
-	 * @var array
-	 */
-	static $ASSETS = array();
-
-	/**
-	 * @return array
-	 */
-	public static function getAssets() {
-		if (empty(self::$ASSETS)) {
-			self::$ASSETS = json_decode(file_get_contents(FRONTEND_PATH.'../assets.json'), true);
-		}
-
-		return self::$ASSETS;
-	}
-
-	/**
 	 * Get code to include all local JS-files
 	 * @return string 
 	 */
 	static public function getCodeForLocalJSFiles() {
-		$Code = '';
-		$Assets = self::getAssets();
-		$Mode = self::isAtLocalhost() ? 'dev' : 'prod';
-
-		foreach ($Assets['js'][$Mode] as $assetPath) {
-			$Code .= '<script src="'.$assetPath.'"></script>';
-		}
-
-		return $Code;
+		return '<script src="web/assets/js/runalyze.js"></script>';
 	}
 
 	/**
@@ -55,15 +30,10 @@ class System {
 	 * @return string 
 	 */
 	static public function getCodeForAllCSSFiles() {
-		$Code = '';
-		$Assets = self::getAssets();
-		$Mode = self::isAtLocalhost() ? 'dev' : 'prod';
+		$assets = '<link rel="stylesheet" href="web/assets/css/runalyze-v2.1.css">';
+		$assets .= '<link rel="stylesheet" href="web/vendor/font-awesome/css/font-awesome.min.css">';
 
-		foreach ($Assets['css'][$Mode] as $assetPath) {
-			$Code .= '<link rel="stylesheet" href="'.$assetPath.'">';
-		}
-
-		return $Code;
+		return $assets;
 	}
 
 	/**
