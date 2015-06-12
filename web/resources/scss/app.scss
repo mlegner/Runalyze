@@ -1,0 +1,159 @@
+@import "settings";
+@import "foundation";   
+
+// Or selectively include components
+ @import
+//   "foundation/components/accordion",
+//   "foundation/components/alert-boxes",
+//   "foundation/components/block-grid",
+//   "foundation/components/breadcrumbs",
+//   "foundation/components/button-groups",
+   "foundation/components/buttons",
+//   "foundation/components/clearing",
+//   "foundation/components/dropdown",
+//   "foundation/components/dropdown-buttons",
+//   "foundation/components/flex-video",
+   "foundation/components/forms",
+//   "foundation/components/grid",
+//   "foundation/components/inline-lists",
+//   "foundation/components/joyride",
+//   "foundation/components/keystrokes",
+//   "foundation/components/labels",
+   "foundation/components/magellan",
+//   "foundation/components/orbit",
+//   "foundation/components/pagination",
+//   "foundation/components/panels",
+//   "foundation/components/pricing-tables",
+//   "foundation/components/progress-bars",
+//   "foundation/components/reveal",
+//   "foundation/components/side-nav",
+//   "foundation/components/split-buttons",
+//   "foundation/components/sub-nav",
+  "foundation/components/switches";
+//   "foundation/components/tables",
+//   "foundation/components/tabs",
+//   "foundation/components/thumbs",
+//   "foundation/components/tooltips",
+//   "foundation/components/top-bar",
+//   "foundation/components/type",
+//   "foundation/components/offcanvas",
+//   "foundation/components/visibility";
+
+
+
+
+// Small screens
+@media only screen {
+
+    .intro{
+        background: #f0edea;
+        padding: 50px 0;
+        
+        .loginBox{
+            background: $white;
+            box-shadow: 0 0 4px 0 #aaa;
+            padding: 20px 20px;
+        }
+    }
+    
+    .vorteile{
+        padding: 70px 0 50px;
+        
+        h3{
+            font-size: 1.6rem;
+            
+            i{
+                color: $secondary-color;
+                padding-right: 10px;
+            }
+        }
+    }
+    
+    
+    
+    nav.mainNav{
+        
+    }
+    
+    
+    header{
+        text-align: center;
+        padding: 20px 0 15px;
+        
+        .logo{
+            width: 130px; 
+            display: inline-block;
+            
+        }
+    }
+    
+    #selectLanguage{
+        
+    }
+    
+    #languageSelector{
+        background: $primary-color;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top:0;
+        z-index: 50;
+        display: none;
+        
+        
+        ul{
+            text-align: center;
+            font-size: 3rem;
+        }
+        
+        a{
+            color: $white;
+        }
+    }
+    
+    footer{
+        padding: 40px 0 30px;
+        background: $primary-color;
+        color: $white;
+        
+        h1, h2, h3, h4, h5, h6{
+            color: $secondary-color;
+        }
+        
+       
+        
+        a{
+            color: $white;
+        }
+    }
+   
+    
+} /* Define mobile styles */
+
+@media only screen and (max-width: 40em) { } /* max-width 640px, mobile-only styles, use when QAing mobile issues */
+
+// Medium screens
+@media only screen and (min-width: 40.063em) {
+
+    
+
+} /* min-width 641px, medium screens */
+
+@media only screen and (min-width: 40.063em) and (max-width: 64em) { } /* min-width 641px and max-width 1024px, use when QAing tablet-only issues */
+
+// Large screens
+@media only screen and (min-width: 64.063em) { 
+
+   
+    
+} /* min-width 1025px, large screens */
+
+@media only screen and (min-width: 64.063em) and (max-width: 90em) { } /* min-width 1025px and max-width 1440px, use when QAing large screen-only issues */
+
+// XLarge screens
+@media only screen and (min-width: 90.063em) { } /* min-width 1441px, xlarge screens */
+
+@media only screen and (min-width: 90.063em) and (max-width: 120em) { } /* min-width 1441px and max-width 1920px, use when QAing xlarge screen-only issues */
+
+// XXLarge screens
+@media only screen and (min-width: 120.063em) { } /* min-width 1921px, xxlarge screens */

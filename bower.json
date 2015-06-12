@@ -1,6 +1,7 @@
 {
   "name": "Runalyze",
   "dependencies": {
+    "foundation": "zurb/bower-foundation",
     "jquery": "~2.1",
     "leaflet": "~0.7",
     "font-awesome": "4.2.0",
