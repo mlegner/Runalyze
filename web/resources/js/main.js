@@ -33,18 +33,31 @@ this.runalyze = this.runalyze || {};
     };
     
     p.loginBoxView = function () {
-        $('#login-panel a').on('click', function(e) {
+        $('a.loginBoxChange').on('click', function(e) {
             e.preventDefault();
             
             var $log = $("#login"), 
                 $reg = $("#registerFormular"), 
                 $pwf = $("#forgotPassword");
-            
-            console.log(this.id);
 
-            if (this.id == 'reg') { $reg.show(); $log.hide(); $pwf.hide();	}
-            else if (this.id == 'pwf') { $pwf.show(); $reg.hide(); $log.hide(); }
-            else if (this.id == 'log') { $log.show(); $pwf.hide(); $reg.hide(); }
+            
+//            var activeElement = $(".boxWrapper.active").attr('id');
+//            console.log($(".boxWrapper.active").attr('id'));
+            
+//            $(".boxWrapper").removeClass("inactive"); 
+            $(".boxWrapper").removeClass("active"); 
+//            $('#' + activeElement).addClass("inactive"); 
+            
+            
+            if ($(this).hasClass('reg')) { 
+                $reg.addClass('active');
+            }
+            else if ($(this).hasClass('pwf')) { 
+                $pwf.addClass('active');
+            }
+            else if ($(this).hasClass('log')) { 
+                $log.addClass('active');
+            } 
         });
     };
     

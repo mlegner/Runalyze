@@ -16,7 +16,8 @@
     {% block css %}
         <!-- OLD STYLES -->
 <!--
-        <link rel="stylesheet" href="web/_static/runalyze.css">-->
+        <link rel="stylesheet" href="web/_static/runalyze.css">
+-->
         <link rel="stylesheet" href="web/vendor/font-awesome/css/font-awesome.css">
 
     
@@ -29,15 +30,26 @@
     {% endblock %}
     
 </head>
-    <body id="installer">
+    <body>
+        
+        <div class="alert-box" data-alert>Wir verwenden cookies blah blah <a href="#" class="close">&times;</a></div>
         
         <header>
-            <a href="" id="openLanguageSelector">Choose Language</a>
-            <h1 class="logo"><a href="/"><img src="/web/assets/images/logo-runalyze.jpg" alt="RUNALYZE Logo"></a></h1>
-            <div>
-                Version {{ RUNALYZE_VERSION }}
+            <div class="whiteBadge"></div>
+            <div class="headerContent">
+            
+                <div class="row">
+                    <div class="small-12 columns">
+                        <a href="#" id="openLanguageSelector"><i class="fa fa-globe"></i></a>
+                        
+                        <h1 class="logo"><a href="/">RUNALYZE</a></h1>
+
+                    </div>
+                </div>
             </div>
         </header>
+        
+        <!--
         <nav data-magellan-expedition="fixed" class="mainNav">
             <div class="row">
               <dl class="sub-nav">
@@ -45,7 +57,8 @@
                 <dd data-magellan-arrival="js"><a href="#js">FAQ</a></dd>
               </dl>
             </div>
-        </nav>
+        </nav>-->
+
 
         {% block content %}
         
@@ -60,6 +73,10 @@
                     <a href="http://twitter.com/RunalyzeDE" title="Twitter &ndash; RUNALYZE"><i class="fa fa-2x fa-twitter-square"></i></a>
                     <a href="http://www.facebook.com/Runalyze" title="Facebook &ndash; RUNALYZE"><i class="fa fa-2x fa-facebook-square"></i></a>
                     <a href="https://plus.google.com/communities/116260192529858591171" title="Google+ &ndash; RUNALYZE"><i class="fa fa-2x fa-google-plus-square"></i></a>
+                    
+                    <div>
+                        Version {{ RUNALYZE_VERSION }}
+                    </div>
                 </div>
                 <div class="small-12 large-4 columns">
                     <h5>Visit Us</h5>
@@ -96,13 +113,18 @@
         </div>
         
         <div id="languageSelector">
-            <a href="#" id="closeLanguageSelector">Close</a>
+    
+            <a id="closeLanguageSelector" href="#"><i class="fa fa-times"></i></a>
+           <div class="valign-center ">
+            <div class="content">
+            <h2 class="headline">Bitte wähle deine gewünschte Sprache</h2>
             <ul class="no-bullet">
                 <li><a href="?lang=en">English</a></li>
                 <li class="triggered"><a href="?lang=de">Deutsch</a></li>
                 <li><a href="?lang=pl">Polski</a></li>
                 <li><a href="?lang=ca">Català</a></li>
             </ul>
+            </div></div>
         </div>
     
     </body>

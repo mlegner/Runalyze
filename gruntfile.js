@@ -3,6 +3,7 @@ module.exports = function (grunt) {
     var jsFiles = {
 		"web/assets/js/runalyze.js": [
 			"web/vendor/jquery/dist/jquery.js",
+            "web/vendor/modernizr/modernizr.js",
 
 			"lib/jquery.form.js",
 			"lib/jquery.metadata.js",
@@ -55,12 +56,10 @@ module.exports = function (grunt) {
 			"web/vendor/fontIconPicker/jquery.fonticonpicker.js",
 
 			"web/vendor/foundation/js/foundation.min.js",
-			"web/vendor/foundation/js/foundation/foundation.magellan.js",
+			"web/vendor/foundation/js/foundation/foundation.alert.js",
+            "web/vendor/foundation/js/foundation/foundation.magellan.js",
 
 			"web/resources/js/main.js"
-		],
-		"web/assets/js/libs/modernizr.min.js": [
-			"web/vendor/modernizr/modernizr.js"
 		]
 	};
 
@@ -142,7 +141,13 @@ module.exports = function (grunt) {
                         src: '**/*',           // copy all files and subfolders
                         dest: 'web/assets/images',    // destination folder
                         expand: true           // required when using cwd
-                      }
+                    },
+                    {
+                        cwd: 'web/resources/fonts',  // set working folder / root to copy
+                        src: '**/*',           // copy all files and subfolders
+                        dest: 'web/assets/fonts',    // destination folder
+                        expand: true           // required when using cwd
+                    }
                     
                 ],
             },

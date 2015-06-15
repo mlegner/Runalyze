@@ -3,21 +3,25 @@
 {% block content %}
 <main>
     <div class="intro">
+        
         <div class="row" >
-            <div class="small-8 large-8 columns">
-                <h2>RUNALYZE ist dein Lauftagebuch</h2>
-                <p>Es fokussiert sich auf das Laufen und hebt sich mit einzigartigen Rechenspielen, vielen Statistiken und Wettkampfprognosen von anderen Sporttagebüchern ab.<br> 
-    Auf nur einer Seite hast du deine letzten Trainingseinheiten sowie aktuelle Prognosen und deine Form im Überblick. RUNALYZE ist vollständig konfigurierbar. Sportarten und Sporttypen kannst du nach deinen Bedürfnissen anpassen. </p>
+            
+            <div class="small-12 large-8 columns">
+                <div class="introText">
+                    <h2>RUNALYZE ist dein Lauftagebuch</h2>
+                    <p>Es fokussiert sich auf das Laufen und hebt sich mit einzigartigen Rechenspielen, vielen Statistiken und Wettkampfprognosen von anderen Sporttagebüchern ab.<br> 
+        Auf nur einer Seite hast du deine letzten Trainingseinheiten sowie aktuelle Prognosen und deine Form im Überblick. RUNALYZE ist vollständig konfigurierbar. Sportarten und Sporttypen kannst du nach deinen Bedürfnissen anpassen. </p>
+                </div>
 
                 <div class="row">
                     <div class="small-12 large-6 columns">
                         <h3>Noch kein Mitglied?</h3>
-                        <p>Du bist noch kein Mitglied? Teste RUNALYZE jetzt <strong>kostenlos</strong> und finde mehr heraus!</p>
-                        <a href="#" class="button">Jetzt testen!</a>
+                        <p>Du bist noch kein Mitglied? Teste RUNALYZE jetzt <strong>kostenlos</strong> und entdecke alle Vorteile!</p>
+                        <a href="#" class="loginBoxChange button small reg">Jetzt testen!</a>
 
                     </div>
                     <div class="small-12 large-6 columns">
-
+                        <h3>Lorem ipsum</h3>
                         <p class="">
                             {% trans %}
                                 Until now <strong>{{ numUser }}</strong> athlete is registered and
@@ -41,30 +45,23 @@
 
                     </div>
                 </div>
+                
+                <!--<div id="login-panel">
+                    <a class="loginBoxChange log" href="#" ><i class="fa fa-fw fa-lg fa-sign-in"></i> Einloggen</a>
+                    <a class="loginBoxChange reg" href="#" ><i class="fa fa-fw fa-lg fa-user"></i> Neuen Account erstellen</a>
+                    <a class="loginBoxChange pwf" href="#" ><i class="fa fa-fw fa-lg fa-lock"></i> Passwort vergessen?</a>
+                </div>-->
 
             </div>
-            <div class="small-4 large-4 columns">
-                <div id="login-panel">
-                    <a id="log" href="#" ><i class="fa fa-fw fa-lg fa-sign-in"></i> Einloggen</a>
-                    <a id="reg" href="#" ><i class="fa fa-fw fa-lg fa-user"></i> Neuen Account erstellen</a>
-                    <a id="pwf" href="#" ><i class="fa fa-fw fa-lg fa-lock"></i> Passwort vergessen?</a>
-                </div>
+            <div class="small-12 large-4 columns">
+                
                 
                 <aside class="loginBox">
-                    <div id="login">
+                    <div id="login" class="boxWrapper active">
+                        
                         <form action="login.php" method="post">
                             <fieldset>
-                                <legend>{% trans "Login" %} {% trans "Please login" %}</legend>
-                                
-                                BEISPIELFELD mit icon vorne wo label steht?
-                                <div class="row collapse prefix-radius">
-                                    <div class="small-3 columns">
-                                      <span class="prefix">Label</span>
-                                    </div>
-                                    <div class="small-9 columns">
-                                      <input type="text" placeholder="Value">
-                                    </div>
-                                  </div>
+                                <legend>{% trans "Login" %} <!--{% trans "Please login" %}--></legend>
                                 
                                 <div class="">
                                     <label for="username">
@@ -79,99 +76,93 @@
                                     <small class="error">wrong Password</small>
                                 </div>
                                 <div class="">
-                                    <div class="switch small">
+                                    <div class="switch tiny">
                                         <input id="autologin" name="autologin" type="checkbox">
                                         <label for="autologin" class=""></label>
                                         {% trans "Remember me" %}
                                     </div> 
-                                    
-                                    
                                 </div>
                             </fieldset>
-                            <div class="">
-                                <input type="submit" value="{% trans "Login" %}" name="submit" class="button secondary small">
+                            <div class="clearfix">
+                                <input type="submit" value="{% trans "Login" %}" name="submit" class="button secondary small right">
+                            </div>
+                            <div>
+                                <a href="" class="loginBoxChange pwf">Passwort vergessen?</a>
+                                
                             </div>
                         </form>
                     </div>
-                    <div id="register">
+                    
 
-                        <div id="registerFormular" style="display:none;">
-                            <form action="login.php" method="post">
-                                <fieldset>
-                                    <legend onclick="show('log');">Neuen Account erstellen</legend>
-                                    <div class="w100 block">
-                                        <label for="new_username">Nutzername</label> 
-                                        <span class="input-with-unit">
-                                            <input type="text" name="new_username" value="" id="new_username" class="middle-size">
-                                            <label for="new_username" class="input-unit">&nbsp;<i class="fa fa-fw fa-user"></i></label>
-                                        </span>
-                                    </div>
-
-                                    <div class="w100 block ">
-                                        <label for="name">Name</label> 
-                                        <span class="input-with-unit">
-                                            <input type="text" name="name" value="" id="name" class="middle-size">
-                                            <label for="name" class="input-unit">
-                                                &nbsp;<i class="fa fa-fw fa-user"></i>
-                                            </label>
-                                        </span>
-                                    </div>
-
-                                    <div class="w100 block ">
-                                        <label for="email">E-Mail-Adresse</label>
-                                        <span class="input-with-unit">
-                                            <input type="text" name="email" value="" id="email" class="middle-size">
-                                            <label for="email" class="input-unit">
-                                                &nbsp;<i class="fa fa-fw fa-envelope"></i>
-                                            </label>
-                                        </span>
-                                    </div>
-
-                                    <div class="w100 block ">
-                                        <label for="password">Passwort</label> 
-                                        <span class="input-with-unit"><input type="password" name="password" value="" id="password" class="middle-size">
-                                            <label for="password" class="input-unit">
-                                                &nbsp;<i class="fa fa-fw fa-lock"></i>
-                                            </label>
-                                        </span>
-                                    </div>
-
-                                    <div class="w100 block ">
-                                        <label for="password_again">Passwort wiederholen</label> 
-                                        <span class="input-with-unit">
-                                            <input type="password" name="password_again" value="" id="password_again" class="middle-size">
-                                            <label for="password_again" class="input-unit">
-                                                &nbsp;<i class="fa fa-fw fa-lock"></i>
-                                            </label>
-                                        </span>
-                                    </div>
-                                </fieldset>
-
-                                <div class="">
-                                    <input type="submit" value="Registrieren" name="submit" class="button small">
+                    <div id="registerFormular"  class="boxWrapper">
+                        <form action="login.php" method="post">
+                            <fieldset>
+                                <legend onclick="show('log');">Neuen Account erstellen</legend>
+                                <div class="w100 block">
+                                    <label for="new_username">Nutzername</label> 
+                                    <span class="input-with-unit">
+                                        <input type="text" name="new_username" value="" id="new_username" class="middle-size">
+                                    </span>
                                 </div>
-                            </form>
-                        </div>
 
+                                <div class="w100 block ">
+                                    <label for="name">Name</label> 
+                                    <span class="input-with-unit">
+                                        <input type="text" name="name" value="" id="name" class="middle-size">
+                                    </span>
+                                </div>
+
+                                <div class="w100 block ">
+                                    <label for="email">E-Mail-Adresse</label>
+                                    <span class="input-with-unit">
+                                        <input type="text" name="email" value="" id="email" class="middle-size">
+                                    </span>
+                                </div>
+
+                                <div class="w100 block ">
+                                    <label for="password">Passwort</label> 
+                                    <span class="input-with-unit">
+                                        <input type="password" name="password" value="" id="password" class="middle-size">
+                                    </span>
+                                </div>
+
+                                <div class="w100 block ">
+                                    <label for="password_again">Passwort wiederholen</label> 
+                                    <span class="input-with-unit">
+                                        <input type="password" name="password_again" value="" id="password_again" class="middle-size">
+                                    </span>
+                                </div>
+                            </fieldset>
+
+                            <div class="clearfix">
+                                <input type="submit" value="Registrieren" name="submit" class="button secondary small right">
+                            </div>
+                            
+                        </form>
                     </div>
 
-                    <div class="forgotPassword" id="forgotPassword" style="display:none;">
+                    
+
+                    <div class="forgotPassword  boxWrapper" id="forgotPassword">
                         <form action="login.php" method="post">
                             <fieldset>
                                 <legend onclick="show('log');">Passwort vergessen?</legend>
+                                <p class="info">
+                                    Ein Link zur Passwortänderung wird an deine eingetragene E-Mail-Adresse gesendet.
+                                </p>
                                 <div class="">
                                     <label for="send_username">Nutzername
                                     <input id="send_username" name="send_username" class="" type="text" value="">
                                     </label>
                                 </div>
-
-                                <p class="info">
-                                    Ein Link zur Passwortänderung wird an deine eingetragene E-Mail-Adresse gesendet.
-                                </p>
                             </fieldset>
 
-                            <div class="">
-                                <input type="submit" value="Link senden" name="submit" class="button">
+                            <div class="clearfix">
+                                <input type="submit" value="Link senden" name="submit" class="button secondary small right">
+                            </div>
+                            
+                            <div>
+                                <a class="loginBoxChange log" href="#" >Zurück zum Login</a>
                             </div>
                         </form>
                     </div>
@@ -187,17 +178,17 @@
         <div class="row">
             <div class="small-12 large-4 columns">
                 <h3><i class="fa fa-bar-chart"></i> Statistiken</h3>
-                <p>Runalyze analysiert dein komplettes Training, berechnet deine Form, stellt Prognosen auf und visualisiert dein Training in Diagrammen - so ausführlich wie kein anderes Lauftagebuch.</p>
+                <p>RUNALYZE analysiert dein komplettes Training, berechnet deine Form, stellt Prognosen auf und visualisiert <strong>dein Training in Diagrammen</strong> - so ausführlich wie kein anderes Lauftagebuch.</p>
             </div>
             <div class="small-12 large-4 columns">
                 
                 <h3><i class="fa fa-cogs"></i> Konfiguration</h3>
-                <p>Runalyze ist vollständig konfigurierbar. Du kannst selbst bestimmen, welche Daten du für deine Trainings erfassen möchtest und welche Statistiken dir wo angezeigt werden.</p>
+                <p>RUNALYZE ist vollständig <strong>konfigurierbar</strong>. Du kannst selbst bestimmen, welche Daten du für deine Trainings erfassen möchtest und welche <strong>Statistiken</strong> dir wo angezeigt werden.</p>
             </div>
             <div class="small-12 large-4 columns">
                 
                 <h3><i class="fa fa-users"></i> Von Läufern für Läufer</h3>
-                <p>Runalyze kommt von Läufern für Läufer. Wann immer du Anmerkungen, Probleme oder Wünsche hast: Sag uns Bescheid, es liegt uns am Herzen!</p>
+                <p>RUNALYZE kommt <strong>von Läufern für Läufer</strong>. Wann immer du Anmerkungen, Probleme oder Wünsche hast: Sag uns Bescheid, es liegt uns am Herzen!</p>
             </div>
         </div>
     </div>

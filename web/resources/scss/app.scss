@@ -1,10 +1,24 @@
+
+
+@font-face {
+    font-family: 'runalyze-serif';
+    src: url('../fonts/Aleo-Regular-webfont.eot');
+    src: url('../fonts/Aleo-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/Aleo-Regular-webfont.woff') format('woff'),
+         url('../fonts/Aleo-Regular-webfont.ttf') format('truetype'),
+         url('../fonts/Aleo-Regular-webfont.svg#bree_serifregular') format('svg');
+    font-weight: normal; 
+    font-style: normal;
+
+}
+
 @import "settings";
 @import "foundation";   
 
 // Or selectively include components
  @import
 //   "foundation/components/accordion",
-//   "foundation/components/alert-boxes",
+   "foundation/components/alert-boxes",
 //   "foundation/components/block-grid",
 //   "foundation/components/breadcrumbs",
 //   "foundation/components/button-groups",
@@ -44,20 +58,29 @@
 
 // Small screens
 @media only screen {
+    
+    body{
+    }
 
     .intro{
-        background: #f0edea;
-        padding: 50px 0;
+        background: $runalyzegray;
+        padding: 120px 0 80px;
         
-        .loginBox{
-            background: $white;
-            box-shadow: 0 0 4px 0 #aaa;
-            padding: 20px 20px;
+        .introText{
+            margin-bottom: 50px;
         }
+        
+        h2 {
+            font-family: $font-family-serif;
+            color: $primary-color;
+        }
+        
+        
     }
     
     .vorteile{
         padding: 70px 0 50px;
+        box-shadow: 0 0 3px 0 $iron;
         
         h3{
             font-size: 1.6rem;
@@ -75,39 +98,194 @@
         
     }
     
+    .alert-box{
+        margin-bottom: 0;
+        @include alert-style($tertiary-color);
+    }
+    
+    .valign-center {
+        position: relative;
+        top: 50%;
+        > .content {
+          transform: translateY(-50%);
+          -webkit-transform: translateY(-50%);
+          -o-transform:translateY(-50%);
+          -ms-transform:translateY(-50%);
+        }
+      }
+
     
     header{
-        text-align: center;
-        padding: 20px 0 15px;
+        position: relative;
+        
+        .headerContent{
+            height: 80px;
+            padding: 0 0 15px;
+            text-align: center;
+            box-shadow: 0 0 3px 0 $iron;
+            overflow:visible;
+            position: relative;
+            background: $white;
+            z-index:5;
+        }
+        
+        .whiteBadge{
+            width: 150px; 
+            display: block;
+            background: $white;
+            z-index:2; 
+            padding: 25px 25px;
+            border-radius: 200px;
+            height: 150px;
+            box-shadow: 0 0 3px 0 $iron;
+            position: absolute;
+            top:4px;
+            left: 50%;
+            margin-left: -75px;
+        }
         
         .logo{
-            width: 130px; 
-            display: inline-block;
             
+            
+            a{
+                width: 150px; 
+                display: inline-block;
+                padding: 25px 25px;
+                background: $white url(../images/logo-runalyze.jpg) no-repeat 32px 40px;
+                background-size: 90px auto;
+                text-indent: -2000px;
+                border-radius: 200px;
+                height: 150px;
+            }
         }
     }
     
-    #selectLanguage{
-        
+    #openLanguageSelector{
+        position: absolute;
+        top: 0px;
+        right: 20px;
+        font-size: 2rem;
+        background: $primary-color;
+        color: $white;
+        padding: 0 9px; 
+    }
+    
+    #closeLanguageSelector{
+        position: absolute;
+        top: 0px;
+        right: 20px;
+        font-size: 2rem;
+        background: $white;
+        padding: 0 9px; 
     }
     
     #languageSelector{
-        background: $primary-color;
+        background: rgba($primary-color, 0.9);
         width: 100%;
         height: 100%;
         position: absolute;
         top:0;
         z-index: 50;
         display: none;
+        text-align: center;
+        padding: 20px;
         
-        
-        ul{
-            text-align: center;
-            font-size: 3rem;
+        .content{
+            
+            .headline{
+                color: $white;
+                margin-bottom: 2rem;
+            }
+
+            ul{
+                text-align: center;
+                font-size: 2rem;
+
+                li{
+                    display: inline-block; 
+
+                    a{
+                        color: $primary-color;
+                        background: $white;
+                        padding: 0 7px;
+
+                    }
+
+                }
+            }
+            
         }
         
-        a{
-            color: $white;
+        
+        
+        
+    }
+    
+    .loginBox{
+        position: relative;
+        height: 100%;
+        min-height: 530px;
+    
+        .boxWrapper{
+            background: $white;
+            box-shadow: 0 0 4px 0 #aaa;
+            padding: 20px 30px;
+            position: absolute;
+            top:0;
+            left:0;
+            width: 100%;
+            min-height: 530px;
+            display: block;
+            -webkit-backface-visibility: hidden; 
+   	        backface-visibility: hidden;
+            -webkit-transform-style: preserve-3d; 
+            transform-style: preserve-3d;
+            transform: rotateY(180deg);
+            transition: all 0.5s linear;
+            
+
+            &.active{
+                transform: rotateY(0deg);
+                
+
+            }
+            
+           
+            
+            
+
+            &#login{
+                
+            }
+            
+            &#registerFormular{
+               
+            }
+            
+            &#forgotPassword{
+               
+            }
+
+        }
+    }
+    
+    
+    
+    form{
+        fieldset{
+            
+            
+            legend{
+//                font-family: $font-family-serif;
+                margin: 2rem 0 1rem; 
+                padding:0;
+                color: $secondary-color;
+                font-size: 1.4rem;
+                text-align: center;
+                width:100%;
+                display: inline-block;
+                padding-top: 15px;
+            }
         }
     }
     
@@ -124,6 +302,10 @@
         
         a{
             color: $white;
+            
+            &:hover{
+                color: $smoke;
+            }
         }
     }
    
