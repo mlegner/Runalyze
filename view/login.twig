@@ -23,24 +23,12 @@
                     <div class="small-12 large-6 columns">
                         <h3>Lorem ipsum</h3>
                         <p class="">
-                            {% trans %}
-                                Until now <strong>{{ numUser }}</strong> athlete is registered and
-                            {% plural numUser %}
-                                Until now <strong>{{ numUser }}</strong> athletes are registered and
-                            {% endtrans %}
-                            {% trans %}
-                                has logged <strong>{{ numKm }}</strong>.
-                            {% plural numUser %}
-                                have logged <strong>{{ numKm }}</strong>.
-                            {% endtrans %}
-
-                            <br>
-
-                            {% trans %}
-                                <strong>{{ numUserOnline }}</strong> athlete is online.
-                            {% plural numUser %}
-                                <strong>{{ numUserOnline }}</strong> athletes are online.
-                            {% endtrans %}
+							{{ sprintf(_n('Until now <strong>%d</strong> athlete is registered and','Until now <strong>%d</strong> athletes are registered and', numUser), numUser)|raw }}
+							{{ sprintf(_n('has logged <strong>%s</strong>.','have logged <strong>%s</strong>.', numUser), numKm)|raw }}
+			
+							<br>
+			
+							{{ sprintf(_n('<strong>%d</strong> athlete is online.','<strong>%d</strong> athletes are online.', numUserOnline), numUserOnline)|raw }}
                         </p>
 
                     </div>

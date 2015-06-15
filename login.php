@@ -45,6 +45,15 @@ Twig_Autoloader::register();
 
 $Twig = new Twig_Environment(new Twig_Loader_Filesystem(FRONTEND_PATH.'../view'));
 $Twig->addExtension(new Twig_Extensions_Extension_I18n());
+$Twig->registerUndefinedFunctionCallback(function ($name) {
+	if (function_exists($name)) {
+		return new Twig_SimpleFunction($name, function() use($name) {
+			return call_user_func_array($name, func_get_args());
+		});
+	}
+
+	return false;
+});
 
 echo $Twig->loadTemplate('login.twig')->render(array(
 	'RUNALYZE_VERSION' => RUNALYZE_VERSION,
