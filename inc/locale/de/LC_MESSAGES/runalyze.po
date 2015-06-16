@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Runalyze\n"
 "Report-Msgid-Bugs-To: mail@runalyze.de\n"
 "POT-Creation-Date: 2015-06-08 08:40+0200\n"
-"PO-Revision-Date: 2015-06-16 10:21+0200\n"
+"PO-Revision-Date: 2015-06-16 10:24+0200\n"
 "Last-Translator: Michael Pohl <michael@mipapo.de>\n"
 "Language-Team: German "
 "<http://translate.runalyze.de/projects/runalyze/redesign/de/>\n"
@@ -6986,7 +6986,7 @@ msgstr ""
 
 #: tmp/2/e/2e6dbf6283558717f3fbb9ca1d5d19896fb461b1e135c6bd45f5bd590b733a1a.php:40
 msgid "RUNALYZE ist dein Lauftagebuch"
-msgstr ""
+msgstr "RUNALYZE is your running diary"
 
 #~ msgid ""
 #~ "Types with a RPE-value &ge; 5 will be emphasized in the activity log."
