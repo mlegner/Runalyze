@@ -8,7 +8,7 @@
             
             <div class="small-12 large-8 columns">
                 <div class="introText">
-                    <h2>RUNALYZE ist dein Lauftagebuch</h2>
+	            <h2>{% trans %}RUNALYZE ist dein Lauftagebuch{% endtrans %}</h2>
                     <p>Es fokussiert sich auf das Laufen und hebt sich mit einzigartigen Rechenspielen, vielen Statistiken und Wettkampfprognosen von anderen Sporttagebüchern ab.<br> 
         Auf nur einer Seite hast du deine letzten Trainingseinheiten sowie aktuelle Prognosen und deine Form im Überblick. RUNALYZE ist vollständig konfigurierbar. Sportarten und Sporttypen kannst du nach deinen Bedürfnissen anpassen. </p>
                 </div>
@@ -23,12 +23,18 @@
                     <div class="small-12 large-6 columns">
                         <h3>Lorem ipsum</h3>
                         <p class="">
-							{{ sprintf(_n('Until now <strong>%d</strong> athlete is registered and','Until now <strong>%d</strong> athletes are registered and', numUser), numUser)|raw }}
-							{{ sprintf(_n('has logged <strong>%s</strong>.','have logged <strong>%s</strong>.', numUser), numKm)|raw }}
-			
-							<br>
-			
-							{{ sprintf(_n('<strong>%d</strong> athlete is online.','<strong>%d</strong> athletes are online.', numUserOnline), numUserOnline)|raw }}
+{% trans %}
+    Until now <strong>one</strong> athlete is registered and has logged {{ numKm }}
+{% plural numUser %}
+    Until now <strong>{{ numUser }}</strong> athletes are registered and have logged {{ numKm }}
+{% endtrans %}                    
+
+<br>
+{% trans %}
+    one athlete is online
+{% plural numUserOnline %}
+    <strong>{{ numUserOnline }}</strong> athletes are online
+{% endtrans %}
                         </p>
 
                     </div>
@@ -150,7 +156,7 @@
                             </div>
                             
                             <div>
-                                <a class="loginBoxChange log" href="#" >Zurück zum Login</a>
+                                <a class="loginBoxChange log" href="#" >{% trans "Zurück zum Login" %}</a>
                             </div>
                         </form>
                     </div>

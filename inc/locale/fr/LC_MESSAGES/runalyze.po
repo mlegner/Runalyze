@@ -18,6 +18,9 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 
 #: login.php:27 inc/tpl/tpl.installerHeader.php:23
+#: tmp/3/e/3ecd0834b7fbde5d271bf044aeb0907e248289992c5fb423fb803c8c47e16fc4.php:39
+#: tmp/2/e/2e6dbf6283558717f3fbb9ca1d5d19896fb461b1e135c6bd45f5bd590b733a1a.php:93
+#: tmp/2/e/2e6dbf6283558717f3fbb9ca1d5d19896fb461b1e135c6bd45f5bd590b733a1a.php:96
 msgid "Please login"
 msgstr ""
 
@@ -2136,6 +2139,8 @@ msgstr "utilisateur"
 
 #: inc/tpl/tpl.Installer.php:131 inc/tpl/tpl.loginWindow.php:32
 #: inc/tpl/tpl.loginWindow.php:89 inc/tpl/tpl.adminWindow.login.php:7
+#: tmp/2/e/2e6dbf6283558717f3fbb9ca1d5d19896fb461b1e135c6bd45f5bd590b733a1a.php:108
+#: tmp/2/e/2e6dbf6283558717f3fbb9ca1d5d19896fb461b1e135c6bd45f5bd590b733a1a.php:111
 msgid "Password"
 msgstr ""
 
@@ -2292,16 +2297,24 @@ msgstr ""
 #: inc/tpl/tpl.loginWindow.php:48 inc/tpl/tpl.loginWindow.php:155
 #: inc/tpl/tpl.adminWindow.login.php:13
 #: inc/tpl/tpl.loginWindow.activateAccount.php:18 call/login.php:4
+#: tmp/2/e/2e6dbf6283558717f3fbb9ca1d5d19896fb461b1e135c6bd45f5bd590b733a1a.php:91
+#: tmp/2/e/2e6dbf6283558717f3fbb9ca1d5d19896fb461b1e135c6bd45f5bd590b733a1a.php:128
+#: tmp/2/e/2e6dbf6283558717f3fbb9ca1d5d19896fb461b1e135c6bd45f5bd590b733a1a.php:94
+#: tmp/2/e/2e6dbf6283558717f3fbb9ca1d5d19896fb461b1e135c6bd45f5bd590b733a1a.php:131
 msgid "Login"
 msgstr "Connexion"
 
 #: inc/tpl/tpl.loginWindow.php:28 inc/tpl/tpl.loginWindow.php:74
 #: inc/tpl/tpl.loginWindow.php:132
 #: inc/system/config/class.ConfigTabAccount.php:28
+#: tmp/2/e/2e6dbf6283558717f3fbb9ca1d5d19896fb461b1e135c6bd45f5bd590b733a1a.php:100
+#: tmp/2/e/2e6dbf6283558717f3fbb9ca1d5d19896fb461b1e135c6bd45f5bd590b733a1a.php:103
 msgid "Username"
 msgstr ""
 
 #: inc/tpl/tpl.loginWindow.php:36
+#: tmp/2/e/2e6dbf6283558717f3fbb9ca1d5d19896fb461b1e135c6bd45f5bd590b733a1a.php:120
+#: tmp/2/e/2e6dbf6283558717f3fbb9ca1d5d19896fb461b1e135c6bd45f5bd590b733a1a.php:123
 msgid "Remember me"
 msgstr ""
 
@@ -6495,4 +6508,30 @@ msgstr ""
 
 #: plugin/RunalyzePluginStat_Laufabc/class.RunalyzePluginStat_Laufabc.php:58
 msgid "No activities with running drills found."
+msgstr ""
+
+#: tmp/2/e/2e6dbf6283558717f3fbb9ca1d5d19896fb461b1e135c6bd45f5bd590b733a1a.php:55
+#: tmp/2/e/2e6dbf6283558717f3fbb9ca1d5d19896fb461b1e135c6bd45f5bd590b733a1a.php:58
+msgid ""
+"Until now <strong>one</strong> athlete is registered and has logged %numKm%"
+msgid_plural ""
+"Until now <strong>%numUser%</strong> athletes are registered and have logged "
+"%numKm%"
+msgstr[0] ""
+msgstr[1] ""
+
+#: tmp/2/e/2e6dbf6283558717f3fbb9ca1d5d19896fb461b1e135c6bd45f5bd590b733a1a.php:65
+#: tmp/2/e/2e6dbf6283558717f3fbb9ca1d5d19896fb461b1e135c6bd45f5bd590b733a1a.php:68
+msgid "one athlete is online"
+msgid_plural "<strong>%numUserOnline%</strong> athletes are online"
+msgstr[0] ""
+msgstr[1] ""
+
+#: tmp/2/e/2e6dbf6283558717f3fbb9ca1d5d19896fb461b1e135c6bd45f5bd590b733a1a.php:209
+#: tmp/2/e/2e6dbf6283558717f3fbb9ca1d5d19896fb461b1e135c6bd45f5bd590b733a1a.php:212
+msgid "Zurck zum Login"
+msgstr ""
+
+#: tmp/2/e/2e6dbf6283558717f3fbb9ca1d5d19896fb461b1e135c6bd45f5bd590b733a1a.php:40
+msgid "RUNALYZE ist dein Lauftagebuch"
 msgstr ""
