@@ -24,16 +24,20 @@
                         <h3>Lorem ipsum</h3>
                         <p class="">
                         {% trans %}
-                            Until now <strong>one</strong> athlete is registered and has logged {{ numKm }}
+                            Until now <strong>{{ numUser }}</strong> athlete is registered and has logged {{ numKm }}
                         {% plural numUser %}
                             Until now <strong>{{ numUser }}</strong> athletes are registered and have logged {{ numKm }}
                         {% endtrans %}                    
                         <br>
+			{% if numUserOnline == 1 %}
+			{% trans %}<strong>One</strong> athlete is online{% endtrans %}
+			{% else %}
                         {% trans %}
                             one athlete is online
                         {% plural numUserOnline %}
                             <strong>{{ numUserOnline }}</strong> athletes are online
                         {% endtrans %}
+			{% endif %}
                         </p>
 
                     </div>
