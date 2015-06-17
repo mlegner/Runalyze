@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Runalyze\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-17 09:39+0200\n"
+"POT-Creation-Date: 2015-06-17 09:52+0200\n"
 "PO-Revision-Date: 2015-05-23 11:25+0200\n"
 "Last-Translator: Floriaan Went <info@floriaanwent.com>\n"
 "Language-Team: Dutch <http://translate.runalyze.de/projects/runalyze/"
@@ -1023,6 +1023,7 @@ msgstr ""
 #: plugin/RunalyzePluginPanel_Schuhe/class.RunalyzePluginPanel_Schuhe.php:120
 #: plugin/RunalyzePluginPanel_Rechenspiele/class.RunalyzePluginPanel_Rechenspiele.php:447
 #: plugin/RunalyzePluginPanel_Rechenspiele/class.RunalyzePluginPanel_Rechenspiele.php:641
+#: tmp/2/e/2e6dbf6283558717f3fbb9ca1d5d19896fb461b1e135c6bd45f5bd590b733a1a.php:185
 msgid "Name"
 msgstr ""
 
@@ -2019,6 +2020,7 @@ msgstr ""
 #: inc/plugin/config/class.PluginConfigurationWindow.php:122
 #: call/call.Plugin.install.php:23
 #: plugin/RunalyzePluginTool_DbBackup/class.RunalyzeJsonImporterResults.php:131
+#: tmp/2/e/2e6dbf6283558717f3fbb9ca1d5d19896fb461b1e135c6bd45f5bd590b733a1a.php:291
 msgid "Configuration"
 msgstr ""
 
@@ -2132,7 +2134,8 @@ msgstr ""
 
 #: inc/tpl/tpl.Installer.php:131 inc/tpl/tpl.loginWindow.php:32
 #: inc/tpl/tpl.loginWindow.php:89 inc/tpl/tpl.adminWindow.login.php:7
-#: tmp/2/e/2e6dbf6283558717f3fbb9ca1d5d19896fb461b1e135c6bd45f5bd590b733a1a.php:111
+#: tmp/2/e/2e6dbf6283558717f3fbb9ca1d5d19896fb461b1e135c6bd45f5bd590b733a1a.php:131
+#: tmp/2/e/2e6dbf6283558717f3fbb9ca1d5d19896fb461b1e135c6bd45f5bd590b733a1a.php:205
 msgid "Password"
 msgstr ""
 
@@ -2263,7 +2266,7 @@ msgstr ""
 
 #: inc/tpl/tpl.installerHeader.php:23
 #: tmp/3/e/3ecd0834b7fbde5d271bf044aeb0907e248289992c5fb423fb803c8c47e16fc4.php:39
-#: tmp/2/e/2e6dbf6283558717f3fbb9ca1d5d19896fb461b1e135c6bd45f5bd590b733a1a.php:96
+#: tmp/2/e/2e6dbf6283558717f3fbb9ca1d5d19896fb461b1e135c6bd45f5bd590b733a1a.php:116
 #, fuzzy
 msgid "Please login"
 msgstr "s.v.p. aanmelden"
@@ -2296,20 +2299,22 @@ msgstr ""
 #: inc/tpl/tpl.loginWindow.php:48 inc/tpl/tpl.loginWindow.php:155
 #: inc/tpl/tpl.adminWindow.login.php:13
 #: inc/tpl/tpl.loginWindow.activateAccount.php:18 call/login.php:4
-#: tmp/2/e/2e6dbf6283558717f3fbb9ca1d5d19896fb461b1e135c6bd45f5bd590b733a1a.php:94
-#: tmp/2/e/2e6dbf6283558717f3fbb9ca1d5d19896fb461b1e135c6bd45f5bd590b733a1a.php:131
+#: tmp/2/e/2e6dbf6283558717f3fbb9ca1d5d19896fb461b1e135c6bd45f5bd590b733a1a.php:114
+#: tmp/2/e/2e6dbf6283558717f3fbb9ca1d5d19896fb461b1e135c6bd45f5bd590b733a1a.php:151
 msgid "Login"
 msgstr ""
 
 #: inc/tpl/tpl.loginWindow.php:28 inc/tpl/tpl.loginWindow.php:74
 #: inc/tpl/tpl.loginWindow.php:132
 #: inc/system/config/class.ConfigTabAccount.php:28
-#: tmp/2/e/2e6dbf6283558717f3fbb9ca1d5d19896fb461b1e135c6bd45f5bd590b733a1a.php:103
+#: tmp/2/e/2e6dbf6283558717f3fbb9ca1d5d19896fb461b1e135c6bd45f5bd590b733a1a.php:123
+#: tmp/2/e/2e6dbf6283558717f3fbb9ca1d5d19896fb461b1e135c6bd45f5bd590b733a1a.php:175
+#: tmp/2/e/2e6dbf6283558717f3fbb9ca1d5d19896fb461b1e135c6bd45f5bd590b733a1a.php:248
 msgid "Username"
 msgstr ""
 
 #: inc/tpl/tpl.loginWindow.php:36
-#: tmp/2/e/2e6dbf6283558717f3fbb9ca1d5d19896fb461b1e135c6bd45f5bd590b733a1a.php:123
+#: tmp/2/e/2e6dbf6283558717f3fbb9ca1d5d19896fb461b1e135c6bd45f5bd590b733a1a.php:143
 msgid "Remember me"
 msgstr ""
 
@@ -2318,6 +2323,7 @@ msgid "Runalyze is under maintenance at the moment. No login possible."
 msgstr ""
 
 #: inc/tpl/tpl.loginWindow.php:57 inc/tpl/tpl.loginWindow.php:156
+#: tmp/2/e/2e6dbf6283558717f3fbb9ca1d5d19896fb461b1e135c6bd45f5bd590b733a1a.php:170
 msgid "Create a new account"
 msgstr ""
 
@@ -2326,6 +2332,7 @@ msgid "Registrations are currently disabled."
 msgstr ""
 
 #: inc/tpl/tpl.loginWindow.php:84 inc/class.AdminView.php:300
+#: tmp/2/e/2e6dbf6283558717f3fbb9ca1d5d19896fb461b1e135c6bd45f5bd590b733a1a.php:195
 msgid "Email"
 msgstr ""
 
@@ -2348,10 +2355,12 @@ msgid "Register"
 msgstr ""
 
 #: inc/tpl/tpl.loginWindow.php:130 inc/tpl/tpl.loginWindow.php:157
+#: tmp/2/e/2e6dbf6283558717f3fbb9ca1d5d19896fb461b1e135c6bd45f5bd590b733a1a.php:157
 msgid "Forgot your password?"
 msgstr ""
 
 #: inc/tpl/tpl.loginWindow.php:142
+#: tmp/2/e/2e6dbf6283558717f3fbb9ca1d5d19896fb461b1e135c6bd45f5bd590b733a1a.php:242
 msgid "A link for changing your password will be sent via email."
 msgstr ""
 
@@ -2689,6 +2698,7 @@ msgstr ""
 #: inc/system/config/class.ConfigTabPlugins.php:37
 #: inc/plugin/class.PluginType.php:54
 #: plugin/RunalyzePluginStat_Statistiken/class.RunalyzePluginStat_Statistiken.php:113
+#: tmp/2/e/2e6dbf6283558717f3fbb9ca1d5d19896fb461b1e135c6bd45f5bd590b733a1a.php:280
 msgid "Statistics"
 msgstr ""
 
@@ -6492,25 +6502,106 @@ msgstr ""
 msgid "No activities with running drills found."
 msgstr ""
 
+#: tmp/3/e/3ecd0834b7fbde5d271bf044aeb0907e248289992c5fb423fb803c8c47e16fc4.php:57
+msgid ""
+"We are using cookies to give you the best experience on our site. Cookies "
+"are files stored in your browser and are used by most websites to help "
+"personalise your web experience."
+msgstr ""
+
+#: tmp/3/e/3ecd0834b7fbde5d271bf044aeb0907e248289992c5fb423fb803c8c47e16fc4.php:59
+msgid "By continuing to use our website you agree to our use of cookies."
+msgstr ""
+
+#: tmp/3/e/3ecd0834b7fbde5d271bf044aeb0907e248289992c5fb423fb803c8c47e16fc4.php:99
+msgid "Follow us"
+msgstr ""
+
+#: tmp/3/e/3ecd0834b7fbde5d271bf044aeb0907e248289992c5fb423fb803c8c47e16fc4.php:119
+msgid "Features"
+msgstr ""
+
+#: tmp/3/e/3ecd0834b7fbde5d271bf044aeb0907e248289992c5fb423fb803c8c47e16fc4.php:130
+msgid "Contact"
+msgstr ""
+
+#: tmp/3/e/3ecd0834b7fbde5d271bf044aeb0907e248289992c5fb423fb803c8c47e16fc4.php:134
+msgid "Impressum"
+msgstr ""
+
+#: tmp/3/e/3ecd0834b7fbde5d271bf044aeb0907e248289992c5fb423fb803c8c47e16fc4.php:163
+msgid "Please choose your preferred language"
+msgstr ""
+
 #: tmp/2/e/2e6dbf6283558717f3fbb9ca1d5d19896fb461b1e135c6bd45f5bd590b733a1a.php:40
-msgid "RUNALYZE ist dein Lauftagebuch"
+msgid "RUNALYZE is your running diary"
+msgstr ""
+
+#: tmp/2/e/2e6dbf6283558717f3fbb9ca1d5d19896fb461b1e135c6bd45f5bd590b733a1a.php:50
+msgid "Not yet a member?"
+msgstr ""
+
+#: tmp/2/e/2e6dbf6283558717f3fbb9ca1d5d19896fb461b1e135c6bd45f5bd590b733a1a.php:54
+msgid "Test RUNALYZE for <strong>free</strong> and discover all advantages!"
 msgstr ""
 
 #: tmp/2/e/2e6dbf6283558717f3fbb9ca1d5d19896fb461b1e135c6bd45f5bd590b733a1a.php:58
+msgid "Get your account now!"
+msgstr ""
+
+#: tmp/2/e/2e6dbf6283558717f3fbb9ca1d5d19896fb461b1e135c6bd45f5bd590b733a1a.php:67
 msgid ""
-"Until now <strong>one</strong> athlete is registered and has logged %numKm%"
+"Until now <strong>%numUser%</strong> athlete is registered and has logged "
+"%numKm%"
 msgid_plural ""
 "Until now <strong>%numUser%</strong> athletes are registered and have logged "
 "%numKm%"
 msgstr[0] ""
 msgstr[1] ""
 
-#: tmp/2/e/2e6dbf6283558717f3fbb9ca1d5d19896fb461b1e135c6bd45f5bd590b733a1a.php:68
+#: tmp/2/e/2e6dbf6283558717f3fbb9ca1d5d19896fb461b1e135c6bd45f5bd590b733a1a.php:79
+msgid "<strong>One</strong> athlete is online"
+msgstr ""
+
+#: tmp/2/e/2e6dbf6283558717f3fbb9ca1d5d19896fb461b1e135c6bd45f5bd590b733a1a.php:85
 msgid "one athlete is online"
 msgid_plural "<strong>%numUserOnline%</strong> athletes are online"
 msgstr[0] ""
 msgstr[1] ""
 
-#: tmp/2/e/2e6dbf6283558717f3fbb9ca1d5d19896fb461b1e135c6bd45f5bd590b733a1a.php:212
-msgid "Zurck zum Login"
+#: tmp/2/e/2e6dbf6283558717f3fbb9ca1d5d19896fb461b1e135c6bd45f5bd590b733a1a.php:215
+msgid "Repeat password"
+msgstr ""
+
+#: tmp/2/e/2e6dbf6283558717f3fbb9ca1d5d19896fb461b1e135c6bd45f5bd590b733a1a.php:237
+msgid "Forgot password?"
+msgstr ""
+
+#: tmp/2/e/2e6dbf6283558717f3fbb9ca1d5d19896fb461b1e135c6bd45f5bd590b733a1a.php:262
+msgid "Back to login"
+msgstr ""
+
+#: tmp/2/e/2e6dbf6283558717f3fbb9ca1d5d19896fb461b1e135c6bd45f5bd590b733a1a.php:284
+msgid ""
+"RUNALYZE analyzes your complete training, calculates your shape, computes "
+"prognoses and <strong>visualizes your training in plots</strong> - more "
+"detailed than any other sports diary."
+msgstr ""
+
+#: tmp/2/e/2e6dbf6283558717f3fbb9ca1d5d19896fb461b1e135c6bd45f5bd590b733a1a.php:295
+msgid ""
+"RUNALYZE Runalyze is completely <strong>configurable</strong>. You can "
+"decide by yourself which information of your training you want to record and "
+"which <strong>statistics</strong> are being displayed on which place."
+msgstr ""
+
+#: tmp/2/e/2e6dbf6283558717f3fbb9ca1d5d19896fb461b1e135c6bd45f5bd590b733a1a.php:302
+msgid "By athletes for athletes"
+msgstr ""
+
+#: tmp/2/e/2e6dbf6283558717f3fbb9ca1d5d19896fb461b1e135c6bd45f5bd590b733a1a.php:306
+msgid ""
+"RUNALYZE is created <strong>by athletes for athletes</strong>. Whenever you "
+"have comments, problems or wishes: Please contact our Runalyze team. It's "
+"near and dear to us"
 msgstr ""
