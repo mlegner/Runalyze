@@ -59,7 +59,8 @@ echo $Twig->loadTemplate('login.twig')->render(array(
 	'RUNALYZE_VERSION' => RUNALYZE_VERSION,
 	'numUserOnline' => $NumUserOn,
 	'numUser' => $NumUser,
-	'numKm' => Runalyze\Activity\Distance::format($NumKm)
+	'numKm' => Runalyze\Activity\Distance::format($NumKm),
+        'errorType' => SessionAccountHandler::$ErrorType,
 ));
 
 /*$title = 'Runalyze v'.RUNALYZE_VERSION.' - '.__('Please login');

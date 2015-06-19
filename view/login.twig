@@ -65,12 +65,19 @@
                                         {% trans "Username" %}
                                         <input id="username" name="username" class="" type="text" value="">
                                     </label>
+                                    {% if errorType == 1 %}
+                                    <small class="error">wrong username</small>
+                                    {% endif %}
                                 </div>
                                 <div class="">
                                     <label for="password" class="error">{% trans "Password" %}
                                         <input id="password" name="password" class="" type="password">
                                     </label>
+                                    {% if errorType == 2 %}
                                     <small class="error">wrong Password</small>
+                                    {% elseif errorType ==3 %}
+                                     <small class="error">Account is not activated</small>
+                                    {% endif %}
                                 </div>
                                 <div class="">
                                     <div class="switch tiny">
