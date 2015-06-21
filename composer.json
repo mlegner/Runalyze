@@ -2,11 +2,7 @@
     "require": {
         "twig/twig": "1.*",
         "monolog/monolog": "1.*",
-        "symfony/routing": "2.*",
-        "symfony/class-loader": "@stable",
-        "symfony/http-foundation": "2.5.*",
-        "symfony/event-dispatcher": "2.5.*",
-        "symfony/http-kernel": "2.5.*",
+        "silex/silex": "~1.3",
         "symfony/yaml": "@stable",
         "swiftmailer/swiftmailer": "@stable",
         "twig/extensions": "^1.2"
