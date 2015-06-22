@@ -1,26 +1,4 @@
 <?php
-/**
- * RUNALYZE
- * 
- * @author Hannes Christiansen <mail@laufhannes.de>
- * @copyright http://www.runalyze.de/
- */
-
-
-require 'inc/class.Frontend.php';
-$Frontend = new Frontend(true);
-
-if (isset($_GET['delete'])) 
-    SessionAccountHandler::logout();
-
-if (isset($_GET['out']))
-	SessionAccountHandler::logout();
-
-
-
-setcookie('acceptcookie', 'true', time()+30*86400);
-
-
 DB::getInstance()->stopAddingAccountID();
 
 $NumUser = Cache::get('NumUser', 1);
@@ -35,26 +13,9 @@ if ($NumKm == NULL) {
     Cache::set('NumKm', $NumKm, '500', 1);
 }
 DB::getInstance()->startAddingAccountID();
-
+$path = substr(Request::Basename(), 0, 9);
 $NumUserOn = SessionAccountHandler::getNumberOfUserOnline();
 
-Twig_Autoloader::register();
-
-$Twig = new Twig_Environment(new Twig_Loader_Filesystem(FRONTEND_PATH.'../view'));
-$Twig->addExtension(new Twig_Extensions_Extension_I18n());
-$Twig->registerUndefinedFunctionCallback(function ($name) {
-	if (function_exists($name)) {
-		return new Twig_SimpleFunction($name, function() use($name) {
-			return call_user_func_array($name, func_get_args());
-		});
-	}
-
-	return false;
-});
-
-$path = substr(Request::Basename(), 0, 9);
-if(!in_array($path, array('login', 'register', 'forgotpw')))
-        $path = 'login';
 
 if (isset($_POST['new_username'])) {
         $Errors = AccountHandler::tryToRegisterNewUser();
@@ -65,7 +26,6 @@ if (isset($_POST['new_username'])) {
 		$registersuccess =  __('Thanks for your registration. You should receive an email within the next minutes with further instructions for activating your account.');
         }
 }
-
 
 echo $Twig->loadTemplate('login.twig')->render(array(
 	'RUNALYZE_VERSION' => RUNALYZE_VERSION,
@@ -81,18 +41,3 @@ echo $Twig->loadTemplate('login.twig')->render(array(
         'urlpath' => $path,
 ));
 
-/*$title = 'Runalyze v'.RUNALYZE_VERSION.' - '.__('Please login');
-$tpl   = 'tpl.loginWindow.php';
-
-if (isset($_GET['chpw']))
-	$tpl = 'tpl.loginWindow.setNewPassword.php';
-if (isset($_GET['activate']))
-	$tpl = 'tpl.loginWindow.activateAccount.php';
-if (isset($_GET['delete'])) 
-    $tpl = 'tpl.loginWindow.deleteAccount.php';
-
-
-include 'inc/tpl/tpl.installerHeader.php';
-include 'inc/tpl/'.$tpl;
-include 'inc/tpl/tpl.installerFooterText.php';
-include 'inc/tpl/tpl.installerFooter.php';*/

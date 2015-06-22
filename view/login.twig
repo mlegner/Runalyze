@@ -66,14 +66,13 @@
                         <form action="login" method="post">
                             <fieldset>
                                 <legend>{% trans "Login" %} <!--{% trans "Please login" %}--></legend>
-                                
                                 <div class="">
                                     <label for="username">
                                         {% trans "Username" %}
                                         <input id="username" name="username" class="" type="text" value="">
                                     </label>
                                     {% if errorType == 1 %}
-                                    <small class="error">wrong username</small>
+                                    <small class="error">{% trans "wrong username" %}</small>
                                     {% endif %}
                                 </div>
                                 <div class="">
@@ -81,9 +80,9 @@
                                         <input id="password" name="password" class="" type="password">
                                     </label>
                                     {% if errorType == 2 %}
-                                    <small class="error">wrong Password</small>
+                                    <small class="error">{% trans "wrong Password" %}</small>
                                     {% elseif errorType ==3 %}
-                                     <small class="error">Account is not activated</small>
+                                     <small class="error">{% trans "Account is not activated" %}</small>
                                     {% endif %}
                                 </div>
                                 <div class="">
