@@ -5,7 +5,10 @@
  * @author Hannes Christiansen <mail@laufhannes.de>
  * @copyright http://www.runalyze.de/
  */
-
+if (!file_exists('config.php')) {
+	include 'install.php';
+	exit();
+}
 
 require 'inc/class.Frontend.php';
 $Frontend = new Frontend(true);
@@ -16,10 +19,10 @@ if (isset($_GET['delete']))
 if (isset($_GET['out']))
 	SessionAccountHandler::logout();
 
-
-
-setcookie('acceptcookie', 'true', time()+30*86400);
-
+if (SessionAccountHandler::isLoggedIn()) {
+	header('Location: index.php');
+	exit;
+}
 
 DB::getInstance()->stopAddingAccountID();
 
@@ -52,33 +55,12 @@ $Twig->registerUndefinedFunctionCallback(function ($name) {
 	return false;
 });
 
-$path = substr(Request::Basename(), 0, 9);
-if(!in_array($path, array('login', 'register', 'forgotpw')))
-        $path = 'login';
-
-if (isset($_POST['new_username'])) {
-        $Errors = AccountHandler::tryToRegisterNewUser();
-        if (!is_array($Errors)) {
-            if(System::isAtLocalhost())
-		$registersuccess =  __('You can login now. Enjoy Runalyze!');
-            else
-		$registersuccess =  __('Thanks for your registration. You should receive an email within the next minutes with further instructions for activating your account.');
-        }
-}
-
-
 echo $Twig->loadTemplate('login.twig')->render(array(
 	'RUNALYZE_VERSION' => RUNALYZE_VERSION,
 	'numUserOnline' => $NumUserOn,
 	'numUser' => $NumUser,
 	'numKm' => Runalyze\Activity\Distance::format($NumKm),
         'errorType' => SessionAccountHandler::$ErrorType,
-        'errorRegister' => $Errors,
-        'registersuccess' => $registersuccess,
-        'acceptcookie' => $_COOKIE['acceptcookie'],
-        'USER_CANT_LOGIN' => USER_CANT_LOGIN,
-        'USER_CAN_REGISTER' => USER_CAN_REGISTER,
-        'urlpath' => $path,
 ));
 
 /*$title = 'Runalyze v'.RUNALYZE_VERSION.' - '.__('Please login');

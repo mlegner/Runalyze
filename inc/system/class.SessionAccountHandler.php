@@ -73,15 +73,15 @@ class SessionAccountHandler {
 
 		if (!$this->tryToUseSession()) {
 			if ($this->tryToLoginFromPost()) {
-				header('Location: '.System::getFullDomain());
+				header('Location: '.System::getFullDomain().'index.php');
 				exit;
 			} elseif ($this->tryToLoginFromCookie()) {
-				header('Location: '.System::getFullDomain());
+				header('Location: '.System::getFullDomain().'index.php');
 				exit;
-			} /*elseif (self::$USER_MUST_LOGIN && !$this->isOn('login') && !$this->isOn('register') && !$this->isOn('forgotpw') && !$this->isOn('admin.php')) {
-				header('Location: '.System::getFullDomain().'login');
+			} elseif (self::$USER_MUST_LOGIN && !$this->isOnLoginPage() && !$this->isOnAdminPage()) {
+				header('Location: '.System::getFullDomain().'login.php');
 				exit;
-			}*/
+			}
 		}
 	}
 
@@ -91,13 +91,20 @@ class SessionAccountHandler {
 	function __destruct() {}
 
 	/**
-	 * Is user on x?
+	 * Is user on login-page?
 	 * @return boolean
 	 */
-	private function isOn($path) {
-		return substr(Request::Basename(), 0, 9) == $path;
+	private function isOnLoginPage() {
+		return substr(Request::Basename(), 0, 9) == 'login.php';
 	}
 
+	/**
+	 * Is user on login-page?
+	 * @return boolean
+	 */
+	private function isOnAdminPage() {
+		return substr(Request::Basename(), 0, 9) == 'admin.php';
+	}
 
 	/**
 	 * Is anyone logged in?
