@@ -183,31 +183,22 @@ class AccountHandler {
 	 */
 	static public function tryToRegisterNewUser() {
 		$errors = array();
-
 		if (strlen($_POST['new_username']) < self::$USER_MIN_LENGTH)
-			$errors[] = array('new_username' => sprintf( __('The username has to contain at least %s signs.'), self::$USER_MIN_LENGTH));
-
+                    $errors['new_username'] = sprintf( __('The username has to contain at least %s signs.'), self::$USER_MIN_LENGTH);
 		if (self::usernameExists($_POST['new_username']))
-			$errors[] = array('new_username' => __('This username is already being used.'));
-
+                    $errors['new_username'] = __('This username is already being used.');
 		if (self::mailExists($_POST['email']))
-			$errors[] = array('email' => __('This email address is already being used.'));
-
+                    $errors['email'] = __('This email address is already being used.');
 		if (false === filter_var($_POST['email'], FILTER_VALIDATE_EMAIL))
-			$errors[] = array('email' => __('Please enter a valid email address.'));
-
+                    $errors['email'] = __('Please enter a valid email address.');
 		if ($_POST['password'] != $_POST['password_again'])
-				$errors[] = array('password_again' => __('The passwords have to be the same.'));
-
+                    $errors['password_again'] = __('The passwords have to be the same.');
 		if (strlen($_POST['password']) < self::$PASS_MIN_LENGTH)
-			$errors[] = array('password' => sprintf( __('The password has to contain at least %s characters.'), self::$PASS_MIN_LENGTH));
-
+		    $errors['password'] = sprintf( __('The password has to contain at least %s characters.'), self::$PASS_MIN_LENGTH);
 		if (empty($errors))
 			$errors = self::createNewUserFromPost();
-
 		if (empty($errors))
 			return true;
-
 		return $errors;
 	}
 
