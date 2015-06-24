@@ -70,6 +70,7 @@ class SessionAccountHandler {
 	 */
 	function __construct() {
 		session_start();
+
 		if (!$this->tryToUseSession()) {
 			if ($this->tryToLoginFromPost()) {
 				header('Location: '.System::getFullDomain());
