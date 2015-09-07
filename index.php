@@ -1,88 +1,35 @@
 <?php
-/**
- * RUNALYZE
- * 
- * @author Hannes Christiansen
- * @copyright http://www.runalyze.de/
- */
-
-use Runalyze\View\Activity\Context;
-
-if (!file_exists('config.php')) {
-	include 'install.php';
-	exit();
-}
-
 require 'inc/class.Frontend.php';
+require_once 'vendor/autoload.php';
 
-$Frontend = new Frontend();
-?>
+use Symfony\Component\Config\FileLocator;
+use Symfony\Component\Routing\Loader\YamlFileLoader;
+use Symfony\Component\Routing\RouteCollection;
+use Silex\Application;
 
-<div id="container">
-	<div id="main">
-		<div id="data-browser" class="panel">
-			<div id="data-browser-inner">
-				<?php
-				$DataBrowser = new DataBrowser();
-				$DataBrowser->display();
-				?>
-			</div>
-		</div>
 
-		<div id="statistics" class="panel">
-			<ul id="statistics-nav">
-				<?php
-				$Factory = new PluginFactory();
-				$Stats = $Factory->activePlugins( PluginType::Stat );
-				foreach ($Stats as $i => $key) {
-					$Plugin = $Factory->newInstance($key);
+$app = new Application();
+$app['debug'] = false;
+$app->register(new Silex\Provider\TwigServiceProvider(), array(
+    'twig.path' => 'view',
+));
+Twig_Autoloader::register();
+$app['twig']->addExtension(new Twig_Extensions_Extension_I18n());
+$app['twig']->registerUndefinedFunctionCallback(function ($name) {
+	if (function_exists($name)) {
+		return new Twig_SimpleFunction($name, function() use($name) {
+			return call_user_func_array($name, func_get_args());
+		});
+	}
 
-					if ($Plugin !== false) {
-						echo '<li'.($i == 0 ? ' class="active"' : '').'>'.$Plugin->getLink().'</li>';
-					}
-				}
+	return false;
+});
+$app['routes'] = $app->extend('routes', function (RouteCollection $routes, Application $app) {
+    $loader     = new YamlFileLoader(new FileLocator(__DIR__ . '/config'));
+    $collection = $loader->load('routes.yml');
+    $routes->addCollection($collection);
+ 
+    return $routes;
+});
 
-				if (PluginStat::hasVariousStats()) {
-					echo '<li class="with-submenu">';
-					echo '<a href="#">'.__('Miscellaneous').'</a>';
-					echo '<ul class="submenu">';
-
-					$VariousStats = $Factory->variousPlugins();
-					foreach ($VariousStats as $key) {
-						$Plugin = $Factory->newInstance($key);
-
-						if ($Plugin !== false) {
-							echo '<li>'.$Plugin->getLink().'</li>';
-						}
-					}
-
-					echo '</ul>';
-					echo '</li>';
-				}
-				?>
-			</ul>
-			<div id="statistics-inner">
-				<?php
-				if (isset($_GET['id'])) {
-					$Context = new Context(Request::sendId(), SessionAccountHandler::getId());
-					$View = new TrainingView($Context);
-					$View->display();
-				} elseif (isset($_GET['pluginid'])) {
-					$Factory->newInstanceFor((int)$_GET['pluginid'])->display();
-				} else {
-					if (empty($Stats)) {
-						echo __('<em>There are no statistics available. Activate a plugin in your configuration.</em>');
-					} else {
-						$Factory->newInstance($Stats[0])->display();
-					}
-				}
-				?>
-			</div>
-		</div>
-
-	</div>
-
-	<div id="panels">
-		<?php $Frontend->displayPanels(); ?>
-	</div>
-</div>
+$app->run();

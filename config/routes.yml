@@ -1,0 +1,29 @@
+# config/routes.yml
+
+# Default
+
+login:
+    path: /login
+    defaults: { _controller: 'Runalyze\HomeController::loginAction' }
+    
+logout:
+    path: /logout
+    defaults: { _controller: 'Runalyze\HomeController::logoutAction' }
+    
+help:
+    path: /help
+    defaults: { _controller: 'Runalyze\HomeController::helpAction' }
+    
+register:
+    path: /register
+    defaults: { _controller: 'Runalyze\HomeController::registerAction' }
+    
+forgotpw:
+    path: /forgotpw
+    defaults: { _controller: 'Runalyze\HomeController::forgotPwAction' }
+site:
+    path: /{sitename}
+    defaults: { _controller: 'Runalyze\HomeController::SiteAction' }
+default:
+    path: /
+    defaults: { _controller: 'Runalyze\HomeController::appAction' }
