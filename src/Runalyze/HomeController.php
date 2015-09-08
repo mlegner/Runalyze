@@ -4,6 +4,7 @@ namespace Runalyze;
 use Symfony\Component\HttpFoundation\Response;
 use Silex\Application;
 use \Cache;
+use Runalyze\View\Activity\Context;
 
 function userStat() {
     \DB::getInstance()->stopAddingAccountID();
@@ -200,7 +201,7 @@ class HomeController
                                 <div id="statistics-inner">
                                         <?php
                                         if (isset($_GET['id'])) {
-                                                $Context = new \Context(Request::sendId(), \SessionAccountHandler::getId());
+                                                $Context = new Context(\Request::sendId(), \SessionAccountHandler::getId());
                                                 $View = new \TrainingView($Context);
                                                 $View->display();
                                         } elseif (isset($_GET['pluginid'])) {
@@ -219,6 +220,7 @@ class HomeController
                 </div>
 
                 <div id="panels">
+
                         <?php $Frontend->displayPanels(); ?>
                 </div>
         </div>

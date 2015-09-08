@@ -21,9 +21,9 @@ register:
 forgotpw:
     path: /forgotpw
     defaults: { _controller: 'Runalyze\HomeController::forgotPwAction' }
-site:
-    path: /{sitename}
-    defaults: { _controller: 'Runalyze\HomeController::SiteAction' }
 default:
     path: /
     defaults: { _controller: 'Runalyze\HomeController::appAction' }
+site:
+    path: /{sitename}
+    defaults: { _controller: 'Runalyze\HomeController::SiteAction' }
