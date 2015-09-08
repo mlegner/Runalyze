@@ -121,6 +121,9 @@ class ParserTCXSingle extends ParserAbstractSingleXML {
 		$this->TrainingObject->setActivityId( (string)$this->XML->Id );
 		$this->TrainingObject->setCreatorDetails( $this->findCreator() );
 		$this->findSportId();
+		
+		if (!empty($this->XML->Notes))
+            $this->TrainingObject->setNotes( (string)$this->XML->Notes );
 
 		if (!empty($this->XML->Training))
 			$this->TrainingObject->setComment( (string)$this->XML->Training->Plan->Name );
@@ -300,7 +303,6 @@ class ParserTCXSingle extends ParserAbstractSingleXML {
 		$this->gps['time_in_s'][]  = strtotime((string)$TP->Time) - $this->TrainingObject->getTimestamp() - $this->PauseInSeconds;
 		$this->gps['km'][]         = round((float)$TP->DistanceMeters/1000, ParserAbstract::DISTANCE_PRECISION);
 		$this->gps['altitude'][]   = (int)$TP->AltitudeMeters;
-		$this->gps['pace'][]       = $this->getCurrentPace();
 		$this->gps['heartrate'][]  = (!empty($TP->HeartRateBpm))
 									? round($TP->HeartRateBpm->Value)
 									: 0;

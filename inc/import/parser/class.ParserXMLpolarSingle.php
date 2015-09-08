@@ -72,6 +72,14 @@ class ParserXMLpolarSingle extends ParserAbstractSingleXML {
 			$this->TrainingObject->setPulseAvg((int)$this->XML->result->{'heart-rate'}->average);
 			$this->TrainingObject->setPulseMax((int)$this->XML->result->{'heart-rate'}->maximum);
 		}
+		
+		if (isset($this->XML->note)) {
+            $this->TrainingObject->setNotes((string)$this->XML->note);
+        }
+
+        if (isset($this->XML->name)) {
+            $this->TrainingObject->setComment((string)$this->XML->name);
+        }
 	}
 
 	/**
@@ -108,11 +116,6 @@ class ParserXMLpolarSingle extends ParserAbstractSingleXML {
 				switch ((string)$Sample->type) {
 					case 'HEARTRATE':
 						$this->TrainingObject->setArrayHeartrate( $Data );
-						break;
-
-					case 'SPEED':
-						$values = array_map( array('ParserXMLpolarSingle', 'arrayMapPace'), $Data );
-						$this->TrainingObject->setArrayPace( $values );
 						break;
 
 					case 'ALTITUDE':

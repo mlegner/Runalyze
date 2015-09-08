@@ -38,6 +38,12 @@ class ParserFITSingle extends ParserAbstractSingle {
 	protected $PauseInSeconds = 0;
 
 	/**
+	 * Is this a swimming activity?
+	 * @var bool
+	 */
+	protected $isSwimming = false;
+
+	/**
 	 * Is paused?
 	 * @var boolean
 	 */
@@ -133,6 +139,7 @@ class ParserFITSingle extends ParserAbstractSingle {
 				case 'file_creator':
 					break;
 				case 'device_info':
+					$this->readDeviceInfo();
 					break;
 
 				case 'event':
@@ -143,12 +150,20 @@ class ParserFITSingle extends ParserAbstractSingle {
 					$this->readRecord();
 					break;
 
+				case 'hrv':
+					$this->readHRV();
+					break;
+
 				case 'lap':
 					$this->readLap();
 					break;
 
 				case 'session':
 					$this->readSession();
+					break;
+
+				case 'length':
+					$this->readLength();
 					break;
 
 				case 'activity':
@@ -164,13 +179,18 @@ class ParserFITSingle extends ParserAbstractSingle {
 		if (isset($this->Values['type']) && $this->Values['type'][1] != 'activity')
 			$this->addError( __('FIT file is not specified as activity.') );
 
-		if (isset($this->Values['garmin_product']))
-			$this->TrainingObject->setCreator($this->Values['garmin_product'][1]);
-
 		if (isset($this->Values['time_created']))
 			$this->TrainingObject->setTimestamp( strtotime((string)$this->Values['time_created'][1]) );
 
 		$this->TrainingObject->setSportid( Configuration::General()->mainSport() );
+	}
+
+	/**
+	 * Read device info
+	 */
+	protected function readDeviceInfo() {
+		if (isset($this->Values['garmin_product']))
+			$this->TrainingObject->setCreator($this->Values['garmin_product'][1]);
 	}
 
 	/**
@@ -188,12 +208,38 @@ class ParserFITSingle extends ParserAbstractSingle {
 
 		if (isset($this->Values['total_calories']))
 			$this->TrainingObject->setCalories( $this->Values['total_calories'][0] + $this->TrainingObject->getCalories() );
+
+		if (isset($this->Values['total_strokes']))
+			$this->TrainingObject->setTotalStrokes($this->Values['total_strokes'][0]);
+
+		if (isset($this->Values['avg_swimming_cadence']))
+			$this->TrainingObject->setCadence($this->Values['avg_swimming_cadence'][0]);
+
+		if (isset($this->Values['pool_length']))
+			$this->TrainingObject->setPoolLength($this->Values['pool_length'][0]);
 	}
 
 	/**
 	 * Read event
 	 */
 	protected function readEvent() {
+		if (isset($this->Values['event']) && isset($this->Values['data'])) {
+			switch ((int)$this->Values['event'][1]) {
+				case 37:
+					$this->TrainingObject->setFitVdotEstimate((int)$this->Values['data'][1]);
+					return;
+
+				case 38:
+					$this->TrainingObject->setFitRecoveryTime((int)$this->Values['data'][1]);
+					return;
+
+				case 39:
+					$this->TrainingObject->setFitHRVscore((int)$this->Values['data'][1]);
+					return;
+
+			}
+		}
+
 		if (!isset($this->Values['event']) || $this->Values['event'][1] != 'timer' || !isset($this->Values['event_type']))
 			return;
 
@@ -228,7 +274,7 @@ class ParserFITSingle extends ParserAbstractSingle {
 		if ($this->isPaused) // Should not happen?
 			return;
 
-		if (!isset($this->Values['timestamp']))
+		if ($this->isSwimming || !isset($this->Values['timestamp']))
 			return;
 
 		if (empty($this->gps['time_in_s'])) {
@@ -238,7 +284,6 @@ class ParserFITSingle extends ParserAbstractSingle {
 				$this->TrainingObject->setTimestamp($startTime);
 			}
 		}
-
 		$time = strtotime((string)$this->Values['timestamp'][1]) - $this->TrainingObject->getTimestamp() - $this->PauseInSeconds;
 		$last = end($this->gps['time_in_s']);
 
@@ -267,7 +312,6 @@ class ParserFITSingle extends ParserAbstractSingle {
 		$this->gps['temp'][]      = isset($this->Values['temperature']) ? (int)$this->Values['temperature'][0] : 0;
 
 		$this->gps['time_in_s'][] = $time;
-		$this->gps['pace'][]      = $this->getCurrentPace();
 
 		$this->gps['groundcontact'][] = isset($this->Values['stance_time']) ? round($this->Values['stance_time'][0]/10) : 0;
 		$this->gps['oscillation'][]   = isset($this->Values['vertical_oscillation']) ? round($this->Values['vertical_oscillation'][0]/10) : 0;
@@ -305,6 +349,39 @@ class ParserFITSingle extends ParserAbstractSingle {
 				$this->Values['total_distance'][0] / 1e5,
 				$this->Values['total_timer_time'][0] / 1e3
 			);
+	}
+        
+	/**
+	 * Read length
+	 */
+	protected function readLength() {
+		if (!$this->isSwimming) {
+			foreach (array_keys($this->gps) as $key) {
+				$this->gps[$key] = array();
+			}
+
+			$this->isSwimming = true;
+		}
+
+		$this->gps['stroke'][] = isset($this->Values['total_strokes']) ? (int)$this->Values['total_strokes'][0] : 0;
+		$this->gps['stroketype'][] = isset($this->Values['swim_stroke']) ? (int)$this->Values['swim_stroke'][0] : 0;
+		$this->gps['rpm'][] = isset($this->Values['avg_swimming_cadence']) ? (int)$this->Values['avg_swimming_cadence'][0] : 0;
+
+		if (empty($this->gps['time_in_s'])) {
+			$this->TrainingObject->setTimestamp( strtotime((string)$this->Values['start_time'][1]) );
+			$this->gps['time_in_s'][] = round(((int)$this->Values['total_timer_time'][0])/1000);
+		} else {
+			$this->gps['time_in_s'][] = end($this->gps['time_in_s']) + round(((int)$this->Values['total_timer_time'][0])/1000);
+		}
+	}
+
+	/**
+	 * Read hrv
+	 */
+	protected function readHRV() {
+		if (!$this->isPaused) {
+			$this->gps['hrv'][] = $this->Values['time'][0];
+		}
 	}
 
 	/**

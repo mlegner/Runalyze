@@ -377,7 +377,7 @@ class SessionAccountHandler {
 	 * @return type 
 	 */
 	static public function getLanguage() {
-		if (!isset(self::$Account['languag']))
+		if (!isset(self::$Account['language']))
 			return '';
 
 		return self::$Account['language'];

@@ -30,12 +30,14 @@ abstract class ParserAbstractSingle extends ParserAbstract {
 			'altitude'      => array(),
 			'km'            => array(),
 			'heartrate'     => array(),
-			'pace'          => array(),
 			'rpm'			=> array(),
 			'temp'			=> array(),
 			'power'			=> array(),
 			'groundcontact'	=> array(),
-			'oscillation'	=> array()
+			'oscillation'	=> array(),
+			'stroke'        => array(),
+			'stroketype'    => array(),
+			'hrv'		=> array()
 		);
 
 	/**
@@ -139,21 +141,20 @@ abstract class ParserAbstractSingle extends ParserAbstract {
 	protected function setGPSarrays() {
 		$this->removeInvalidEntriesFromGPSarrays();
 
-		if (empty($this->gps['pace']) && !empty($this->gps['time_in_s']) && !empty($this->gps['km']))
-			$this->setPaceFromDistanceAndTime();
-
 		$this->TrainingObject->setArrayTime( $this->gps['time_in_s'] );
 		$this->TrainingObject->setArrayDistance( $this->gps['km'] );
 		$this->TrainingObject->setArrayLatitude( $this->gps['latitude'] );
 		$this->TrainingObject->setArrayLongitude( $this->gps['longitude'] );
 		$this->TrainingObject->setArrayAltitude( $this->gps['altitude'] );
 		$this->TrainingObject->setArrayHeartrate( $this->gps['heartrate'] );
-		$this->TrainingObject->setArrayPace( $this->gps['pace'] );
 		$this->TrainingObject->setArrayCadence( $this->gps['rpm'] );
 		$this->TrainingObject->setArrayPower( $this->gps['power'] );
 		$this->TrainingObject->setArrayTemperature( $this->gps['temp'] );
 		$this->TrainingObject->setArrayGroundContact( $this->gps['groundcontact'] );
 		$this->TrainingObject->setArrayVerticalOscillation( $this->gps['oscillation'] );
+		$this->TrainingObject->setArrayStroke( $this->gps['stroke'] );
+		$this->TrainingObject->setArrayStrokeType( $this->gps['stroketype'] );
+		$this->TrainingObject->setArrayHRV( $this->gps['hrv'] );
 
 		$this->setValuesFromArraysIfEmpty();
 	}
@@ -196,6 +197,7 @@ abstract class ParserAbstractSingle extends ParserAbstract {
 		$this->setAvgPowerFromArray();
 		$this->setTemperatureFromArray();
 		$this->setRunningDynamicsFromArray();
+		$this->setDistanceFromGPSdata();
 	}
 
 	/**
@@ -216,12 +218,7 @@ abstract class ParserAbstractSingle extends ParserAbstract {
 	 */
 	private function setAvgCadenceFromArray() {
 		$array = $this->TrainingObject->getArrayCadence();
-
-		if (!empty($array) && max($array) > 30) {
-			$array = array_filter($array, 'ParserAbstract__ArrayFilterForLowEntries');
-
-			$this->TrainingObject->setCadence( round(array_sum($array)/count($array)) );
-		}
+		$this->TrainingObject->setCadence( round(array_sum($array)/count($array)) );
 	}
 
 	/**
@@ -268,27 +265,31 @@ abstract class ParserAbstractSingle extends ParserAbstract {
 	}
 
 	/**
-	 * Set pace from distance and time
+	 * Calculate distance
 	 */
-	private function setPaceFromDistanceAndTime() {
-		$num = count($this->gps['km']);
-		$prevDist = 0;
-		$prevTime = 0;
+	private function setDistanceFromGPSdata() {
+		if (!empty($this->gps['latitude']) && !empty($this->gps['longitude']) && empty($this->gps['km'])) {
+			$num = count($this->gps['latitude']);
+			$this->gps['km'] = array(0);
+			$lastDistance = 0;
 
-		for ($i = 0; $i < $num; ++$i) {
-			$currDist = $this->gps['km'][$i];
-			$currTime = $this->gps['time_in_s'][$i];
+			for ($i = 1; $i < $num; ++$i) {
+				$step = round(
+					GpsData::distance(
+						$this->gps['latitude'][$i-1],
+						$this->gps['longitude'][$i-1],
+						$this->gps['latitude'][$i],
+						$this->gps['longitude'][$i]
+					),
+					ParserAbstract::DISTANCE_PRECISION
+				);
 
-			if ($currDist > $prevDist) {
-				$pace = ($currTime - $prevTime) / ($currDist - $prevDist);
-	
-				$prevDist = $currDist;
-				$prevTime = $currTime;
-			} else {
-				$pace = 0;
+				$this->gps['km'][] = $lastDistance + $step;
+				$lastDistance += $step;
 			}
 
-			$this->gps['pace'][] = round($pace);
+			$this->TrainingObject->setArrayDistance( $this->gps['km'] );
+			$this->TrainingObject->setDistance( end($this->gps['km']) );
 		}
 	}
 

@@ -29,6 +29,11 @@ class Inserter extends Model\InserterWithAccountID {
 	protected $Trackdata = null;
 
 	/**
+	 * @var \Runalyze\Model\Swim\Object
+	 */
+	protected $Swimdata = null;
+        
+	/**
 	 * @var \Runalyze\Model\Route\Object
 	 */
 	protected $Route = null;
@@ -47,6 +52,13 @@ class Inserter extends Model\InserterWithAccountID {
 	 */
 	public function setTrackdata(Model\Trackdata\Object $trackdata) {
 		$this->Trackdata = $trackdata;
+	}
+        
+	/**
+	 * @param \Runalyze\Model\Swim\Object $swimdata
+	 */
+	public function setSwimdata(Model\Swimdata\Object $swimdata) {
+		$this->Swimdata = $swimdata;
 	}
 
 	/**
@@ -72,7 +84,7 @@ class Inserter extends Model\InserterWithAccountID {
 		return array_merge(array(
 				self::ACCOUNTID
 			),
-			Object::allProperties()
+			Object::allDatabaseProperties()
 		);
 	}
 
@@ -89,6 +101,7 @@ class Inserter extends Model\InserterWithAccountID {
 		$this->calculateVDOTAndIntensityAndTrimp();
 		$this->calculatePower();
 		$this->calculateStrideLength();
+		$this->calculateSwimValues();
 	}
 
 	/**
@@ -170,17 +183,39 @@ class Inserter extends Model\InserterWithAccountID {
 	 * Calculate stride length
 	 */
 	protected function calculateStrideLength() {
-		if (
-			$this->Object->sportid() == Configuration::General()->runningSport() &&
-			(NULL !== $this->Trackdata)
-		) {
-			$Calculator = new \Runalyze\Calculation\StrideLength\Calculator($this->Trackdata);
-			$Calculator->calculate();
+		if ($this->Object->sportid() == Configuration::General()->runningSport()) {
+			if (NULL !== $this->Trackdata && $this->Trackdata->has(Model\Trackdata\Object::CADENCE)) {
+				$Calculator = new \Runalyze\Calculation\StrideLength\Calculator($this->Trackdata);
+				$Calculator->calculate();
 
-			$this->Object->set(Object::STRIDE_LENGTH, $Calculator->average());
+				$this->Object->set(Object::STRIDE_LENGTH, $Calculator->average());
+			} elseif ($this->Object->cadence() > 0) {
+				$this->Object->set(Object::STRIDE_LENGTH, \Runalyze\Calculation\StrideLength\Calculator::forActivity($this->Object));
+			}
 		}
 	}
 
+	/**
+	 * Calculate swim values
+	 */
+	protected function calculateSwimValues() {
+		if (NULL !== $this->Trackdata && NULL !== $this->Swimdata) {
+			if ($this->Swimdata->stroke()) {
+				$this->Object->set(Object::TOTAL_STROKES, array_sum($this->Swimdata->stroke()));
+			}
+
+			if ($this->Object->totalStrokes() && $this->Trackdata->totalTime()) {
+			   $num = $this->Trackdata->num();
+			   $totaltime = $this->Trackdata->totalTime();
+			   $totalstrokes = $this->Object->totalStrokes();
+
+				if (!empty($totalstrokes) && !empty($totaltime) & !empty($num) && $totalstrokes != 0) {
+					$this->Object->set(Object::SWOLF, round(($totalstrokes + $totaltime) / $num));
+				}
+			}
+		}
+	}
+        
 	/**
 	 * Tasks after insertion
 	 */

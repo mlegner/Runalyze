@@ -129,6 +129,24 @@ class Object extends Model\ObjectWithID {
 	const USE_VDOT = 'use_vdot';
 
 	/**
+	 * Key: vdot estimate from fit file
+	 * @var string
+	 */
+	const FIT_VDOT_ESTIMATE = 'fit_vdot_estimate';
+
+	/**
+	 * Key: recovery time from fit file
+	 * @var string
+	 */
+	const FIT_RECOVERY_TIME = 'fit_recovery_time';
+
+	/**
+	 * Key: hrv analysis score from fit file
+	 * @var string
+	 */
+	const FIT_HRV_ANALYSIS = 'fit_hrv_analysis';
+
+	/**
 	 * Key: jd intensity
 	 * @var string
 	 */
@@ -157,6 +175,18 @@ class Object extends Model\ObjectWithID {
 	 * @var string
 	 */
 	const STRIDE_LENGTH = 'stride_length';
+        
+	/**
+	 * Key: total_strokes
+	 * @var string
+	 */
+	const TOTAL_STROKES = 'total_strokes';
+        
+	/**
+	 * Key: SWOLF
+	 * @var string
+	 */
+	const SWOLF = 'swolf';
 
 	/**
 	 * Key: ground contact time
@@ -280,10 +310,17 @@ class Object extends Model\ObjectWithID {
 	protected $Partner = null;
 
 	/**
+	 * Clone object
+	 */
+	public function __clone() {
+		$this->cloneInternalObjects();
+	}
+
+	/**
 	 * All properties
 	 * @return array
 	 */
-	static public function allProperties() {
+	static public function allDatabaseProperties() {
 		return array(
 			self::TIMESTAMP,
 			self::TIMESTAMP_CREATED,
@@ -303,11 +340,16 @@ class Object extends Model\ObjectWithID {
 			self::VDOT_BY_TIME,
 			self::VDOT_WITH_ELEVATION,
 			self::USE_VDOT,
+			self::FIT_VDOT_ESTIMATE,
+			self::FIT_RECOVERY_TIME,
+			self::FIT_HRV_ANALYSIS,
 			self::JD_INTENSITY,
 			self::TRIMP,
 			self::CADENCE,
 			self::POWER,
 			self::STRIDE_LENGTH,
+			self::SWOLF,
+			self::TOTAL_STROKES,
 			self::GROUNDCONTACT,
 			self::VERTICAL_OSCILLATION,
 			self::TEMPERATURE,
@@ -332,7 +374,7 @@ class Object extends Model\ObjectWithID {
 	 * @return array
 	 */
 	public function properties() {
-		return static::allProperties();
+		return static::allDatabaseProperties();
 	}
 
 	/**
@@ -415,11 +457,16 @@ class Object extends Model\ObjectWithID {
 			self::VDOT_BY_TIME,
 			self::VDOT_WITH_ELEVATION,
 			self::USE_VDOT,
+			self::FIT_VDOT_ESTIMATE,
+			self::FIT_RECOVERY_TIME,
+			self::FIT_HRV_ANALYSIS,
 			self::JD_INTENSITY,
 			self::TRIMP,
 			self::CADENCE,
 			self::POWER,
 			self::STRIDE_LENGTH,
+			self::TOTAL_STROKES,
+			self::SWOLF,
 			self::GROUNDCONTACT,
 			self::VERTICAL_OSCILLATION,
 			self::ROUTEID,
@@ -573,6 +620,30 @@ class Object extends Model\ObjectWithID {
 	}
 
 	/**
+	 * VDOT estimate from fit file
+	 * @return int
+	 */
+	public function fitVdotEstimate() {
+		return $this->Data[self::FIT_VDOT_ESTIMATE];
+	}
+
+	/**
+	 * Recovery time advisor from fit file
+	 * @return int [min]
+	 */
+	public function fitRecoveryTime() {
+		return $this->Data[self::FIT_RECOVERY_TIME];
+	}
+
+	/**
+	 * HRV analysis score from fit file
+	 * @return int
+	 */
+	public function fitHRVscore() {
+		return $this->Data[self::FIT_HRV_ANALYSIS];
+	}
+
+	/**
 	 * JD intensity
 	 * @return int
 	 */
@@ -611,6 +682,22 @@ class Object extends Model\ObjectWithID {
 	public function strideLength() {
 		return $this->Data[self::STRIDE_LENGTH];
 	}
+        
+	/**
+	 * Total strokes
+	 * @return int 
+	 */
+	public function totalStrokes() {
+		return $this->Data[self::TOTAL_STROKES];
+	}
+        
+	/**
+	 * Swolf
+	 * @return int 
+	 */
+	public function swolf() {
+		return $this->Data[self::SWOLF];
+	}
 
 	/**
 	 * Ground contact
@@ -627,7 +714,7 @@ class Object extends Model\ObjectWithID {
 	public function verticalOscillation() {
 		return $this->Data[self::VERTICAL_OSCILLATION];
 	}
-
+        
 	/**
 	 * Clothes
 	 * @return \Runalyze\Data\Weather

@@ -1,4 +1,4 @@
-# [Runalyze v2.0](http://blog.runalyze.com)
+# [Runalyze v2.1](http://blog.runalyze.com)
 
 [![Build Status](https://travis-ci.org/Runalyze/Runalyze.svg?branch=master)](https://travis-ci.org/Runalyze/Runalyze)
 [![Code Coverage](https://scrutinizer-ci.com/g/Runalyze/Runalyze/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/Runalyze/Runalyze/?branch=master)
@@ -42,6 +42,8 @@ grunt dev
 
 ## Changelog
 * new versions, multi-lingual
+ * [v2.1](http://blog.runalyze.com/allgemein/runalyze-v2-1/), 19.07.2015: Minor release - Running Dynamics, new importers, TSB Model: Recovery time ... 
+ * [v2.0.4](http://blog.runalyze.com/allgemein/runalyze-v2-0-4/), 17.07.2015: Minor bugfixes
  * [v2.0.3](http://blog.runalyze.com/allgemein/runalyze-v2-0-3/), 05.06.2015: Minor bugfixes
  * [v2.0.2](http://blog.runalyze.com/allgemein/runalyze-v2-0-2/), 24.03.2015: Minor bugfixes
  * [v2.0.1](http://blog.runalyze.com/allgemein/runalyze-v2-0-1/), 13.03.2015: Minor bugfixes

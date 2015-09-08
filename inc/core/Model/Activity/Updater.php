@@ -92,7 +92,7 @@ class Updater extends Model\UpdaterWithIDAndAccountID {
 		return array_merge(array(
 				self::ACCOUNTID
 			),
-			Object::allProperties()
+			Object::allDatabaseProperties()
 		);
 	}
 
@@ -147,7 +147,12 @@ class Updater extends Model\UpdaterWithIDAndAccountID {
 			$this->NewObject->unsetRunningValues();
 		}
 
-		if ($this->ForceRecalculations || $this->hasChanged(Object::TIME_IN_SECONDS) || $this->hasChanged(Object::HR_AVG)) {
+		if ($this->ForceRecalculations || (
+				(NULL === $this->Trackdata || !$this->Trackdata->has(Model\Trackdata\Object::TIME) || !$this->Trackdata->has(Model\Trackdata\Object::HEARTRATE)) && (
+					$this->hasChanged(Object::SPORTID) || $this->hasChanged(Object::TIME_IN_SECONDS) || $this->hasChanged(Object::HR_AVG)
+				)
+			)
+		) {
 			$this->NewObject->set(Object::TRIMP, $Calculator->calculateTrimp());
 		}
 	}
@@ -179,7 +184,12 @@ class Updater extends Model\UpdaterWithIDAndAccountID {
 	 */
 	protected function updatePower() {
 		if ($this->hasChanged(Object::SPORTID)) {
-			if (\Runalyze\Context::Factory()->sport($this->NewObject->sportid())->hasPower()) {
+			if (
+				\Runalyze\Context::Factory()->sport($this->NewObject->sportid())->hasPower() &&
+				NULL !== $this->Trackdata &&
+				$this->Trackdata->has(Model\Trackdata\Object::TIME) && 
+				$this->Trackdata->has(Model\Trackdata\Object::DISTANCE)
+			) {
 				$Calculator = new \Runalyze\Calculation\Power\Calculator(
 					$this->Trackdata,
 					$this->Route
@@ -218,18 +228,22 @@ class Updater extends Model\UpdaterWithIDAndAccountID {
 	 * Update stride length
 	 */
 	protected function updateStrideLength() {
-		if ($this->hasChanged(Object::SPORTID)) {
+		if ($this->hasChanged(Object::SPORTID) || true) {
 			if ($this->NewObject->sportid() == Configuration::General()->runningSport()) {
-				$Calculator = new \Runalyze\Calculation\StrideLength\Calculator($this->Trackdata);
-				$Calculator->calculate();
+				if (NULL !== $this->Trackdata && $this->Trackdata->has(Model\Trackdata\Object::CADENCE)) {
+					$Calculator = new \Runalyze\Calculation\StrideLength\Calculator($this->Trackdata);
+					$Calculator->calculate();
 
-				$this->NewObject->set(Object::STRIDE_LENGTH, $Calculator->average());
+					$this->NewObject->set(Object::STRIDE_LENGTH, $Calculator->average());
+				} elseif ($this->NewObject->cadence() > 0) {
+					$this->NewObject->set(Object::STRIDE_LENGTH, \Runalyze\Calculation\StrideLength\Calculator::forActivity($this->NewObject));
+				}
 			} else {
 				$this->NewObject->set(Object::STRIDE_LENGTH, 0);
 			}
 		}
 	}
-
+        
 	/**
 	 * Tasks after insertion
 	 */
