@@ -24,10 +24,7 @@ function userStat() {
     $stat['online'] = \SessionAccountHandler::getNumberOfUserOnline();
     return $stat;
 }
-function cookeInfo() {
-    setcookie('CookieInfo', 'true', time()+30*86400);
-    return $_COOKIE['CookieInfo'];
-}
+
 
 class HomeController
 {
@@ -35,7 +32,6 @@ class HomeController
     {
             $Frontend = new \Frontend(true);
             $stat = userStat();
-            $cookieinfo = cookeInfo();
             $path = 'login';
             $response =  $app['twig']->render('login.twig', array(
                 'RUNALYZE_VERSION' => RUNALYZE_VERSION,
@@ -43,11 +39,8 @@ class HomeController
                 'numUser' => $stat['user'],
                 'numKm' => $stat['km'],
                 'errorType' => \SessionAccountHandler::$ErrorType,
-                'cookieInfo' => $cookieinfo,
                 'switchpath' => $path,
-                'forgotpw' => $forgotpw,
-                'USER_CAN_REGISTER' => USER_CAN_REGISTER,
-                'regError' => $RegistrationErrors,
+                'USER_CAN_REGISTER' => USER_CAN_REGISTER
             ));
             return new Response($response);
     }
@@ -65,19 +58,16 @@ class HomeController
         $Frontend = new \Frontend(true);
         $path = 'register'; 
         $stat = userStat();
-        $cookieinfo = cookeInfo();
         if($_POST['new_username'])
             $RegistrationErrors = \AccountHandler::tryToRegisterNewUser();
-                
+        print_r($RegistrationErrors);
         $response =  $app['twig']->render('login.twig', array(
                     'RUNALYZE_VERSION' => RUNALYZE_VERSION,
                     'numUserOnline' => $stat['online'],
                     'numUser' => $stat['user'],
                     'numKm' => $stat['km'],
                     'errorType' => \SessionAccountHandler::$ErrorType,
-                    'cookieInfo' => $cookieinfo,
                     'switchpath' => $path,
-                    'forgotpw' => $forgotpw,
                     'USER_CAN_REGISTER' => USER_CAN_REGISTER,
                     'regError' => $RegistrationErrors,
                 ));
@@ -88,11 +78,10 @@ class HomeController
     {
         $Frontend = new \Frontend(true);
         $path = 'forgotpw';    
-        $forgotpw =   \AccountHandler::sendPasswordLinkTo($_POST['send_username']);
         $stat = userStat();
-        $cookieinfo = cookeInfo();
-        if($_POST['send_username'])
+        if($_POST['send_username']) {
              $forgotpw =   \AccountHandler::sendPasswordLinkTo($_POST['send_username']);
+        }
             
                 
         $response =  $app['twig']->render('login.twig', array(
@@ -101,11 +90,9 @@ class HomeController
                     'numUser' => $stat['user'],
                     'numKm' => $stat['km'],
                     'errorType' => \SessionAccountHandler::$ErrorType,
-                    'cookieInfo' => $cookieinfo,
                     'switchpath' => $path,
                     'forgotpw' => $forgotpw,
-                    'USER_CAN_REGISTER' => USER_CAN_REGISTER,
-                    'regError' => $RegistrationErrors,
+                    'USER_CAN_REGISTER' => USER_CAN_REGISTER
                 ));
                 return new Response($response);
     }

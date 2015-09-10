@@ -326,7 +326,7 @@ class AccountHandler {
 	 * @return string
 	 */
 	static private function getChangePasswordLink($hash) {
-		return System::getFullDomain().'login.php?chpw='.$hash;
+		return System::getFullDomain().'changepassword/'.$hash;
 	}
 
 	/**
@@ -335,7 +335,7 @@ class AccountHandler {
 	 * @return string
 	 */
 	static private function getActivationLink($hash) {
-		return System::getFullDomain().'login.php?activate='.$hash;
+		return System::getFullDomain().'activate/'.$hash;
 	}
 
         /**
@@ -344,7 +344,7 @@ class AccountHandler {
 	 * @return string
 	 */
 	static private function getDeletionLink($hash) {
-		return System::getFullDomain().'login.php?delete='.$hash;
+		return System::getFullDomain().'delete/'.$hash;
 	}
 
 	/**

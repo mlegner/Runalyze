@@ -70,7 +70,6 @@ class SessionAccountHandler {
 	 */
 	function __construct() {
 		session_start();
-
 		if (!$this->tryToUseSession()) {
 			if ($this->tryToLoginFromPost()) {
 				header('Location: '.System::getFullDomain().'');
@@ -78,7 +77,7 @@ class SessionAccountHandler {
 			} elseif ($this->tryToLoginFromCookie()) {
 				header('Location: '.System::getFullDomain().'');
 				exit;
-			} elseif (self::$USER_MUST_LOGIN && !$this->isOnPage('login') && !$this->isOnPage('register') && !$this->isOnPage('forgotpw') && !$this->isOnPage('admin.php')) {
+			} elseif ($this->isLoggedIn() == false && !$this->isOnPage('login') && !$this->isOnPage('register') && !$this->isOnPage('impressum') && !$this->isOnPage('activate') && !$this->isOnPage('forgotpw') && !$this->isOnPage('admin.php')) {
 				header('Location: '.System::getFullDomain().'login');
 				exit;
 			}
@@ -95,7 +94,11 @@ class SessionAccountHandler {
 	 * @return boolean
 	 */
 	private function isOnPage($page) {
-		return substr(Request::Basename(), 0, 9) == $page;
+		if(strpos(substr(Request::Basename(), 0, 9), $page) === false && substr(Request::Basename(), 0, 9) == '') {
+                        return false;
+                 } else {
+                        return true;
+                 }
 	}
 
 	/**

@@ -21,6 +21,20 @@ register:
 forgotpw:
     path: /forgotpw
     defaults: { _controller: 'Runalyze\HomeController::forgotPwAction' }
+    
+# Account activation, Deletion, Forgot password
+useractivate:
+    path: /activate/{hash}
+    defaults: { _controller: 'Runalyze\HomeController::activateAction' }
+    
+userdelete:
+    path: /delete/{hash}
+    defaults: { _controller: 'Runalyze\HomeController::deleteAction' }
+    
+userforgotpw:
+    path: /changepassword/{hash}
+    defaults: { _controller: 'Runalyze\HomeController::changePasswordAction' }
+ 
 default:
     path: /
     defaults: { _controller: 'Runalyze\HomeController::appAction' }
