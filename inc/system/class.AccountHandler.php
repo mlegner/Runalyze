@@ -195,13 +195,13 @@ class AccountHandler {
 		$errors = array();
 
 		if (strlen($_POST['new_username']) < self::USER_MIN_LENGTH)
-			$errors[] = array('new_username' => sprintf( __('The username has to contain at least %s signs.'), self::USER_MIN_LENGTH));
+			$errors['new_username'] = sprintf( __('The username has to contain at least %s signs.'), self::USER_MIN_LENGTH);
 
 		if (strlen($_POST['new_username']) > self::USER_MAX_LENGTH)
-			$errors[] = array('new_username' => sprintf( __('The username has to contain at most %s signs.'), self::USER_MAX_LENGTH));
+			$errors['new_username'] = sprintf( __('The username has to contain at most %s signs.'), self::USER_MAX_LENGTH);
 
 		if (preg_replace('#[^'.self::USER_REGEXP.']#i', '', $_POST['new_username']) != $_POST['new_username'])
-			$errors[] = array('new_username' => sprintf( __('The username has to contain only the following characters: %s'), stripslashes(self::USER_REGEXP)));
+			$errors['new_username'] = sprintf( __('The username has to contain only the following characters: %s'), stripslashes(self::USER_REGEXP));
 
 		if (self::usernameExists($_POST['new_username']))
                     $errors['new_username'] = __('This username is already being used.');
@@ -214,7 +214,7 @@ class AccountHandler {
 		if (strlen($_POST['password']) < self::$PASS_MIN_LENGTH)
 		    $errors['password'] = sprintf( __('The password has to contain at least %s characters.'), self::$PASS_MIN_LENGTH);
 		if (empty($errors))
-			$errors = self::createNewUserFromPost();
+			$errors['created'] = self::createNewUserFromPost();
 		if (empty($errors))
 			return true;
 		return $errors;

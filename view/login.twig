@@ -99,9 +99,10 @@
                     
 
                     <div id="registerFormular"  class="boxWrapper{% if switchpath == 'register' %} active{% endif %}">
-                        {% if regError is not empty%}
+                        {% if regError == true or regError.created is defined %}
   
                             {% trans %}Thanks for your registration. You should receive an email within the next minutes with further instructions for activating your account.{% endtrans %}
+                            {{ regError.created }}  
                         {% else %}
                         <form action="register" method="post">
                             <fieldset>
@@ -112,7 +113,7 @@
                                         <input type="text" name="new_username" value="" id="new_username" class="middle-size">
                                     </span>
                                   {% if regError.new_username is defined %}
-                                         <small class="error">{{ regError.new_username }}</small>
+                                         <small class="error">{{ regError.new_username }} </small>
                                     {% endif %}
                                 </div>
 
@@ -121,6 +122,9 @@
                                     <span class="input-with-unit">
                                         <input type="text" name="name" value="" id="name" class="middle-size">
                                     </span>
+                                    {% if regError.name is defined %}
+                                         <small class="error">{{ regError.name }}</small>
+                                    {% endif %}
                                 </div>
 
                                 <div class="w100 block ">

@@ -1,7 +1,8 @@
 {% if activateAccount %}
     {% trans %}Your account has been activated.{% endtrans %}
     {% trans %}You can now use Runalyze.{% endtrans %}
-{% else %}
+    <a href="/login">{% trans %}Go to 
+        {% else %}
     {% trans %}The activation did not work.{% endtrans %}
     {% trans %}Probably the link was wrong or your account has already been activated.{% endtrans %}
     {% endif %}

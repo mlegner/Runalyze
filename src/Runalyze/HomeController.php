@@ -58,9 +58,10 @@ class HomeController
         $Frontend = new \Frontend(true);
         $path = 'register'; 
         $stat = userStat();
-        if($_POST['new_username'])
+        if($_POST['new_username']) {
             $RegistrationErrors = \AccountHandler::tryToRegisterNewUser();
-        print_r($RegistrationErrors);
+        }
+        print_r($RegistrationErrors['created']);
         $response =  $app['twig']->render('login.twig', array(
                     'RUNALYZE_VERSION' => RUNALYZE_VERSION,
                     'numUserOnline' => $stat['online'],
