@@ -169,8 +169,6 @@ class ConfigTabDataset extends ConfigTab {
 	 * @return array 
 	 */
 	protected function getExampleTraining() {
-		$ClothesID = $this->getRandIdFor('clothes');
-		$ShoeID    = $this->getRandIdFor('shoe');
 
 		$Data = array(
 			'id'		=> DataObject::$DEFAULT_ID,
@@ -190,6 +188,9 @@ class ConfigTabDataset extends ConfigTab {
 			'vdot_with_elevation'	=> Configuration::Data()->vdot() + 1,
 			'vdot'		=> Configuration::Data()->vdot() + 2,
 			'use_vdot'	=> 0,
+			'fit_vdot_estimate'	=> round(Configuration::Data()->vdot()),
+			'fit_recovery_time'	=> 800,
+			'fit_hrv_analysis'	=> 800,
 			'jd_intensity'	=> 27,
 			'trimp'		=> 121,
 			'cadence'	=> 90,
@@ -199,12 +200,10 @@ class ConfigTabDataset extends ConfigTab {
 			'power'		=> 520,
 			'temperature'	=> 17,
 			'weatherid'	=> 5,
-			'clothes'	=> $ClothesID,
 			'splits'	=> '5|26:51-5|24:36',
 			'comment'	=> str_replace(' ', '&nbsp;', __('Test activity')),
 			'partner'	=> 'Peter',
 			'abc'		=> 1,
-			'shoeid'	=> $ShoeID,
 			'notes'		=> str_replace(' ', '&nbsp;', __('Great run!')),
 			'accountid'	=> SessionAccountHandler::getId(),
 			'creator'	=> '',

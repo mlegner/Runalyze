@@ -154,6 +154,17 @@ class AccountHandler {
 	static public function mailExists($mail) {
 		return (1 == DB::getInstance()->query('SELECT 1 FROM `'.PREFIX.'account` WHERE `mail`='.DB::getInstance()->escape($mail).' LIMIT 1')->fetchColumn());
 	}
+        
+        /**
+         * Is the mail address valid?
+         * @param string $mail
+         * @return boolean 
+         */
+        static public function mailValid($mail) {
+            $validator = new \EmailValidator\Validator();
+            //isValid() could be used too, if server is connected to the internet
+            return(1 == $validator->isDisposable($mail));
+        }
 
 	/**
 	 * Compares a password (given as string) with hash from database
@@ -207,6 +218,10 @@ class AccountHandler {
                     $errors['new_username'] = __('This username is already being used.');
 		if (self::mailExists($_POST['email']))
                     $errors['email'] = __('This email address is already being used.');
+                
+                if(self::mailValid($_POST['email']))
+                        $errors[] = array('email' => __('This email address is not allowed'));
+
 		if (false === filter_var($_POST['email'], FILTER_VALIDATE_EMAIL))
                     $errors['email'] = __('Please enter a valid email address.');
 		if ($_POST['password'] != $_POST['password_again'])
@@ -528,13 +543,27 @@ class AccountHandler {
 
 		$DB = DB::getInstance();
 
-		$whereAdd = 'AND `accountid`='.(int)$accountId;
-		$columns=array('category', 'key', 'value', 'accountid');
+		$columns = array('category', 'key', 'value', 'accountid');
 
 		$DB->exec('UPDATE `'.PREFIX.'type` SET `sportid`="'.self::$SPECIAL_KEYS['RUNNING_SPORT_ID'].'" WHERE `accountid`="'.$accountId.'"');
 
-		$DB->insert('conf', $columns, array('general','MAINSPORT', self::$SPECIAL_KEYS['MAIN_SPORT_ID'], $accountId));
-		$DB->insert('conf', $columns, array('general','RUNNINGSPORT', self::$SPECIAL_KEYS['RUNNING_SPORT_ID'], $accountId));
-		$DB->insert('conf', $columns, array('general','TYPE_ID_RACE', self::$SPECIAL_KEYS['TYPE_ID_RACE'], $accountId));
+		$DB->insert('conf', $columns, array('general', 'MAINSPORT', self::$SPECIAL_KEYS['MAIN_SPORT_ID'], $accountId));
+		$DB->insert('conf', $columns, array('general', 'RUNNINGSPORT', self::$SPECIAL_KEYS['RUNNING_SPORT_ID'], $accountId));
+		$DB->insert('conf', $columns, array('general', 'TYPE_ID_RACE', self::$SPECIAL_KEYS['TYPE_ID_RACE'], $accountId));
+
+		//Connect equipment type and sport
+		$DB->insert('equipment_sport', array('sportid', 'equipment_typeid'), array(self::$SPECIAL_KEYS['RUNNING_SPORT_ID'], self::$SPECIAL_KEYS['EQUIPMENT_SHOES_ID']));
+		$DB->insert('equipment_sport', array('sportid', 'equipment_typeid'), array(self::$SPECIAL_KEYS['RUNNING_SPORT_ID'], self::$SPECIAL_KEYS['EQUIPMENT_CLOTHES_ID']));
+
+		// Add standard clothes equipment
+		$eqColumns = array('name', 'notes', 'typeid', 'accountid');
+		$DB->insert('equipment', $eqColumns, array(__('long sleeve'), '', self::$SPECIAL_KEYS['EQUIPMENT_CLOTHES_ID'], $accountId));
+		$DB->insert('equipment', $eqColumns, array(__('T-shirt'), '', self::$SPECIAL_KEYS['EQUIPMENT_CLOTHES_ID'], $accountId));
+		$DB->insert('equipment', $eqColumns, array(__('singlet'), '', self::$SPECIAL_KEYS['EQUIPMENT_CLOTHES_ID'], $accountId));
+		$DB->insert('equipment', $eqColumns, array(__('jacket'), '', self::$SPECIAL_KEYS['EQUIPMENT_CLOTHES_ID'], $accountId));
+		$DB->insert('equipment', $eqColumns, array(__('long pants'), '', self::$SPECIAL_KEYS['EQUIPMENT_CLOTHES_ID'], $accountId));
+		$DB->insert('equipment', $eqColumns, array(__('shorts'), '', self::$SPECIAL_KEYS['EQUIPMENT_CLOTHES_ID'], $accountId));
+		$DB->insert('equipment', $eqColumns, array(__('gloves'), '', self::$SPECIAL_KEYS['EQUIPMENT_CLOTHES_ID'], $accountId));
+		$DB->insert('equipment', $eqColumns, array(__('hat'), '', self::$SPECIAL_KEYS['EQUIPMENT_CLOTHES_ID'], $accountId));
 	}
 }

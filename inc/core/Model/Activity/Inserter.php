@@ -7,9 +7,8 @@
 namespace Runalyze\Model\Activity;
 
 use Runalyze\Model;
+use Runalyze\Calculation\BasicEndurance;
 use Runalyze\Configuration;
-
-use BasicEndurance;
 
 /**
  * Insert activity to database
@@ -39,6 +38,11 @@ class Inserter extends Model\InserterWithAccountID {
 	protected $Route = null;
 
 	/**
+	 * @var array
+	 */
+	protected $EquipmentIDs = array();
+
+	/**
 	 * Construct inserter
 	 * @param \PDO $connection
 	 * @param \Runalyze\Model\Activity\Object $object [optional]
@@ -66,6 +70,13 @@ class Inserter extends Model\InserterWithAccountID {
 	 */
 	public function setRoute(Model\Route\Object $route) {
 		$this->Route = $route;
+	}
+
+	/**
+	 * @param array $ids
+	 */
+	public function setEquipmentIDs(array $ids) {
+		$this->EquipmentIDs = $ids;
 	}
 
 	/**
@@ -105,7 +116,7 @@ class Inserter extends Model\InserterWithAccountID {
 	}
 
 	/**
-	 * Remove data as weather/clothes, if sport is always inside
+	 * Remove data as weather, if sport is always inside
 	 */
 	protected function removeDataIfInside() {
 		if ($this->Object->sportid() > 0) {
@@ -114,7 +125,6 @@ class Inserter extends Model\InserterWithAccountID {
 			if (!$Factory->sport($this->Object->sportid())->isOutside()) {
 				$this->Object->weather()->condition()->set( \Runalyze\Data\Weather\Condition::UNKNOWN );
 				$this->Object->weather()->temperature()->setTemperature(null);
-				$this->Object->clothes()->clear();
 
 				$this->Object->synchronize();
 			}
@@ -230,13 +240,10 @@ class Inserter extends Model\InserterWithAccountID {
 	 * Update equipment
 	 */
 	protected function updateEquipment() {
-		if ($this->Object->shoeID() > 0) {
-			$this->PDO->exec(
-				'UPDATE `'.PREFIX.'shoe` SET
-					`km` = `km` + '.(float)$this->Object->distance().',
-					`time` = `time` + '.(int)$this->Object->duration().'
-				WHERE `id`="'.$this->Object->shoeID().'" LIMIT 1'
-			);
+		if (!empty($this->EquipmentIDs)) {
+	        $EquipmentUpdater = new EquipmentUpdater($this->PDO, $this->Object->id());
+			$EquipmentUpdater->setActivityObjects($this->Object);
+			$EquipmentUpdater->update($this->EquipmentIDs);
 		}
 	}
 

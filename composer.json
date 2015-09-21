@@ -13,12 +13,12 @@
         "symfony/yaml": "@stable",
         "symfony/twig-bridge": "@stable",
         "swiftmailer/swiftmailer": "@stable",
-        "twig/extensions": "^1.2"
+        "twig/extensions": "^1.2",
+        "nojacko/email-validator": "~1.0"
     },
     "autoload":{
         "psr-0":{
-            "Runalyze":"src/",
-            "":"plugin/RunalyzePluginPanel_Prognose"
+            "Runalyze":"src/"
         }
     }
 }
