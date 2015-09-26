@@ -3,14 +3,6 @@
  * This file contains class::SessionAccountHandler
  * @package Runalyze\System
  */
-
-if (!defined('USER_MUST_LOGIN'))
-/**
- * Is a login needed?
- * @var string
- */
-	define('USER_MUST_LOGIN', false);
-
 /**
  * Class: SessionAccountHandler
  * 
@@ -19,12 +11,6 @@ if (!defined('USER_MUST_LOGIN'))
  * @package Runalyze\System
  */
 class SessionAccountHandler {
-	/**
-	 * Boolean flag: user must be logged in
-	 * @var boolean
-	 */
-	static public $USER_MUST_LOGIN = USER_MUST_LOGIN;
-
 	/**
 	 * Array containing userrow from database
 	 * @var array
@@ -129,8 +115,13 @@ class SessionAccountHandler {
 				Language::setLanguage($Account['language'], false);
 
 				return true;
-			} else
+			} elseif (defined('RUNALYZE_TEST')) {
+				$this->setAccount($Account);
+var_dump($Account);
+				return true;
+			} else {
 				unset($_SESSION['accountid']);
+			}
 		}
 
 		return false;
@@ -333,10 +324,7 @@ class SessionAccountHandler {
 			if (isset($_SESSION['accountid']))
 				return $_SESSION['accountid'];
 
-			if (USER_MUST_LOGIN)
-				return null;
-
-			return 0;
+			return null;
 		}
 
 		return self::$Account['id'];
