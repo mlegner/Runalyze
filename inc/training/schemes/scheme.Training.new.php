@@ -87,8 +87,7 @@ $FIELDS = array(
 					),
 					'formular'	=> array(
 						'label'		=> __('Activity type'),
-						'class'		=> 'TrainingSelectType',
-						'css'		=> TrainingFormular::$ONLY_TYPES_CLASS
+						'class'		=> 'TrainingSelectType'
 					)
 	),
 	'time'				=> array(
@@ -676,4 +675,3 @@ $FIELDS = array(
 	),  
     
 );
-?>

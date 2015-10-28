@@ -5,7 +5,7 @@
  * You have to set your database connection within this file to enable the script.
  * Remember to delete your credentials afterwards to protect this script.
  */
-$hostname = '';
+$host = '';
 $database = '';
 $username = '';
 $password = '';
@@ -26,6 +26,10 @@ define('CHECK_INNODB', true); // Set to false if you don't want or can't use Inn
  * SCRIPT STARTS - YOU DON'T NEED TO CHANGE ANYTHING BELOW
  ******************************************************************************/
 
+if (!isset($host) && isset($hostname)) {
+    $host = $hostname;
+}
+
 $starttime = microtime(true);
 
 /**
@@ -33,14 +37,14 @@ $starttime = microtime(true);
  */
 define('NL', CLI ? PHP_EOL : '<br>'.PHP_EOL);
 
-if (empty($database) && empty($hostname)) {
+if (empty($database) && empty($host)) {
 	echo 'Database connection has to be set within the file.'.NL;
 	exit;
 } else {
 	date_default_timezone_set('Europe/Berlin');
 
 	try {
-		$PDO = new PDO('mysql:dbname='.$database.';host='.$hostname, $username, $password);
+		$PDO = new PDO('mysql:dbname='.$database.';host='.$host, $username, $password);
 		$PDO->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		$PDO->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 
@@ -71,9 +75,9 @@ if (CHECK_INNODB) {
 /**
  * Check version
  */
-$IsNotRefactored = $PDO->query('SHOW TABLES LIKE "'.PREFIX.'shoe"');
+$IsNotRefactored = $PDO->query('SHOW TABLES LIKE "'.PREFIX.'shoe"')->fetch();
 
-if (!$IsNotRefactored) {
+if ($IsNotRefactored === false) {
 	echo 'The database is already refactored.'.NL;
 	exit;
 }
@@ -192,7 +196,7 @@ if ($count < $countAccount) {
 		// Refactor training table to equipment
 		$trainings = $PDO->query('SELECT `id`, `clothes`, `shoeid` FROM `'.PREFIX.'training` WHERE `accountid`='.$Row['id']);    
 		while ($training = $trainings->fetch()) {
-			if ($training['shoeid'] != 0) {
+			if ($training['shoeid'] != 0 && isset($shoeMap[$training['shoeid']])) {
 				$InsertEquipActivity->execute(array(
 					':activityid' => $training['id'],
 					':equipmentid' => $shoeMap[$training['shoeid']]
@@ -207,10 +211,12 @@ if ($count < $countAccount) {
 				}
 
 				foreach ($clothes as $clot) {
-					$InsertEquipActivity->execute(array(
-						':activityid' => $training['id'],
-						':equipmentid' => $clothesMap[trim($clot)]
-					));
+					if (isset($clothesMap[trim($clot)])) {
+						$InsertEquipActivity->execute(array(
+							':activityid' => $training['id'],
+							':equipmentid' => $clothesMap[trim($clot)]
+						));
+					}
 				}
 			}
 		}
@@ -225,12 +231,6 @@ if ($count < $countAccount) {
 	echo 'Time: '.(microtime(true) - $starttime).'s'.NL;
 	echo 'Memory peak: '.memory_get_peak_usage().'B'.NL;
 	echo NL;
-
-	if (CLI) {
-		echo '... call the script again to continue'.NL;
-	} else {
-		echo '... <a href="javascript:location.reload()">reload to continue</a>';
-	}
 }
 
 
@@ -266,6 +266,12 @@ if ($count + LIMIT >= $countAccount) {
 	echo NL;
 	echo 'Remember to unset your credentials within this file.'.NL;
 	echo '(Or simply delete this file if you are not working on our git repository)'.NL;
+} else {
+	if (CLI) {
+		echo '... call the script again to continue'.NL;
+	} else {
+		echo '... <a href="javascript:location.reload()">reload to continue</a>';
+	}
 }
 
 function notNull($value) {
