@@ -2,27 +2,104 @@
 
 {% block content %}
 <main>
+    
+    <div class="quickbar">
+        <ul>
+            <li>
+                <a href="#" id="openLanguageSelector">
+                    <i class="fa fa-globe"></i><br>
+                    <span>Sprache</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" id="">
+                    <i class="fa fa-sign-in"></i><br>
+                    <span>Login</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" id="">
+                    <i class="fa fa-key"></i><br>
+                    <span style="padding-top: 5px;">Passwort<br>vergessen</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" id="">
+                    <i class="fa fa-user"></i><br>
+                    <span style="padding-top: 5px;">Registrieren</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    
     <div class="intro">
+        <div class="row">
+            <div class="small-offset-1 small-10 columns" style="text-align: center;">
+                <h2>{% trans %}RUNALYZE is your running diary{% endtrans %}</h2>
+                    <p><span>Es fokussiert sich auf das Laufen und hebt sich mit einzigartigen Rechenspielen, vielen Statistiken und Wettkampfprognosen von anderen Sporttagebüchern ab.</span></p>
         
-        <div class="row" >
-            
-            <div class="small-12 large-8 columns">
-                <div class="introText">
-	            <h2>{% trans %}RUNALYZE is your running diary{% endtrans %}</h2>
-                    <p>Es fokussiert sich auf das Laufen und hebt sich mit einzigartigen Rechenspielen, vielen Statistiken und Wettkampfprognosen von anderen Sporttagebüchern ab.<br> 
-        Auf nur einer Seite hast du deine letzten Trainingseinheiten sowie aktuelle Prognosen und deine Form im Überblick. RUNALYZE ist vollständig konfigurierbar. Sportarten und Sporttypen kannst du nach deinen Bedürfnissen anpassen. </p>
-                </div>
+            </div>
+        
+        </div>
+    </div>
+        
+        
+        
+        
+    <div class="vorteile">
+        <div class="row">
+            <div class="small-12 large-4 columns">
+                <h3><i class="fa fa-bar-chart"></i> {% trans "Statistics" %}</h3>
+                <p>{% trans %}RUNALYZE analyzes your complete training, calculates your shape, computes prognoses and <strong>visualizes your training in plots</strong> - more detailed than any other sports diary.{% endtrans %}</p>
+            </div>
+            <div class="small-12 large-4 columns">
+                
+                <h3><i class="fa fa-cogs"></i> {% trans %}Configuration{% endtrans %}</h3>
+                <p>{% trans %}RUNALYZE Runalyze is completely <strong>configurable</strong>. You can decide by yourself which information of your training you want to record and which <strong>statistics</strong> are being displayed on which place.{% endtrans %}</p>   
+            </div>
+            <div class="small-12 large-4 columns">
+                
+                <h3><i class="fa fa-users"></i> {% trans %}By athletes for athletes{% endtrans %}</h3>
+                <p>{% trans %}RUNALYZE is created <strong>by athletes for athletes</strong>. Whenever you have comments, problems or wishes: Please contact our Runalyze team. It's near and dear to us{% endtrans %}</p>
+            </div>
+        </div>
+    </div>
+    
+    
 
-                <div class="row">
-                    <div class="small-12 large-6 columns">
-                        <h3>{% trans %}Not yet a member?{% endtrans %}</h3>
-                        <p>{% trans %}Test RUNALYZE for <strong>free</strong> and discover all advantages!{% endtrans %}</p>
-                        <a href="#" class="loginBoxChange button small reg">{% trans %}Get your account now!{% endtrans %}</a>
-
-                    </div>
-                    <div class="small-12 large-6 columns">
-                        <h3>Lorem ipsum</h3>
-                        <p class="">
+    
+    
+    <div class="teaser">
+        <div class="row">
+            <div class="small-offset-1 small-10 columns" style="text-align: center;">
+                <h2>RUNALYZE ist vollständig konfigurierbar.</h2>
+                    <p><span>Auf nur einer Seite hast du deine letzten Trainingseinheiten sowie aktuelle Prognosen und deine Form im Überblick.  </span></p>
+                <p><span>Sportarten und Sporttypen kannst du nach deinen Bedürfnissen anpassen.</span></p>
+        
+            </div>
+        
+        </div>
+    </div>
+        
+    
+    
+    <div class="member">
+        <div class="row">
+            <div class="small-12 large-8 large-offset-2 columns">
+                
+                <h3><i class="fa fa-users"></i> {% trans %}Not yet a member?{% endtrans %}</h3>
+                <p>{% trans %}Test RUNALYZE for <strong>free</strong> and discover all advantages!{% endtrans %}</p>
+                <a href="#" class="loginBoxChange button small reg">{% trans %}Get your account now!{% endtrans %}</a>
+            </div>
+        </div>
+    </div>
+    
+    
+    <div class="teaser">
+        <div class="row">
+            <div class="small-offset-1 small-10 columns" style="text-align: center;">
+                <h2>Unsere Community</h2>
+                    <p><span>
                         {% trans %}
                             Until now <strong>{{ numUser }}</strong> athlete is registered and has logged {{ numKm }}
                         {% plural numUser %}
@@ -37,22 +114,18 @@
                         {% plural numUserOnline %}
                             <strong>{{ numUserOnline }}</strong> athletes are online
                         {% endtrans %}
-			{% endif %}
-                        </p>
-
-                    </div>
-                </div>
-                
-                <!--<div id="login-panel">
-                    <a class="loginBoxChange log" href="#" ><i class="fa fa-fw fa-lg fa-sign-in"></i> Einloggen</a>
-                    <a class="loginBoxChange reg" href="#" ><i class="fa fa-fw fa-lg fa-user"></i> Neuen Account erstellen</a>
-                    <a class="loginBoxChange pwf" href="#" ><i class="fa fa-fw fa-lg fa-lock"></i> Passwort vergessen?</a>
-                </div>-->
-
+			{% endif %}    
+                    </span></p>
+        
             </div>
-            <div class="small-12 large-4 columns">
-                
-                
+        
+        </div>
+    </div>
+        
+        
+        
+        <div class="row" >
+
                 <aside class="loginBox">
                     <div id="login" class="boxWrapper{% if switchpath == 'login' %} active{% endif %}">
                         
@@ -197,28 +270,10 @@
 
                 </aside>
 
-            </div>
         </div>
     </div>
     
-    <div class="vorteile">
-        <div class="row">
-            <div class="small-12 large-4 columns">
-                <h3><i class="fa fa-bar-chart"></i> {% trans "Statistics" %}</h3>
-                <p>{% trans %}RUNALYZE analyzes your complete training, calculates your shape, computes prognoses and <strong>visualizes your training in plots</strong> - more detailed than any other sports diary.{% endtrans %}</p>
-            </div>
-            <div class="small-12 large-4 columns">
-                
-                <h3><i class="fa fa-cogs"></i> {% trans %}Configuration{% endtrans %}</h3>
-                <p>{% trans %}RUNALYZE Runalyze is completely <strong>configurable</strong>. You can decide by yourself which information of your training you want to record and which <strong>statistics</strong> are being displayed on which place.{% endtrans %}</p>   
-            </div>
-            <div class="small-12 large-4 columns">
-                
-                <h3><i class="fa fa-users"></i> {% trans %}By athletes for athletes{% endtrans %}</h3>
-                <p>{% trans %}RUNALYZE is created <strong>by athletes for athletes</strong>. Whenever you have comments, problems or wishes: Please contact our Runalyze team. It's near and dear to us{% endtrans %}</p>
-            </div>
-        </div>
-    </div>
+    
 
 
 </main>

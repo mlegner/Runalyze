@@ -12,6 +12,7 @@
 
 }
 
+
 @import "settings";
 @import "foundation";   
 
@@ -60,27 +61,156 @@
 @media only screen {
     
     body{
+        background: url(../images/background.jpg) no-repeat;
+        background-size: cover;
+        background-attachment: fixed;
+        
+        
+        p{
+            //text-shadow: 1px 1px 8px rgba(0,0,0,0.8);
+        }
     }
+    
+    
+    h1, h2, h3{
+        font-family: $font-family-sans-serif;
+        color: #0f525c;
+        font-style: italic;
+        font-weight: 800;
+        
+    }
+    
+    h2{
+        background: rgba(255,255,255,0.95);
+        display: inline-block;
+        padding: 0 5px 0;
+        border-radius: 3px;
+        margin-top: 150px;
+    }
+    
 
     .intro{
-        background: $runalyzegray;
-        padding: 120px 0 80px;
+        //background: $runalyzegray;
+        padding: 160px 0 80px;
+        color: #fff;
         
         .introText{
             margin-bottom: 50px;
         }
         
-        h2 {
-            font-family: $font-family-serif;
-            color: $primary-color;
+        p{
+            font-size: 26px;
+            
+            span{
+                background: $tertiary-color;
+                padding: 0 0;
+                box-shadow: 5px 0 0 $tertiary-color, -5px 0 0 $tertiary-color;
+            }
+        }
+    }
+    
+    .teaser{
+        //background: $runalyzegray;
+        padding: 0 0 50px;
+        color: $tertiary-color;
+        
+        .introText{
+            margin-bottom: 50px;
         }
         
         
+        h2{
+            background: $tertiary-color; 
+            display: inline-block;
+            padding: 0 5px 0;
+            border-radius: 3px;
+            margin-top: 150px;
+            color: #fff;
+        }
+        
+        
+        p{
+            font-size: 26px;
+            
+            span{
+                background: #fff;
+                padding: 0 0;
+                box-shadow: 5px 0 0 #fff, -5px 0 0 #fff;
+                color: #0f525c;
+            }
+        }
+    }
+    
+   
+    .quickbar{
+        position: fixed;
+        right:0;
+        top: 30%;
+        z-index: 1000;
+        background: #fff;
+        border-radius: 5px 0 0 5px;
+        
+        ul{
+            list-style: none;
+            margin: 0;
+            width: 100px;
+            padding: 30px 0 0;
+            
+            
+            li{
+                margin-bottom: 30px;
+                
+                a{
+                    color: $secondary-color;
+                    padding: 0 15px 0 18px; 
+                    display: block;
+                    text-align: center;
+                    line-height: 14px;
+                    
+                    i{
+                        font-size: 2.5rem;
+                    }
+                    
+                    span{
+                        font-size: 10px;
+                        text-transform: uppercase;
+                        color: #333;
+                        line-height: 12px;
+                        display: inline-block;
+                    }
+                    
+                    &:hover{
+                        color: $primary-color;
+                    }
+                }
+            }
+        }
     }
     
     .vorteile{
         padding: 70px 0 50px;
         box-shadow: 0 0 3px 0 $iron;
+        background: rgba(221,221,221,0.95);
+        color: #333;
+        margin: 80px 0 30px;
+        
+        h3{
+            font-size: 1.6rem;
+            
+            i{
+                color: $secondary-color;
+                padding-right: 10px;
+            }
+        }
+    }
+    
+    .member{
+        background: rgba(240,240,240,0.95);
+        padding: 70px 0 50px;
+        box-shadow: 0 0 3px 0 $iron;
+        color: #333;
+        margin: 100px 0 50px;
+        text-align: center;
         
         h3{
             font-size: 1.6rem;
@@ -116,58 +246,35 @@
 
     
     header{
-        position: relative;
+        position: fixed;
+        width: 100%;
+        z-index: 100;
+        background-color: rgba(255,255,255,0.95);
         
         .headerContent{
-            height: 80px;
-            padding: 0 0 15px;
-            text-align: center;
-            box-shadow: 0 0 3px 0 $iron;
+            padding: 15px 0 5px;
             overflow:visible;
             position: relative;
-            background: $white;
             z-index:5;
         }
         
-        .whiteBadge{
-            width: 150px; 
-            display: block;
-            background: $white;
-            z-index:2; 
-            padding: 25px 25px;
-            border-radius: 200px;
-            height: 150px;
-            box-shadow: 0 0 3px 0 $iron;
-            position: absolute;
-            top:4px;
-            left: 50%;
-            margin-left: -75px;
-        }
-        
         .logo{
-            
+            margin:0;
             
             a{
-                width: 150px; 
-                display: inline-block;
-                padding: 25px 25px;
-                background: $white url(../images/logo-runalyze.jpg) no-repeat 32px 40px;
-                background-size: 90px auto;
+                width: 380px;
+                height: 90px; 
+                display: inline-block; 
+                background: transparent url(../images/logo-runalyze.png) no-repeat center left;
+                background-size: 312px auto;
                 text-indent: -2000px;
-                border-radius: 200px;
-                height: 150px;
+                border-radius: 0 0 5px 5px;
             }
         }
     }
     
     #openLanguageSelector{
-        position: absolute;
-        top: 0px;
-        right: 20px;
-        font-size: 2rem;
-        background: $primary-color;
-        color: $white;
-        padding: 0 9px; 
+        
     }
     
     #closeLanguageSelector{
@@ -185,7 +292,7 @@
         height: 100%;
         position: absolute;
         top:0;
-        z-index: 50;
+        z-index: 150;
         display: none;
         text-align: center;
         padding: 20px;
@@ -225,6 +332,7 @@
         position: relative;
         height: 100%;
         min-height: 530px;
+        display: none;
     
         .boxWrapper{
             background: $white;

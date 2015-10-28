@@ -11,7 +11,7 @@ use Silex\Application;
 
 
 $app = new Application();
-$app['debug'] = true;
+$app['debug'] = false;
 $app->register(new Silex\Provider\TwigServiceProvider(), array(
     'twig.path' => 'view',
 ));
