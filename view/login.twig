@@ -3,38 +3,9 @@
 {% block content %}
 <main>
     
-    <div class="quickbar">
-        <ul>
-            <li>
-                <a href="#" id="openLanguageSelector">
-                    <i class="fa fa-globe"></i><br>
-                    <span>Sprache</span>
-                </a>
-            </li>
-            <li>
-                <a href="#" id="">
-                    <i class="fa fa-sign-in"></i><br>
-                    <span>Login</span>
-                </a>
-            </li>
-            <li>
-                <a href="#" id="">
-                    <i class="fa fa-key"></i><br>
-                    <span style="padding-top: 5px;">Passwort<br>vergessen</span>
-                </a>
-            </li>
-            <li>
-                <a href="#" id="">
-                    <i class="fa fa-user"></i><br>
-                    <span style="padding-top: 5px;">Registrieren</span>
-                </a>
-            </li>
-        </ul>
-    </div>
-    
     <div class="intro">
         <div class="row">
-            <div class="small-offset-1 small-10 columns" style="text-align: center;">
+            <div class="small-10 columns">
                 <h2>{% trans %}RUNALYZE is your running diary{% endtrans %}</h2>
                     <p><span>Es fokussiert sich auf das Laufen und hebt sich mit einzigartigen Rechenspielen, vielen Statistiken und Wettkampfprognosen von anderen Sporttagebüchern ab.</span></p>
         
@@ -71,35 +42,59 @@
     
     <div class="teaser">
         <div class="row">
-            <div class="small-offset-1 small-10 columns" style="text-align: center;">
+            <div class="small-9 columns" style="text-align: center;">
                 <h2>RUNALYZE ist vollständig konfigurierbar.</h2>
                     <p><span>Auf nur einer Seite hast du deine letzten Trainingseinheiten sowie aktuelle Prognosen und deine Form im Überblick.  </span></p>
                 <p><span>Sportarten und Sporttypen kannst du nach deinen Bedürfnissen anpassen.</span></p>
         
             </div>
-        
-        </div>
-    </div>
-        
-    
-    
-    <div class="member">
-        <div class="row">
-            <div class="small-12 large-8 large-offset-2 columns">
+            <div class="small-3 large-3  columns">
                 
                 <h3><i class="fa fa-users"></i> {% trans %}Not yet a member?{% endtrans %}</h3>
                 <p>{% trans %}Test RUNALYZE for <strong>free</strong> and discover all advantages!{% endtrans %}</p>
                 <a href="#" class="loginBoxChange button small reg">{% trans %}Get your account now!{% endtrans %}</a>
             </div>
+        
         </div>
     </div>
     
     
-    <div class="teaser">
+    <div class="statisticsOverview">
         <div class="row">
-            <div class="small-offset-1 small-10 columns" style="text-align: center;">
-                <h2>Unsere Community</h2>
-                    <p><span>
+            <div class="small-12 columns" style="text-align: center;">
+                <h2 class="headline"><i class="fa fa-users"></i> Unsere Community</h2>
+                    <div class="row">
+                        <div class="medium-4 columns">
+                            
+                            <div class="statistic">
+                                <div class="inner">
+                                    6.430
+                                </div>
+                            </div>
+                            <h3>Registered Athletes</h3>
+                        </div>
+                        <div class="medium-4 columns">
+                            
+                            <div class="statistic km">
+                                <div class="inner">
+                                    <span class="kmspan">KM</span>
+                                    6.734.345<br>
+                                    
+                                </div>
+                            </div>
+                            <h3>Run so far</h3>
+                        </div>
+                        <div class="medium-4 columns">
+                            
+                            <div class="statistic">
+                                <div class="inner">
+                                    110
+                                </div>
+                            </div>
+                            <h3>Currently online</h3>
+                        </div>
+                    </div>
+                    {# <p><span>
                         {% trans %}
                             Until now <strong>{{ numUser }}</strong> athlete is registered and has logged {{ numKm }}
                         {% plural numUser %}
@@ -115,7 +110,7 @@
                             <strong>{{ numUserOnline }}</strong> athletes are online
                         {% endtrans %}
 			{% endif %}    
-                    </span></p>
+                    </span></p> #}
         
             </div>
         

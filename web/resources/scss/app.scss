@@ -65,10 +65,6 @@
         background-size: cover;
         background-attachment: fixed;
         
-        
-        p{
-            //text-shadow: 1px 1px 8px rgba(0,0,0,0.8);
-        }
     }
     
     
@@ -91,15 +87,12 @@
 
     .intro{
         //background: $runalyzegray;
-        padding: 160px 0 80px;
+        padding: 260px 0 0px;
         color: #fff;
-        
-        .introText{
-            margin-bottom: 50px;
-        }
         
         p{
             font-size: 26px;
+            padding-left: 5px;
             
             span{
                 background: $tertiary-color;
@@ -110,7 +103,7 @@
     }
     
     .teaser{
-        //background: $runalyzegray;
+        background: rgba(240,240,240,0.95);
         padding: 0 0 50px;
         color: $tertiary-color;
         
@@ -132,6 +125,7 @@
         p{
             font-size: 26px;
             
+            
             span{
                 background: #fff;
                 padding: 0 0;
@@ -141,58 +135,13 @@
         }
     }
     
-   
-    .quickbar{
-        position: fixed;
-        right:0;
-        top: 30%;
-        z-index: 1000;
-        background: #fff;
-        border-radius: 5px 0 0 5px;
-        
-        ul{
-            list-style: none;
-            margin: 0;
-            width: 100px;
-            padding: 30px 0 0;
-            
-            
-            li{
-                margin-bottom: 30px;
-                
-                a{
-                    color: $secondary-color;
-                    padding: 0 15px 0 18px; 
-                    display: block;
-                    text-align: center;
-                    line-height: 14px;
-                    
-                    i{
-                        font-size: 2.5rem;
-                    }
-                    
-                    span{
-                        font-size: 10px;
-                        text-transform: uppercase;
-                        color: #333;
-                        line-height: 12px;
-                        display: inline-block;
-                    }
-                    
-                    &:hover{
-                        color: $primary-color;
-                    }
-                }
-            }
-        }
-    }
     
     .vorteile{
         padding: 70px 0 50px;
         box-shadow: 0 0 3px 0 $iron;
         background: rgba(221,221,221,0.95);
         color: #333;
-        margin: 80px 0 30px;
+        margin: 80px 0 0;
         
         h3{
             font-size: 1.6rem;
@@ -228,6 +177,62 @@
         
     }
     
+    /* Statistics on start/log in page */
+    .statisticsOverview{
+        background: rgba(221,221,221,0.95);
+        padding: 80px 0 70px;
+        
+        .headline{
+            margin: 0 0 1.4em;
+            color: #888;
+            font-weight: 200;
+            font-style: normal;
+            text-transform: uppercase;
+            background: none;
+        }
+        
+        i{
+            color: #888;
+        }
+        
+        h3{
+            font-weight: 200;
+        }
+        
+        .statistic{
+            height: 200px;
+            width: 200px;
+            border-radius: 100px;
+            background: rgba(255,255,255,0.9);
+            padding: 5px;
+            margin: 0 auto;
+            color: $tertiary-color;
+
+
+            .inner{
+                border: 2px dotted $primary-color;
+                width:100%;
+                height:100%;
+                border-radius: 100px;
+                font-size: 50px;
+                line-height: 180px;
+                font-weight:bold;
+
+            }
+
+            &.km .inner{
+                font-size: 36px;
+                line-height: 0.9em;
+                padding-top: 40px;
+
+                    .kmspan{
+                        font-size: 20px;
+                        color: rgba($tertiary-color, 0.6);
+                    }
+                }
+            }
+    }
+    
     .alert-box{
         margin-bottom: 0;
         @include alert-style($tertiary-color);
@@ -249,13 +254,19 @@
         position: fixed;
         width: 100%;
         z-index: 100;
-        background-color: rgba(255,255,255,0.95);
+        
+        .row{
+            padding: 0 40px;
+            max-width: none;
+        }
+        
         
         .headerContent{
             padding: 15px 0 5px;
             overflow:visible;
             position: relative;
             z-index:5;
+            background-color: rgba(255,255,255,0.95);
         }
         
         .logo{
@@ -269,6 +280,91 @@
                 background-size: 312px auto;
                 text-indent: -2000px;
                 border-radius: 0 0 5px 5px;
+            }
+        }
+        .loginHeader{
+            background: rgba(230,230,230,0.95);
+            display: inline-block;
+            position: absolute;
+            right:0;
+            height: 79px;
+            width: 470px;
+            padding: 15px 40px 10px 10px;
+            
+            &:before{
+                content:'';
+                display: block;
+                width: 0;
+                height: 0;
+                border-left: 57px solid transparent;
+                border-right: 57px solid transparent;
+                border-bottom: 57px solid rgba(230,230,230,0.95);
+                transform: rotate(45deg);
+                position: absolute;
+                top:-10px;
+                left: -77px;
+            }
+            
+            label{
+                display: none;
+            }
+            
+            a{
+                display: block;
+                font-size: 12px;
+            }
+            
+            input{
+                width: 150px;
+                display: inline-block;
+                margin-bottom:0;
+                
+                &[type="submit"]{
+                    width: 100px;
+                }
+            }
+        }
+    }
+    
+    
+    .quickbar{
+        text-align: right;
+        
+        ul{
+            list-style: none;
+            margin: 28px 0 0;
+            padding: 0;
+            
+            
+            li{
+                margin-bottom: 0px;
+                display: inline-block;
+                vertical-align: top;
+                
+                a{
+                    color: #333;
+                    padding: 0 0 0 20px; 
+                    display: block;
+                    text-align: center;
+                    line-height: 14px;
+                    
+                    i{
+                        font-size: 1.5rem;
+                        height: 25px;
+                    }
+                    
+                    span{
+                        font-size: 10px;
+                        text-transform: uppercase;
+                        color: #333;
+                        line-height: 12px;
+                        display: inline-block;
+                    }
+                    
+                    &:hover{
+                        color: $primary-color;
+                    }
+                }
             }
         }
     }

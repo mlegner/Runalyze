@@ -31,15 +31,46 @@
     <body>
         <!--<div class="alert-box" data-alert>{% trans %}We are using cookies to give you the best experience on our site. Cookies are files stored in your browser and are used by most websites to help personalise your web experience.{% endtrans %}<br>{% trans %}By continuing to use our website you agree to our use of cookies.{% endtrans %} <a href="#" class="close">&times;</a></div>-->
         <header>
-            <div class="whiteBadge"></div>
             <div class="headerContent">
             
                 <div class="row">
-                    <div class="small-12 columns">
+                    <div class="small-6 columns">
                         <h1 class="logo"><a href="/">RUNALYZE</a></h1>
-
+                    </div>
+                    <div class="small-6 columns">
+                        <div class="quickbar">
+                            <ul>
+                                <li>
+                                    <a href="#" id="">
+                                        <i class="fa fa-user"></i><br>
+                                        <span style="">Registrieren</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" id="openLanguageSelector">
+                                        <i class="fa fa-globe"></i><br>
+                                        <span>Sprache</span>
+                                    </a>
+                                </li>
+                                
+                            </ul>
+                        </div>
                     </div>
                 </div>
+            </div>
+            <div class="loginHeader">
+                
+                <div>
+                <label for="username">{% trans "Username" %}</label>
+                <input id="username" name="username" placeholder="{% trans "Username" %}" class="" type="text" value="">
+
+                <label for="password">{% trans "Password" %}</label>
+                <input id="password" name="password" placeholder="{% trans "Password" %}" class="" type="password">
+
+                <input type="submit" value="{% trans "Login" %}" name="submit" class="button secondary small">
+                </div>
+                <a href="#" id="">Passwort vergessen?</a>
+                
             </div>
         </header>
         
