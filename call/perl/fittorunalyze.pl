@@ -120,6 +120,7 @@ sub dump_it {
 # FETCH FROM
 sub fetch_from {
   my $fn = shift;
+  my $offset = shift;
   my $obj = new Garmin::FIT;
 
   $obj->semicircles_to_degree(1);
@@ -132,6 +133,9 @@ sub fetch_from {
     print STDERR $obj->error, "\n";
     return;
   }
+
+  $obj->fill_buffer($offset);
+  $obj->offset($obj->offset + $offset);
 
   my ($fsize, $proto_ver, $prof_ver, $h_extra, $h_crc_expected, $h_crc_calculated) = $obj->fetch_header;
 
@@ -167,22 +171,28 @@ sub fetch_from {
     printf "# File header CRC: expected=0x%04X, calculated=0x%04X\n", $h_crc_expected, $h_crc_calculated;
   }
 
+  $obj->file_size($obj->file_size + $offset);
+
   1 while $obj->fetch;
 
   print STDERR $obj->error, "\n" if !$obj->EOF;
   printf "# CRC: expected=0x%04X, calculated=0x%04X\n", $obj->crc_expected, $obj->crc;
 
   my $garbage_size = $obj->trailing_garbages;
+  print "# Trailing $garbage_size octets garbages skipped\n" if $garbage_size > 0;
 
-  print "# Trainling $garbage_size octets garbages skipped\n" if $garbage_size > 0;
+  if ($garbage_size > 0) {
+    &fetch_from($fn, $fsize + $offset + 2);
+  }
+
   $obj->close;
 }
 
 if (@ARGV) {
-  &fetch_from($ARGV[0]);
+  &fetch_from($ARGV[0], 0);
 }
 else {
-  &fetch_from('-');
+  &fetch_from('-', 0);
 }
 
 1;

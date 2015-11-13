@@ -431,7 +431,7 @@ class ImporterFiletypeFITTest extends PHPUnit_Framework_TestCase {
 		}
 	}
 
-	/*
+	/*x
 	 * Test: 'stop' instead of 'stop_all' in file from osynce
 	 * Filename: "osynce-stop-bug.fit" 
 	 */
@@ -467,6 +467,30 @@ class ImporterFiletypeFITTest extends PHPUnit_Framework_TestCase {
 					break;
 				}
 			}
+		}
+	}
+
+	/**
+	 * @group swim
+	 * Test: 'Garmin Swim' hr strap
+	 * Filename: "swim-with-hr.fit" 
+	 */
+	public function testSwimmingWithHeartRate() {
+		if (Shell::isPerlAvailable()) {
+			$this->object->parseFile('../tests/testfiles/fit/swim-with-hr.fit');
+
+			$this->assertFalse( $this->object->hasMultipleTrainings() );
+			$this->assertFalse( $this->object->failed() );
+			//$this->assertEquals('osynce', $this->object->object()->getCreator());
+
+			//$this->assertEquals(47*60 + 6, $this->object->object()->getTimeInSeconds());
+			//$this->assertEquals(47*60 + 6, $this->object->object()->getArrayTimeLastPoint());
+			//$this->assertEquals(15.5, $this->object->object()->getDistance(), '', 0.1);
+
+			//$this->assertTrue($this->object->object()->hasArrayTime());
+			//$this->assertTrue($this->object->object()->hasArrayDistance());
+			//$this->assertTrue($this->object->object()->hasArrayAltitude());
+			$this->assertTrue($this->object->object()->hasArrayHeartrate());
 		}
 	}
 }
