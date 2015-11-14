@@ -758,6 +758,7 @@ $template[FIT_FLOAT64] = 'd';
      'pad' => 105,
      'slave_device' => 106,
      'cadence_zone' => 131,
+     'hr' => 132,
      'segment_lap' => 142,
      'memo_glob' => 145,
      'segment_id' => 148,
@@ -2421,6 +2422,18 @@ sub named_type_value {
      254 => +{'name' => 'message_index', 'type_name' => 'message_index'},
      1 => +{'name' => 'high_value', 'unit' => 'watts'},
      2 => +{'name' => 'name'},
+   },
+
+
+   'hr' => +{
+     253 => +{'name' => 'message_index', 'type_name' => 'message_index'},
+     0 => +{'name' => 'fractional_timestamp', 'scale' => 32768, 'unit' => 's'},
+     1 => +{'name' => 'time256', 'scale' => 256, 'unit' => 's'},
+     6 => +{'name' => 'filtered_bpm', 'unit' => 'bpm'},
+     9 => +{'name' => 'event_timestamp', 'scale' => 1024, 'unit' => 's'},
+     10 => +{'name' => 'event_timestamp_12', 'unit' => 's'},
+
+     
    },
 
    'met_zone' => +{
