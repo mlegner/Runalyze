@@ -2431,7 +2431,7 @@ sub named_type_value {
      1 => +{'name' => 'time256', 'scale' => 256, 'unit' => 's'},
      6 => +{'name' => 'filtered_bpm', 'unit' => 'bpm'},
      9 => +{'name' => 'event_timestamp', 'scale' => 1024, 'unit' => 's'},
-     10 => +{'name' => 'event_timestamp_12', 'unit' => 's'},
+     10 => +{'name' => 'event_timestamp_12'},
 
      
    },
