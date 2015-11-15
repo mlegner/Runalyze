@@ -171,6 +171,10 @@ class ParserFITSingle extends ParserAbstractSingle {
 				case 'hrv':
 					$this->readHRV();
 					break;
+				    
+				case 'hr':
+					$this->readHR();
+					break;
 
 				case 'lap':
 					$this->readLap();
@@ -390,11 +394,20 @@ class ParserFITSingle extends ParserAbstractSingle {
 		$this->gps['stroketype'][] = isset($this->Values['swim_stroke']) ? (int)$this->Values['swim_stroke'][0] : 0;
 		$this->gps['rpm'][] = isset($this->Values['avg_swimming_cadence']) ? (int)$this->Values['avg_swimming_cadence'][0] : 0;
 
-		if (empty($this->gps['time_in_s'])) {
-			$this->TrainingObject->setTimestamp( strtotime((string)$this->Values['start_time'][1]) );
-			$this->gps['time_in_s'][] = round(((int)$this->Values['total_timer_time'][0])/1000);
+		if($this->isSwimming) {
+		    if (empty($this->gps['swimtime_in_s'])) {
+			    $this->TrainingObject->setTimestamp( strtotime((string)$this->Values['start_time'][1]) );
+			    $this->gps['swimtime_in_s'][] = round(((int)$this->Values['total_timer_time'][0])/1000);
+		    } else {
+			    $this->gps['swimtime_in_s'][] = end($this->gps['swimtime_in_s']) + round(((int)$this->Values['swimtime_in_s'][0])/1000);
+		    }
 		} else {
-			$this->gps['time_in_s'][] = end($this->gps['time_in_s']) + round(((int)$this->Values['total_timer_time'][0])/1000);
+		    if (empty($this->gps['time_in_s'])) {
+			    $this->TrainingObject->setTimestamp( strtotime((string)$this->Values['start_time'][1]) );
+			    $this->gps['time_in_s'][] = round(((int)$this->Values['total_timer_time'][0])/1000);
+		    } else {
+			    $this->gps['time_in_s'][] = end($this->gps['time_in_s']) + round(((int)$this->Values['total_timer_time'][0])/1000);
+		    }
 		}
 	}
 
@@ -406,7 +419,61 @@ class ParserFITSingle extends ParserAbstractSingle {
 			$this->gps['hrv'][] = $this->Values['time'][0];
 		}
 	}
-
+	
+	/**
+	 * Read hr
+	 */
+	protected function readHR() {
+	    $bpm = explode(',', $this->Values['filtered_bpm'][1]);
+	    $this->FitArrayToGps($bpm, 'heartrate');
+	    $Time = $this->readEventTimestamp12($this->Values['event_timestamp_12'][1]);
+	    $this->FitArrayToGps($Time, 'time_in_s');
+	}
+	
+	/*
+	 * Write (FIT) Arrays to activity arrays
+	 * @param array $Data
+	 * @param string $key
+	 */
+	public function FitArrayToGps(array $Data, $key) {
+	    if(is_array($Data)) {
+		foreach($Data as $value) {
+		    $this->gps[$key][] = $value;
+		}
+	    }
+	}
+	
+	/**
+	 * Get timestamps from hr event timestamp 12
+	 * @param string $EventTimestamp12
+	 * @return array
+	 */
+	public function readEventTimestamp12($EventTimestamp12) {
+	    $EventTimeStamp12 = explode(',', $EventTimestamp12);
+	    $lastbin = '';
+	   // $LastTimestamp = end($this->gps['time_in_s']);
+	    $LastTimestamp = 0;
+	    if(is_array($EventTimeStamp12) && count($EventTimeStamp12) == 12) {
+		$BinTimestamp = array_map(function($n) { return sprintf('%08b',  $n); }, $EventTimeStamp12);
+		
+		$Time = array();
+		for($i = 0; $i <= count($BinTimestamp); $i++) {
+		    if($lastbin != '') {
+			$val=  $lastbin.$BinTimestamp[$i+1];
+			$Time[] = $LastTimestamp + end($Time) + bindec($val) / 1024;
+			$lastbin = '';
+			$i += 1;
+		    } else {
+			if(isset($BinTimestamp[$i+1])) {
+			    $val = $BinTimestamp[$i].substr($BinTimestamp[$i+1], 0,4);
+			    $Time[] = $LastTimestamp + end($Time) + bindec($val) / 1024;
+			    $lastbin = substr($BinTimestamp[$i+1],4,8);
+			}
+		    }
+		}
+		return $Time;
+	    }
+	}
 	/**
 	 * Apply pauses
 	 */

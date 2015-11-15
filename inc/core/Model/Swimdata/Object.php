@@ -21,6 +21,12 @@ class Object extends Model\Object implements Model\Loopable {
 	 * @var string
 	 */
 	const ACTIVITYID = 'activityid';
+	
+	/**
+	 * Key: time
+	 * @var string
+	 */
+	const SWIMTIME = 'time';
 
 	/**
 	 * Key: stroke
@@ -68,6 +74,7 @@ class Object extends Model\Object implements Model\Loopable {
 	public static function allProperties() {
 		return array(
 			self::ACTIVITYID,
+			self::SWIMTIME,
 			self::STROKE,
 			self::STROKETYPE,
 			self::SWOLF,
@@ -83,6 +90,7 @@ class Object extends Model\Object implements Model\Loopable {
 	 */
 	protected function canBeNull($key) {
 		switch ($key) {
+			case self::SWIMTIME:
 			case self::STROKE:
 			case self::STROKETYPE:
 			case self::SWOLF:
@@ -148,6 +156,26 @@ class Object extends Model\Object implements Model\Loopable {
 		return $this->Data[$key][$index];
 	}
 
+	/**
+	 * Get time
+	 * @return array unit: [s]
+	 */
+	public function time() {
+		return $this->Data[self::SWIMTIME];
+	}
+
+	/**
+	 * Total time
+	 * @return int
+	 */
+	public function totalTime() {
+		if (empty($this->Data[self::SWIMTIME])) {
+			return 0;
+		}
+
+		return $this->Data[self::SWIMTIME][$this->numberOfPoints-1];
+	}
+	
 	/**
 	 * Activity ID
 	 * @return int

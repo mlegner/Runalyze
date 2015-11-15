@@ -2429,7 +2429,7 @@ sub named_type_value {
      253 => +{'name' => 'message_index', 'type_name' => 'message_index'},
      0 => +{'name' => 'fractional_timestamp', 'scale' => 32768, 'unit' => 's'},
      1 => +{'name' => 'time256', 'scale' => 256, 'unit' => 's'},
-     6 => +{'name' => 'filtered_bpm', 'unit' => 'bpm'},
+     6 => +{'name' => 'filtered_bpm'},
      9 => +{'name' => 'event_timestamp', 'scale' => 1024, 'unit' => 's'},
      10 => +{'name' => 'event_timestamp_12'},
 
