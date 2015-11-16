@@ -214,7 +214,8 @@ class TrainingObject extends DataObject {
 		return new Runalyze\Model\Swimdata\Object(array(
 			Runalyze\Model\Swimdata\Object::STROKE => $this->get('stroke'),
                         Runalyze\Model\Swimdata\Object::STROKETYPE => $this->get('stroketype'),
-                        Runalyze\Model\Swimdata\Object::POOL_LENGTH => $this->get('pool_length')
+                        Runalyze\Model\Swimdata\Object::POOL_LENGTH => $this->get('pool_length'),
+			Runalyze\Model\Swimdata\Object::SWIMTIME => $this->get('swim_time')
 		));
                 
 	}
@@ -953,6 +954,23 @@ class TrainingObject extends DataObject {
 	 */
 	public function hasArrayStroke() { return strlen($this->get('stroke')) > 0; }
         
+	/**
+	 * Set array for swim time
+	 * @param array $data
+	 */
+	public function setArraySwimTime(array $data) { $this->setArrayFor('swimtime', $data); }
+        
+	/**
+	 * Get array for swim time
+	 * @return array
+	 */
+	public function getArraySwimTime() { return $this->getArrayFor('swimtime'); }
+        
+	/**
+	 * Has array for swim time?
+	 * @return bool
+	 */
+	public function hasArraySwimTime() { return strlen($this->get('swimtime')) > 0; }
         
 	/**
 	 * Set array for swim stroke type

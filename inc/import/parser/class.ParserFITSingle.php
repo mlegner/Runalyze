@@ -97,7 +97,16 @@ class ParserFITSingle extends ParserAbstractSingle {
 	 */
 	public function finishParsing() {
 		$this->applyPauses();
+		$this->switchTimeArraysForSwimming();
 		$this->setGPSarrays();
+	}
+	
+	protected function switchTimeArraysForSwimming() {
+	    if($this->isSwimming == true) {
+		$tmpTime = $this->gps['time_in_s'];
+		$this->gps['time_in_s'] = $this->gps['swimtime'];
+		$this->gps['swimtime'] = $tmpTime;
+	    }
 	}
 
 	/**
@@ -394,21 +403,13 @@ class ParserFITSingle extends ParserAbstractSingle {
 		$this->gps['stroketype'][] = isset($this->Values['swim_stroke']) ? (int)$this->Values['swim_stroke'][0] : 0;
 		$this->gps['rpm'][] = isset($this->Values['avg_swimming_cadence']) ? (int)$this->Values['avg_swimming_cadence'][0] : 0;
 
-		if($this->isSwimming) {
-		    if (empty($this->gps['swimtime_in_s'])) {
-			    $this->TrainingObject->setTimestamp( strtotime((string)$this->Values['start_time'][1]) );
-			    $this->gps['swimtime_in_s'][] = round(((int)$this->Values['total_timer_time'][0])/1000);
-		    } else {
-			    $this->gps['swimtime_in_s'][] = end($this->gps['swimtime_in_s']) + round(((int)$this->Values['swimtime_in_s'][0])/1000);
-		    }
+		if (empty($this->gps['time_in_s'])) {
+			$this->TrainingObject->setTimestamp( strtotime((string)$this->Values['start_time'][1]) );
+			$this->gps['time_in_s'][] = round(((int)$this->Values['total_timer_time'][0])/1000);
 		} else {
-		    if (empty($this->gps['time_in_s'])) {
-			    $this->TrainingObject->setTimestamp( strtotime((string)$this->Values['start_time'][1]) );
-			    $this->gps['time_in_s'][] = round(((int)$this->Values['total_timer_time'][0])/1000);
-		    } else {
-			    $this->gps['time_in_s'][] = end($this->gps['time_in_s']) + round(((int)$this->Values['total_timer_time'][0])/1000);
-		    }
+			$this->gps['time_in_s'][] = end($this->gps['time_in_s']) + round(((int)$this->Values['total_timer_time'][0])/1000);
 		}
+		
 	}
 
 	/**
@@ -427,7 +428,7 @@ class ParserFITSingle extends ParserAbstractSingle {
 	    $bpm = explode(',', $this->Values['filtered_bpm'][1]);
 	    $this->FitArrayToGps($bpm, 'heartrate');
 	    $Time = $this->readEventTimestamp12($this->Values['event_timestamp_12'][1]);
-	    $this->FitArrayToGps($Time, 'time_in_s');
+	    $this->FitArrayToGps($Time, 'swimtime');
 	}
 	
 	/*

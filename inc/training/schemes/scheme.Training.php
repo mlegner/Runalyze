@@ -15,7 +15,7 @@ $HIDDEN_KEYS = array(
 	'arr_groundcontact', 'arr_vertical_oscillation', 'pauses', 'hrv',
 	'fit_vdot_estimate', 'fit_recovery_time', 'fit_hrv_analysis',
 	//'vdot', 'vdot_by_time', 'trimp', 'vdot_with_elevation', 'jd_intensity'
-	'elapsed_time', 'elevation_calculated', 'groundcontact', 'vertical_oscillation', 'stroke', 'stroketype','total_strokes', 'swolf', 'pool_length'
+	'elapsed_time', 'elevation_calculated', 'groundcontact', 'vertical_oscillation', 'stroke', 'stroketype', 'swimtime', 'total_strokes', 'swolf', 'pool_length'
 );
 
 $FIELDSETS = array(
@@ -661,6 +661,15 @@ $FIELDS = array(
 	'stroketype'		=> array(
 					'database'	=> array(
 						'type'		=> 'longtext',
+						'null'		=> 'true',
+					),
+					'formular'	=> array(
+						'hidden'	=> true
+					)
+	),
+    	'swimtime'		=> array(
+					'database'	=> array(
+						'type'		=> 'swimtime',
 						'null'		=> 'true',
 					),
 					'formular'	=> array(

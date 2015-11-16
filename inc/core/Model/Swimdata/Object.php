@@ -160,7 +160,7 @@ class Object extends Model\Object implements Model\Loopable {
 	 * Get time
 	 * @return array unit: [s]
 	 */
-	public function time() {
+	public function swimtime() {
 		return $this->Data[self::SWIMTIME];
 	}
 
