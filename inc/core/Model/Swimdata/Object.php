@@ -27,6 +27,12 @@ class Object extends Model\Object implements Model\Loopable {
 	 * @var string
 	 */
 	const SWIMTIME = 'time';
+	
+	/**
+	 * Key: distance
+	 * @var string
+	 */
+	const SWIMDISTANCE = 'distance';
 
 	/**
 	 * Key: stroke
@@ -75,6 +81,7 @@ class Object extends Model\Object implements Model\Loopable {
 		return array(
 			self::ACTIVITYID,
 			self::SWIMTIME,
+                        self::SWIMDISTANCE,
 			self::STROKE,
 			self::STROKETYPE,
 			self::SWOLF,
@@ -91,6 +98,7 @@ class Object extends Model\Object implements Model\Loopable {
 	protected function canBeNull($key) {
 		switch ($key) {
 			case self::SWIMTIME:
+                        case self::SWIMDISTANCE:
 			case self::STROKE:
 			case self::STROKETYPE:
 			case self::SWOLF:
@@ -163,6 +171,14 @@ class Object extends Model\Object implements Model\Loopable {
 	public function swimtime() {
 		return $this->Data[self::SWIMTIME];
 	}
+        
+	/**
+	 * Get distance
+	 * @return array unit: [s]
+	 */
+	public function swimdistance() {
+		return $this->Data[self::SWIMDISTANCE];
+	}
 
 	/**
 	 * Total time
@@ -227,10 +243,10 @@ class Object extends Model\Object implements Model\Loopable {
 	/*
 	 * Calculate Distance based on pool length
 	 */
-	public function fillDistanceArray(Trackdata\Object &$trackdata) {
-		if ($this->poollength() && !$trackdata->has(Trackdata\Object::DISTANCE)) {
+	public function fillDistanceArray() {
+		if ($this->poollength() && !$this->has(self::SWIMDISTANCE)) {
 			$distance = range($this->poollength()/100000, $this->num()*$this->poollength()/100000, $this->poollength()/100000);   
-			$trackdata->set(Trackdata\Object::DISTANCE, $distance);
+			$this->set(self::SWIMDISTANCE, $distance);
 		}
 	}
 
@@ -238,9 +254,9 @@ class Object extends Model\Object implements Model\Loopable {
 	 * Create swolf array
 	 * http://marathonswimmers.org/blog/2012/05/stroke-count-games/
 	 */
-	public function fillSwolfArray(Trackdata\Object &$trackdata) {
-		if ($this->stroke() && $trackdata->has(Trackdata\Object::TIME)) {
-			$TrackLoop = new Trackdata\Loop($trackdata);
+	public function fillSwolfArray() {
+		if ($this->stroke() && $this->has(self::SWIMTIME)) {
+			$SwimdataLoop = new Model\Swimdata(self);
 			$Loop = new Loop($this);
 
 			$max = $Loop->num();
@@ -248,12 +264,12 @@ class Object extends Model\Object implements Model\Loopable {
 			$swolfcycles = array();
 
 			for ($i = 1; $i <= $max; ++$i) {
-				$duration = $TrackLoop->difference(Trackdata\Object::TIME);
+				$duration = $SwimdataLoop->difference(self::SWIMTIME);
 				$swolf[] = $duration + $Loop->stroke();
 				$swolfcycles[] = $duration + $Loop->stroke()/2;
 
 				$Loop->nextStep();
-				$TrackLoop->nextStep();
+				$SwimdataLoop->nextStep();
 			}
 
 			$this->set(Object::SWOLF, $swolf);

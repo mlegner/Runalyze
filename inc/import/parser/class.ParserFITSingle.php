@@ -426,9 +426,12 @@ class ParserFITSingle extends ParserAbstractSingle {
 	 */
 	protected function readHR() {
 	    $bpm = explode(',', $this->Values['filtered_bpm'][1]);
-	    $this->FitArrayToGps($bpm, 'heartrate');
+	   
 	    $Time = $this->readEventTimestamp12($this->Values['event_timestamp_12'][1]);
-	    $this->FitArrayToGps($Time, 'swimtime');
+            if(count($Time) == 8) {
+                $this->FitArrayToGps($bpm, 'heartrate');
+                $this->FitArrayToGps($Time, 'swimtime');
+            }
 	}
 	
 	/*
