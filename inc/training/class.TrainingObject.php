@@ -215,7 +215,7 @@ class TrainingObject extends DataObject {
 			Runalyze\Model\Swimdata\Object::STROKE => $this->get('stroke'),
                         Runalyze\Model\Swimdata\Object::STROKETYPE => $this->get('stroketype'),
                         Runalyze\Model\Swimdata\Object::POOL_LENGTH => $this->get('pool_length'),
-			Runalyze\Model\Swimdata\Object::SWIMTIME => $this->get('swim_time')
+			Runalyze\Model\Swimdata\Object::SWIMTIME => $this->get('swimtime')
 		));
                 
 	}

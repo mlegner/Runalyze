@@ -55,12 +55,12 @@ class TableSwimLane extends TableLapsAbstract {
 
 		for ($i = 1; $i <= $max; ++$i) {
 			$Stroketype->set($Loop->stroketype());
-			$Distance->set($TrackLoop->distance());
+			$Distance->set($Loop->swimdistance());
 
 			$this->Code .= '<tr class="r">';
 			$this->Code .= '<td>'.$i.'.</td>';
 			$this->Code .= '<td>'.$Distance->stringMeter().'</td>';
-			$this->Code .= '<td>'.Duration::format($TrackLoop->difference(Trackdata\Object::TIME)).'</td>';
+			$this->Code .= '<td>'.Duration::format($Loop->difference(Swimdata\Object::SWIMTIME)).'</td>';
 			$this->Code .= '<td>'.$Loop->swolf().'</td>';
 			$this->Code .= '<td>'.$Loop->stroke().'</td>';
 			$this->Code .= '<td>'.$Stroketype->shortstring().'</td>';

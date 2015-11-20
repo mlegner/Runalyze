@@ -341,7 +341,9 @@ class ParserFITSingle extends ParserAbstractSingle {
 
 		$this->gps['km'][]        = isset($this->Values['distance']) ? round($this->Values['distance'][0] / 1e5, ParserAbstract::DISTANCE_PRECISION) : end($this->gps['km']);
 		$this->gps['heartrate'][] = isset($this->Values['heart_rate']) ? (int)$this->Values['heart_rate'][0] : 0;
-		$this->gps['rpm'][]       = isset($this->Values['cadence']) ? (int)$this->Values['cadence'][0] : 0;
+                if(!$this->isSwimming) {
+                    $this->gps['rpm'][]       = isset($this->Values['cadence']) ? (int)$this->Values['cadence'][0] : 0;
+                }
 		$this->gps['power'][]     = isset($this->Values['power']) ? (int)$this->Values['power'][0] : 0;
 		//$this->gps['left_right'][]     = isset($this->Values['left_right_balance']) ? (int)$this->Values['left_right_balance'][0] : 0;
 
@@ -398,10 +400,17 @@ class ParserFITSingle extends ParserAbstractSingle {
 
 			$this->isSwimming = true;
 		}
-
+                if(isset($this->Values['total_strokes']) && $this->Values['total_strokes'][0] == 0) {
+                    $this->TrainingObject->Pauses()->add(
+				new \Runalyze\Model\Trackdata\Pause(
+					end($this->gps['time_in_s']),
+					round(((int)$this->Values['total_timer_time'][0])/1000)
+				)
+			);
+                }
 		$this->gps['stroke'][] = isset($this->Values['total_strokes']) ? (int)$this->Values['total_strokes'][0] : 0;
 		$this->gps['stroketype'][] = isset($this->Values['swim_stroke']) ? (int)$this->Values['swim_stroke'][0] : 0;
-		$this->gps['rpm'][] = isset($this->Values['avg_swimming_cadence']) ? (int)$this->Values['avg_swimming_cadence'][0] : 0;
+		//$this->gps['rpm'][] = isset($this->Values['avg_swimming_cadence']) ? (int)$this->Values['avg_swimming_cadence'][0] : 0;
 
 		if (empty($this->gps['time_in_s'])) {
 			$this->TrainingObject->setTimestamp( strtotime((string)$this->Values['start_time'][1]) );
@@ -430,7 +439,7 @@ class ParserFITSingle extends ParserAbstractSingle {
 	    $Time = $this->readEventTimestamp12($this->Values['event_timestamp_12'][1]);
             if(count($Time) == 8) {
                 $this->FitArrayToGps($bpm, 'heartrate');
-                $this->FitArrayToGps($Time, 'swimtime');
+                $this->FitArrayToGps($Time, 'swimtime', true);
             }
 	}
 	
@@ -439,9 +448,12 @@ class ParserFITSingle extends ParserAbstractSingle {
 	 * @param array $Data
 	 * @param string $key
 	 */
-	public function FitArrayToGps(array $Data, $key) {
+	public function FitArrayToGps(array $Data, $key, $addup = false) {
 	    if(is_array($Data)) {
 		foreach($Data as $value) {
+                    if($addup == true && isset($this->gps[$key])) {
+                        $value = end($this->gps[$key]) + $value;
+                    }
 		    $this->gps[$key][] = $value;
 		}
 	    }

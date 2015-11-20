@@ -37,7 +37,7 @@ class DataCollectorWithSwimdata extends DataCollector {
 
 		$this->Key = $key;
 		$this->Precision = Configuration::ActivityView()->plotPrecision();
-		$this->KnowsDistance = $trackdata->has(Trackdata::DISTANCE);
+		$this->KnowsDistance = $swimdata->has(Swimdata::SWIMDISTANCE);
 
 		$this->init($trackdata);
 		$this->LoopSwimdata = new Loop($swimdata);
@@ -54,9 +54,9 @@ class DataCollectorWithSwimdata extends DataCollector {
 			$value = $this->LoopSwimdata->average($this->Key);
 
 			if ($this->XAxis == self::X_AXIS_DISTANCE) {
-				$this->Data[(string)$this->Loop->current(Trackdata::DISTANCE)] = $value;
+				$this->Data[(string)$this->LoopSwimdata->current(Swimdata::SWIMDISTANCE)] = $value;
 			} elseif ($this->XAxis == self::X_AXIS_TIME) {
-				$this->Data[(string)$this->Loop->current(Trackdata::TIME).'000'] = $value;
+				$this->Data[(string)$this->LoopSwimdata->current(Swimdata::SWIMTIME).'000'] = $value;
 			} else {
 				$this->Data[] = $value;
 			}

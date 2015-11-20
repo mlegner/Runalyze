@@ -50,7 +50,8 @@ class Inserter extends Model\InserterWithAccountID {
 				Object::allProperties(),
 				array(
 					Object::SWOLF,
-					Object::SWOLFCYCLES
+					Object::SWOLFCYCLES,
+                                        Object::SWIMDISTANCE
 				)
 			)
 		);

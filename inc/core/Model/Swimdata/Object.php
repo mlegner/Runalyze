@@ -7,7 +7,7 @@
 namespace Runalyze\Model\Swimdata;
 
 use Runalyze\Model;
-use Runalyze\Model\Trackdata;
+
 
 /**
  * Swimdata object
@@ -256,7 +256,8 @@ class Object extends Model\Object implements Model\Loopable {
 	 */
 	public function fillSwolfArray() {
 		if ($this->stroke() && $this->has(self::SWIMTIME)) {
-			$SwimdataLoop = new Model\Swimdata(self);
+			$TrackLoop = new Loop($this);
+
 			$Loop = new Loop($this);
 
 			$max = $Loop->num();
@@ -264,12 +265,12 @@ class Object extends Model\Object implements Model\Loopable {
 			$swolfcycles = array();
 
 			for ($i = 1; $i <= $max; ++$i) {
-				$duration = $SwimdataLoop->difference(self::SWIMTIME);
+				$duration = $TrackLoop->difference(self::SWIMTIME);
 				$swolf[] = $duration + $Loop->stroke();
 				$swolfcycles[] = $duration + $Loop->stroke()/2;
 
 				$Loop->nextStep();
-				$SwimdataLoop->nextStep();
+				$TrackLoop->nextStep();
 			}
 
 			$this->set(Object::SWOLF, $swolf);

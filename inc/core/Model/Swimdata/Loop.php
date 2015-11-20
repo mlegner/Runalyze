@@ -50,6 +50,22 @@ class Loop extends \Runalyze\Model\Loop {
 	public function swolf() {
 		return $this->current(Object::SWOLF);
 	}
+        
+	/**
+	 * Current swimtime
+	 * @return int
+	 */
+	public function swimtime() {
+		return $this->current(Object::SWIMTIME);
+	}
+        
+	/**
+	 * Current swimdistance
+	 * @return int
+	 */
+	public function swimdistance() {
+		return $this->current(Object::SWIMDISTANCE);
+	}
 
 	/**
 	 * @param array $data
