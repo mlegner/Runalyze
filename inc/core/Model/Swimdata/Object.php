@@ -63,7 +63,7 @@ class Object extends Model\Object implements Model\Loopable {
 	 * @var string
 	 */
 	const SWOLFCYCLES = 'swolfcycles';     
-
+        
 	/**
 	 * Construct
 	 * @param array $data
@@ -256,7 +256,6 @@ class Object extends Model\Object implements Model\Loopable {
 	 */
 	public function fillSwolfArray() {
 		if ($this->stroke() && $this->has(self::SWIMTIME)) {
-			$TrackLoop = new Loop($this);
 
 			$Loop = new Loop($this);
 
@@ -265,12 +264,11 @@ class Object extends Model\Object implements Model\Loopable {
 			$swolfcycles = array();
 
 			for ($i = 1; $i <= $max; ++$i) {
-				$duration = $TrackLoop->difference(self::SWIMTIME);
+				$duration = $Loop->difference(self::SWIMTIME);
 				$swolf[] = $duration + $Loop->stroke();
 				$swolfcycles[] = $duration + $Loop->stroke()/2;
 
 				$Loop->nextStep();
-				$TrackLoop->nextStep();
 			}
 
 			$this->set(Object::SWOLF, $swolf);

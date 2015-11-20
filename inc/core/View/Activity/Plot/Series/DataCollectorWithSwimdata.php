@@ -39,7 +39,7 @@ class DataCollectorWithSwimdata extends DataCollector {
 		$this->Precision = Configuration::ActivityView()->plotPrecision();
 		$this->KnowsDistance = $swimdata->has(Swimdata::SWIMDISTANCE);
 
-		$this->init($trackdata);
+		$this->init($trackdata, $swimdata);
 		$this->LoopSwimdata = new Loop($swimdata);
 		$this->collect();
 	}
@@ -62,7 +62,30 @@ class DataCollectorWithSwimdata extends DataCollector {
 			}
 		} while (!$this->Loop->isAtEnd());
 	}
+        
+	/**
+	 * Init loop
+	 * @param \Runalyze\Model\Trackdata\Object $trackdata
+	 */
+	protected function init(Trackdata $trackdata, Swimdata $swimdata) {
+		$this->Loop = new Loop($swimdata);
 
+		$this->defineStepSize($swimdata);
+		$this->defineXAxis($trackdata);
+	}
+        
+	/**
+	 * Set step size
+	 * @param \Runalyze\Model\Swimdata\Object $swimdata
+	 */
+	protected function defineStepSize(Swimdata $swimdata) {
+		if ($this->Precision->byPoints() && $swimdata->num() > $this->Precision->numberOfPoints()) {
+			$this->Loop->setStepSize( round($swimdata->num() / $this->Precision->numberOfPoints ()) );
+		} elseif ($this->Precision->byDistance()) {
+			$this->StepDistance = $this->Precision->distanceStep() / 1000;
+		}
+	}
+        
 	/**
 	 * Get next step for plot data
 	 * @return bool 
