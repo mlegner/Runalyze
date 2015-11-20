@@ -67,8 +67,7 @@ class Updater extends Model\UpdaterWithAccountID {
 				Object::allProperties(),
 				array(
 					Object::SWOLF,
-					Object::SWOLFCYCLES,
-                                        Object::SWIMDISTANCE
+					Object::SWOLFCYCLES
 				)
 			)
 		);
