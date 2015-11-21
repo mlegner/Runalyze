@@ -388,11 +388,11 @@ class ParserFITSingle extends ParserAbstractSingle {
 				$this->Values['total_distance'][0] / 1e5,
 				$this->Values['total_timer_time'][0] / 1e3
 			);
-		//if($this->isSwimming && isset($this->Values['start_position_lat']) && isset($this->Values['total_strokes'])) {
+		if(isset($this->Values['start_position_lat'])) {
 		    $this->gps['swimtime'][]  = end($this->gps['swimtime']) + $this->Values['total_timer_time'][0]/1000;
 		    $this->gps['stroke'][] = $this->Values['total_strokes'][0];
 		    $this->gps['swimdistance'][] = $this->Values['total_distance'][0];
-		//}
+		}
 	}
         
 	/**

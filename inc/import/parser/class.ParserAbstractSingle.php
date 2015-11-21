@@ -143,6 +143,7 @@ abstract class ParserAbstractSingle extends ParserAbstract {
 
 		$this->TrainingObject->setArrayTime( $this->gps['time_in_s'] );
 		$this->TrainingObject->setArraySwimTime( $this->gps['swimtime'] );
+		$this->TrainingObject->setArraySwimDistance( $this->gps['swimdistance'] );
 		$this->TrainingObject->setArrayDistance( $this->gps['km'] );
 		$this->TrainingObject->setArrayLatitude( $this->gps['latitude'] );
 		$this->TrainingObject->setArrayLongitude( $this->gps['longitude'] );
