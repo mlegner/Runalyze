@@ -37,7 +37,9 @@ abstract class ParserAbstractSingle extends ParserAbstract {
 			'oscillation'	=> array(),
 			'stroke'        => array(),
 			'stroketype'    => array(),
-			'hrv'		=> array()
+			'hrv'		=> array(),
+			'swimtime'	=> array(),
+			'swimdistance'	=> array()
 		);
 
 	/**

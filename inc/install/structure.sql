@@ -248,6 +248,8 @@ CREATE TABLE IF NOT EXISTS `runalyze_swimdata` (
   `activityid` int(10) unsigned NOT NULL,
   `stroke` longtext,
   `stroketype` longtext,
+  `time` longtext,
+  `distance` longtext,
   `pool_length` smallint(5) unsigned NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
