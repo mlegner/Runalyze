@@ -66,6 +66,9 @@ class ParserFITSingle extends ParserAbstractSingle {
 	 * @var array
 	 */
 	protected $pausesToApply = array();
+	
+	const SPORT_SWIMMING_INSIDE = 1;
+	const SPORT_SWIMMING_OUTSIDE = 2;
 
 	/**
 	 * Parse
@@ -102,7 +105,7 @@ class ParserFITSingle extends ParserAbstractSingle {
 	}
 	
 	protected function switchTimeArraysForSwimming() {
-	    if($this->isSwimming == true) {
+	    if($this->isSwimming == self::SPORT_SWIMMING_INSIDE) {
 		$tmpTime = $this->gps['time_in_s'];
 		$this->gps['time_in_s'] = $this->gps['swimtime'];
 		$this->gps['swimtime'] = $tmpTime;
@@ -243,8 +246,10 @@ class ParserFITSingle extends ParserAbstractSingle {
 		if (isset($this->Values['total_calories']))
 			$this->TrainingObject->setCalories( $this->Values['total_calories'][0] + $this->TrainingObject->getCalories() );
 
-		if (isset($this->Values['total_strokes']))
+		if (isset($this->Values['total_strokes'])) {
 			$this->TrainingObject->setTotalStrokes($this->Values['total_strokes'][0]);
+			$this->isSwimming = self::SPORT_SWIMMING_INSIDE;
+		}
 
 		if (isset($this->Values['avg_swimming_cadence']))
 			$this->TrainingObject->setCadence($this->Values['avg_swimming_cadence'][0]);
@@ -308,54 +313,65 @@ class ParserFITSingle extends ParserAbstractSingle {
 		if ($this->isPaused) // Should not happen?
 			return;
 
-		if ($this->isSwimming || !isset($this->Values['timestamp']))
-			return;
+		
+		if(isset($this->Values['position_lat']) && $this->isSwimming == self::SPORT_SWIMMING_INSIDE)
+		    $this->isSwimming = self::SPORT_SWIMMING_OUTSIDE;
 
-		if (empty($this->gps['time_in_s'])) {
-			$startTime = strtotime((string)$this->Values['timestamp'][1]);
+		
+		if($this->isSwimming == self::SPORT_SWIMMING_OUTSIDE OR !$this->isSwimming) {
+		    if (empty($this->gps['time_in_s'])) {
+			    $startTime = strtotime((string)$this->Values['timestamp'][1]);
 
-			if ($startTime < $this->TrainingObject->getTimestamp()) {
-				$this->TrainingObject->setTimestamp($startTime);
-			}
-		}
-		$time = strtotime((string)$this->Values['timestamp'][1]) - $this->TrainingObject->getTimestamp() - $this->PauseInSeconds;
-		$last = end($this->gps['time_in_s']);
+			    if ($startTime < $this->TrainingObject->getTimestamp()) {
+				    $this->TrainingObject->setTimestamp($startTime);
+			    }
+		    }
+		    $time = strtotime((string)$this->Values['timestamp'][1]) - $this->TrainingObject->getTimestamp() - $this->PauseInSeconds;
+		    $last = end($this->gps['time_in_s']);
 
-		if ($this->wasPaused) {
-			$this->TrainingObject->Pauses()->add(
-				new \Runalyze\Model\Trackdata\Pause(
-					$last,
-					strtotime((string)$this->Values['timestamp'][1]) - $this->lastStopTimestamp,
-					end($this->gps['heartrate']),
-					isset($this->Values['heart_rate']) ? (int)$this->Values['heart_rate'][0] : 0
-				)
-			);
-			
-			$this->wasPaused = false;
-		}
+		    if ($this->wasPaused) {
+			    $this->TrainingObject->Pauses()->add(
+				    new \Runalyze\Model\Trackdata\Pause(
+					    $last,
+					    strtotime((string)$this->Values['timestamp'][1]) - $this->lastStopTimestamp,
+					    end($this->gps['heartrate']),
+					    isset($this->Values['heart_rate']) ? (int)$this->Values['heart_rate'][0] : 0
+				    )
+			    );
 
-		$this->gps['latitude'][]  = isset($this->Values['position_lat']) ? substr($this->Values['position_lat'][1], 0, -3) : 0;
-		$this->gps['longitude'][] = isset($this->Values['position_long']) ? substr($this->Values['position_long'][1], 0, -3) : 0;
+			    $this->wasPaused = false;
+		    }
 
-		$this->gps['altitude'][]  = isset($this->Values['altitude']) ? substr($this->Values['altitude'][1], 0, -3) : 0;
+		    $this->gps['latitude'][]  = isset($this->Values['position_lat']) ? substr($this->Values['position_lat'][1], 0, -3) : 0;
+		    $this->gps['longitude'][] = isset($this->Values['position_long']) ? substr($this->Values['position_long'][1], 0, -3) : 0;
 
-		$this->gps['km'][]        = isset($this->Values['distance']) ? round($this->Values['distance'][0] / 1e5, ParserAbstract::DISTANCE_PRECISION) : end($this->gps['km']);
-		$this->gps['heartrate'][] = isset($this->Values['heart_rate']) ? (int)$this->Values['heart_rate'][0] : 0;
-                if(!$this->isSwimming) {
-                    $this->gps['rpm'][]       = isset($this->Values['cadence']) ? (int)$this->Values['cadence'][0] : 0;
-                }
-		$this->gps['power'][]     = isset($this->Values['power']) ? (int)$this->Values['power'][0] : 0;
-		//$this->gps['left_right'][]     = isset($this->Values['left_right_balance']) ? (int)$this->Values['left_right_balance'][0] : 0;
+		    $this->gps['altitude'][]  = isset($this->Values['altitude']) ? substr($this->Values['altitude'][1], 0, -3) : 0;
 
-		$this->gps['temp'][]      = isset($this->Values['temperature']) ? (int)$this->Values['temperature'][0] : 0;
+		    $this->gps['km'][]        = isset($this->Values['distance']) ? round($this->Values['distance'][0] / 1e5, ParserAbstract::DISTANCE_PRECISION) : end($this->gps['km']);
+		    $this->gps['heartrate'][] = isset($this->Values['heart_rate']) ? (int)$this->Values['heart_rate'][0] : 0;
+		    $this->gps['time_in_s'][] = $time;
 
-		$this->gps['time_in_s'][] = $time;
+		    if ($this->isSwimming == self::SPORT_SWIMMING_OUTSIDE && isset($this->Values['cadence'])) {
+			$strokes = ((int)$this->Values['cadence'][0]/60)*($time - $last);
+			$this->gps['stroke'][]       = isset($strokes) ? ($strokes) : 0;
+			$this->gps['swimtime'][] = $time;
+			$this->gps['swimdistance'][] = isset($this->Values['distance']) ? round($this->Values['distance'][0] / 1e5, ParserAbstract::DISTANCE_PRECISION) : end($this->gps['km']);
+		    } else {
+			$this->gps['rpm'][]       = isset($this->Values['cadence']) ? (int)$this->Values['cadence'][0] : 0;
+		    }
+		    
+		    $this->gps['power'][]     = isset($this->Values['power']) ? (int)$this->Values['power'][0] : 0;
+		    //$this->gps['left_right'][]     = isset($this->Values['left_right_balance']) ? (int)$this->Values['left_right_balance'][0] : 0;
 
-		$this->gps['groundcontact'][] = isset($this->Values['stance_time']) ? round($this->Values['stance_time'][0]/10) : 0;
-		$this->gps['oscillation'][]   = isset($this->Values['vertical_oscillation']) ? round($this->Values['vertical_oscillation'][0]/10) : 0;
+		    $this->gps['temp'][]      = isset($this->Values['temperature']) ? (int)$this->Values['temperature'][0] : 0;
 
-		if ($time === $last) {
-			$this->mergeRecord();
+
+		    $this->gps['groundcontact'][] = isset($this->Values['stance_time']) ? round($this->Values['stance_time'][0]/10) : 0;
+		    $this->gps['oscillation'][]   = isset($this->Values['vertical_oscillation']) ? round($this->Values['vertical_oscillation'][0]/10) : 0;
+
+		    if ($time === $last && !$this->isSwimming) {
+			    $this->mergeRecord();
+		    }
 		}
 	}
 
@@ -383,28 +399,26 @@ class ParserFITSingle extends ParserAbstractSingle {
 	 * Read lap
 	 */
 	protected function readLap() {
+	    if(!$this->isSwimming && isset($this->Values['total_strokes'])) {
+		$this->isSwimming = self::SPORT_SWIMMING_INSIDE;
+	    }
 		if (isset($this->Values['total_timer_time']) && isset($this->Values['total_distance']))
 			$this->TrainingObject->Splits()->addSplit(
 				$this->Values['total_distance'][0] / 1e5,
 				$this->Values['total_timer_time'][0] / 1e3
 			);
-		if(isset($this->Values['start_position_lat'])) {
-		    $this->gps['swimtime'][]  = end($this->gps['swimtime']) + $this->Values['total_timer_time'][0]/1000;
-		    $this->gps['stroke'][] = $this->Values['total_strokes'][0];
-		    $this->gps['swimdistance'][] = $this->Values['total_distance'][0];
-		}
 	}
         
 	/**
 	 * Read length
 	 */
 	protected function readLength() {
-		if (!$this->isSwimming) {
+		if (!$this->isSwimming && isset($this->Values['total_strokes'])) {
 			foreach (array_keys($this->gps) as $key) {
 				$this->gps[$key] = array();
 			}
 
-			$this->isSwimming = true;
+			$this->isSwimming = self::SPORT_SWIMMING_INSIDE;
 		}
                 if(isset($this->Values['total_strokes']) && $this->Values['total_strokes'][0] == 0) {
                     $this->TrainingObject->Pauses()->add(
@@ -440,13 +454,15 @@ class ParserFITSingle extends ParserAbstractSingle {
 	 * Read hr
 	 */
 	protected function readHR() {
-	    $bpm = explode(',', $this->Values['filtered_bpm'][1]);
-	   
-	    $Time = $this->readEventTimestamp12($this->Values['event_timestamp_12'][1]);
-            if(count($Time) == 8) {
-                $this->FitArrayToGps($bpm, 'heartrate');
-                $this->FitArrayToGps($Time, 'swimtime', true);
-            }
+	    if(isset($this->Values['event_timestamp_12'])) {
+		$bpm = explode(',', $this->Values['filtered_bpm'][1]);
+
+		$Time = $this->readEventTimestamp12($this->Values['event_timestamp_12'][1]);
+		if(count($Time) == 8) {
+		    $this->FitArrayToGps($bpm, 'heartrate');
+		    $this->FitArrayToGps($Time, 'swimtime', true);
+		}
+	    }
 	}
 	
 	/*

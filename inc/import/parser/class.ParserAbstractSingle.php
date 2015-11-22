@@ -202,6 +202,9 @@ abstract class ParserAbstractSingle extends ParserAbstract {
 		$this->setTemperatureFromArray();
 		$this->setRunningDynamicsFromArray();
 		$this->setDistanceFromGPSdata();
+		
+		if($this->object()->hasArrayStroke())
+		    $this->setTotalStrokesFromArray();
 	}
 
 	/**
@@ -223,6 +226,14 @@ abstract class ParserAbstractSingle extends ParserAbstract {
 	private function setAvgCadenceFromArray() {
 		$array = $this->TrainingObject->getArrayCadence();
 		$this->TrainingObject->setCadence( round(array_sum($array)/count($array)) );
+	}
+	
+	/**
+	 * Set total strokes from array
+	 */
+	private function setTotalStrokesFromArray() {
+		$array = $this->TrainingObject->getArrayStroke();
+		$this->TrainingObject->setTotalStrokes( round(array_sum($array)/count($array)) );
 	}
 
 	/**

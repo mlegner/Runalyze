@@ -281,7 +281,7 @@ class ImporterFiletypeFITTest extends PHPUnit_Framework_TestCase {
 			$this->assertEquals('fenix3', $this->object->object()->getCreator());
 			$this->assertEquals(5000, $this->object->object()->getPoolLength());
 			$this->assertEquals(1750, $this->object->object()->getTotalStrokes());
-			$this->assertEquals(32, $this->object->object()->getCadence());
+			$this->assertEquals(0, $this->object->object()->getCadence());
 
 			$this->assertEquals(3272, $this->object->object()->getTimeInSeconds());
 			$this->assertEquals(3817, $this->object->object()->getElapsedTime());
@@ -391,7 +391,7 @@ class ImporterFiletypeFITTest extends PHPUnit_Framework_TestCase {
 			$this->assertEquals(1.526, $Swimming->getDistance());
 			$this->assertEquals(2033, $Swimming->getTimeInSeconds());
 			$this->assertTrue($Swimming->hasArrayDistance());
-			$this->assertTrue($Swimming->hasArrayCadence());
+			$this->assertFalse($Swimming->hasArrayCadence());
 			$this->assertFalse($Swimming->hasArrayHeartrate());
 			$this->assertTrue($Swimming->hasArrayAltitude());
 			$this->assertFalse($Swimming->hasArrayVerticalOscillation());
