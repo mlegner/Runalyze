@@ -70,9 +70,13 @@ class ParserPWXSingle extends ParserAbstractSingleXML {
 	 * Parse all laps
 	 */
 	protected function parseLaps() {
-		if (!empty($this->XML->segment))
-			foreach ($this->XML->segment->summarydata as $Lap)
-				$this->parseLap($Lap);
+		if (!empty($this->XML->segment)) {
+			foreach ($this->XML->segment as $segment) {
+				foreach ($segment->summarydata as $lap) {
+					$this->parseLap($lap);
+				}
+			}
+		}
 	}
 
 	/**
@@ -117,7 +121,7 @@ class ParserPWXSingle extends ParserAbstractSingleXML {
 		elseif (empty($this->gps['latitude']))
 			$dist = 0;
 		else
-			$dist = end($this->gps['km']) + Runalyze\Model\Route\Object::gpsDistance(end($this->gps['latitude']), end($this->gps['longitude']),
+			$dist = end($this->gps['km']) + Runalyze\Model\Route\Entity::gpsDistance(end($this->gps['latitude']), end($this->gps['longitude']),
 															(double)$Log->lat, (double)$Log->lon);
 
 		$this->gps['time_in_s'][] = (int)$Log->timeoffset;

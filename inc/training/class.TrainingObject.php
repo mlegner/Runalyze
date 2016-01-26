@@ -58,7 +58,9 @@ class TrainingObject extends DataObject {
 	protected function fillDefaultObject() {
 		$this->set('time', isset($_GET['date']) ? strtotime($_GET['date']) : mktime(0,0,0));
 		$this->set('is_public', Configuration::Privacy()->publishActivity() ? '1' : '0');
+		$this->set('sportid', Configuration::General()->mainSport());
 		$this->forceToSet('s_sum_with_distance', 0);
+		$this->forceToSet('importer-equipment', []);
 	}
 
 	/**
@@ -83,6 +85,10 @@ class TrainingObject extends DataObject {
 
 		$this->set('weatherid', $Weather->condition()->id());
 		$this->set('temperature', $Weather->temperature()->value());
+		$this->set('wind_speed', $Weather->windSpeed()->value());
+		$this->set('wind_deg', $Weather->windDegree()->value());
+		$this->set('humidity', $Weather->humidity()->value());
+		$this->set('pressure', $Weather->pressure()->value());
 	}
 
 	/**
@@ -158,21 +164,27 @@ class TrainingObject extends DataObject {
 		$InserterActivity->setRoute($Route);
 		$InserterActivity->setTrackdata($Trackdata);
 		$InserterActivity->setSwimdata($Swimdata);
-		$InserterActivity->setEquipmentIDs(TrainingFormular::readEquipmentFromPost($Activity->sportid()));
-		$InserterActivity->setTagIDs(TrainingFormular::readTagFromPost($Activity->sportid()));
+
+		if ($this->get('importer-equipment') != []) {
+			$InserterActivity->setEquipmentIDs($this->get('importer-equipment'));
+		} else {
+			$InserterActivity->setEquipmentIDs(TrainingFormular::readEquipmentFromPost($Activity->sportid()));
+		}
+
+		$InserterActivity->setTagIDs(TrainingFormular::readTagFromPost());
 		$InserterActivity->insert();
 
 		$this->id = $InserterActivity->insertedID();
 
 		if ($this->hasArrayTime() || $this->hasArrayDistance() || $this->hasArrayHeartrate()) {
-			$Trackdata->set(Runalyze\Model\Trackdata\Object::ACTIVITYID, $this->id());
+			$Trackdata->set(Runalyze\Model\Trackdata\Entity::ACTIVITYID, $this->id());
 			$InserterTrack = new Runalyze\Model\Trackdata\Inserter($DB, $Trackdata);
 			$InserterTrack->setAccountID($AccountID);
 			$InserterTrack->insert();
 		}
 
 		if ($this->hasArrayStroke() || $this->hasArrayStrokeType() ) {
-			$Swimdata->set(Runalyze\Model\Swimdata\Object::ACTIVITYID, $this->id());
+			$Swimdata->set(Runalyze\Model\Swimdata\Entity::ACTIVITYID, $this->id());
 			$InserterSwim = new Runalyze\Model\Swimdata\Inserter($DB, $Swimdata);
 			$InserterSwim->setAccountID($AccountID);
 			$InserterSwim->insert();
@@ -180,7 +192,7 @@ class TrainingObject extends DataObject {
 
 		if ($this->hasArrayHRV()) {
 			$HRV = $this->newHRVObject();
-			$HRV->set(Runalyze\Model\HRV\Object::ACTIVITYID, $this->id());
+			$HRV->set(Runalyze\Model\HRV\Entity::ACTIVITYID, $this->id());
 			$InserterHRV = new Runalyze\Model\HRV\Inserter($DB, $HRV);
 			$InserterHRV->setAccountID($AccountID);
 			$InserterHRV->insert();
@@ -188,21 +200,21 @@ class TrainingObject extends DataObject {
 	}
 
 	/**
-	 * @return \Runalyze\Model\Activity\Object
+	 * @return \Runalyze\Model\Activity\Entity
 	 */
 	protected function newActivityObject() {
-		return new Runalyze\Model\Activity\Object($this->data);
+		return new Runalyze\Model\Activity\Entity($this->data);
 	}
 
 	/**
-	 * @return \Runalyze\Model\Route\Object
+	 * @return \Runalyze\Model\Route\Entity
 	 */
 	protected function newRouteObject() {
-		$Route = new Runalyze\Model\Route\Object(array(
-			Runalyze\Model\Route\Object::NAME => $this->get('route'),
-			Runalyze\Model\Route\Object::CITIES => $this->get('route'),
-			Runalyze\Model\Route\Object::DISTANCE => $this->get('distance'),
-			Runalyze\Model\Route\Object::ELEVATIONS_ORIGINAL => $this->get('arr_alt')
+		$Route = new Runalyze\Model\Route\Entity(array(
+			Runalyze\Model\Route\Entity::NAME => $this->get('route'),
+			Runalyze\Model\Route\Entity::CITIES => $this->get('route'),
+			Runalyze\Model\Route\Entity::DISTANCE => $this->get('distance'),
+			Runalyze\Model\Route\Entity::ELEVATIONS_ORIGINAL => $this->get('arr_alt')
 		));
 
 		if ($this->hasArrayLatitude()) {
@@ -213,41 +225,41 @@ class TrainingObject extends DataObject {
 	}
 
 	/**
-	 * @return \Runalyze\Model\Swimdata\Object
+	 * @return \Runalyze\Model\Swimdata\Entity
 	 */
 	protected function newSwimObject() {
-		return new Runalyze\Model\Swimdata\Object(array(
-			Runalyze\Model\Swimdata\Object::STROKE => $this->get('stroke'),
-                        Runalyze\Model\Swimdata\Object::STROKETYPE => $this->get('stroketype'),
-                        Runalyze\Model\Swimdata\Object::POOL_LENGTH => $this->get('pool_length')
+		return new Runalyze\Model\Swimdata\Entity(array(
+			Runalyze\Model\Swimdata\Entity::STROKE => $this->get('stroke'),
+                        Runalyze\Model\Swimdata\Entity::STROKETYPE => $this->get('stroketype'),
+                        Runalyze\Model\Swimdata\Entity::POOL_LENGTH => $this->get('pool_length')
 		));
                 
 	}
         
 	/**
-	 * @return \Runalyze\Model\Trackdata\Object
+	 * @return \Runalyze\Model\Trackdata\Entity
 	 */
 	protected function newTrackdataObject() {
-		return new Runalyze\Model\Trackdata\Object(array(
-			Runalyze\Model\Trackdata\Object::TIME => $this->get('arr_time'),
-			Runalyze\Model\Trackdata\Object::DISTANCE => $this->get('arr_dist'),
-			Runalyze\Model\Trackdata\Object::HEARTRATE => $this->get('arr_heart'),
-			Runalyze\Model\Trackdata\Object::CADENCE => $this->get('arr_cadence'),
-			Runalyze\Model\Trackdata\Object::POWER => $this->get('arr_power'),
-			Runalyze\Model\Trackdata\Object::TEMPERATURE => $this->get('arr_temperature'),
-			Runalyze\Model\Trackdata\Object::GROUNDCONTACT => $this->get('arr_groundcontact'),
-			Runalyze\Model\Trackdata\Object::VERTICAL_OSCILLATION => $this->get('arr_vertical_oscillation'),
-			Runalyze\Model\Trackdata\Object::GROUNDCONTACT_BALANCE => $this->get('arr_groundcontact_balance'),
-			Runalyze\Model\Trackdata\Object::PAUSES => $this->get('pauses')
+		return new Runalyze\Model\Trackdata\Entity(array(
+			Runalyze\Model\Trackdata\Entity::TIME => $this->get('arr_time'),
+			Runalyze\Model\Trackdata\Entity::DISTANCE => $this->get('arr_dist'),
+			Runalyze\Model\Trackdata\Entity::HEARTRATE => $this->get('arr_heart'),
+			Runalyze\Model\Trackdata\Entity::CADENCE => $this->get('arr_cadence'),
+			Runalyze\Model\Trackdata\Entity::POWER => $this->get('arr_power'),
+			Runalyze\Model\Trackdata\Entity::TEMPERATURE => $this->get('arr_temperature'),
+			Runalyze\Model\Trackdata\Entity::GROUNDCONTACT => $this->get('arr_groundcontact'),
+			Runalyze\Model\Trackdata\Entity::VERTICAL_OSCILLATION => $this->get('arr_vertical_oscillation'),
+			Runalyze\Model\Trackdata\Entity::GROUNDCONTACT_BALANCE => $this->get('arr_groundcontact_balance'),
+			Runalyze\Model\Trackdata\Entity::PAUSES => $this->get('pauses')
 		));
 	}
 
 	/**
-	 * @return \Runalyze\Model\HRV\Object
+	 * @return \Runalyze\Model\HRV\Entity
 	 */
 	protected function newHRVObject() {
-		return new Runalyze\Model\HRV\Object(array(
-			Runalyze\Model\HRV\Object::DATA => $this->get('hrv')
+		return new Runalyze\Model\HRV\Entity(array(
+			Runalyze\Model\HRV\Entity::DATA => $this->get('hrv')
 		));
 	}
 
@@ -268,21 +280,21 @@ class TrainingObject extends DataObject {
 		$NewActivity = $this->newActivityObject();
 		$UpdaterActivity = new \Runalyze\Model\Activity\Updater($DB,
 			$NewActivity,
-			new \Runalyze\Model\Activity\Object($OldData)
+			new \Runalyze\Model\Activity\Entity($OldData)
 		);
 
 		if (isset($OldData['routeid']) && $OldData['routeid'] > 0) {
 			$UpdaterActivity->setRoute(\Runalyze\Context::Factory()->route($OldData['routeid']));
 		} elseif ($this->get('route') != '') {
-			$InserterRoute = new Runalyze\Model\Route\Inserter($DB, new Runalyze\Model\Route\Object(array(
-				Runalyze\Model\Route\Object::NAME => $this->get('route'),
-				Runalyze\Model\Route\Object::CITIES => $this->get('route'),
-				Runalyze\Model\Route\Object::DISTANCE => $this->get('distance')
+			$InserterRoute = new Runalyze\Model\Route\Inserter($DB, new Runalyze\Model\Route\Entity(array(
+				Runalyze\Model\Route\Entity::NAME => $this->get('route'),
+				Runalyze\Model\Route\Entity::CITIES => $this->get('route'),
+				Runalyze\Model\Route\Entity::DISTANCE => $this->get('distance')
 			)));
 			$InserterRoute->setAccountID($AccountID);
 			$InserterRoute->insert();
 
-			$NewActivity->set(Runalyze\Model\Activity\Object::ROUTEID, $InserterRoute->insertedID());
+			$NewActivity->set(Runalyze\Model\Activity\Entity::ROUTEID, $InserterRoute->insertedID());
 		}
 
 		$UpdaterActivity->setTrackdata(\Runalyze\Context::Factory()->trackdata($this->id()));
@@ -297,15 +309,15 @@ class TrainingObject extends DataObject {
 
 		if (isset($OldData['routeid']) && isset($OldData['route'])) {
 			$UpdaterRoute = new \Runalyze\Model\Route\Updater($DB,
-				new Runalyze\Model\Route\Object(array(
+				new Runalyze\Model\Route\Entity(array(
 					'id' => $OldData['routeid'],
-					Runalyze\Model\Route\Object::NAME => $this->get('route'),
-					Runalyze\Model\Route\Object::CITIES => $this->get('route')
+					Runalyze\Model\Route\Entity::NAME => $this->get('route'),
+					Runalyze\Model\Route\Entity::CITIES => $this->get('route')
 				)),
-				new Runalyze\Model\Route\Object(array(
+				new Runalyze\Model\Route\Entity(array(
 					'id' => $OldData['routeid'],
-					Runalyze\Model\Route\Object::NAME => $OldData['route'],
-					Runalyze\Model\Route\Object::CITIES => $OldData['route']
+					Runalyze\Model\Route\Entity::NAME => $OldData['route'],
+					Runalyze\Model\Route\Entity::CITIES => $OldData['route']
 				))
 			);
 			$UpdaterRoute->setAccountID($AccountID);
@@ -372,10 +384,18 @@ class TrainingObject extends DataObject {
 		if (is_null($this->Weather)) {
 			$id   = ($this->hasProperty('weatherid')) ? $this->get('weatherid') : \Runalyze\Data\Weather\Condition::UNKNOWN;
 			$temp = ($this->hasProperty('temperature')) ? $this->get('temperature') : null;
+			$windSpeed = ($this->hasProperty('wind_speed')) ? $this->get('wind_speed') : null;
+			$windDegree = ($this->hasProperty('wind_deg')) ? $this->get('wind_deg') : null;
+			$humidity = ($this->hasProperty('humidity')) ? $this->get('humidity') : null;
+			$pressure = ($this->hasProperty('pressure')) ? $this->get('pressure') : null;
 
 			$this->Weather = new \Runalyze\Data\Weather(
 				new \Runalyze\Data\Weather\Temperature($temp),
-				new \Runalyze\Data\Weather\Condition($id)
+				new \Runalyze\Data\Weather\Condition($id),
+				new \Runalyze\Data\Weather\WindSpeed($windSpeed),
+				new \Runalyze\Data\Weather\WindDegree($windDegree),
+				new \Runalyze\Data\Weather\Humidity($humidity),
+				new \Runalyze\Data\Weather\Pressure($pressure)
 			);
 		}
 
@@ -454,7 +474,7 @@ class TrainingObject extends DataObject {
 	 * Set shoeid
 	 * @param int $id shoeid
 	 */
-	public function setShoeid($id) { $this->set('shoeid', $id); }
+	public function setShoeid($id) { $this->set('importer-equipment', [$id]); }
 
 
 	/**
@@ -713,7 +733,7 @@ class TrainingObject extends DataObject {
 	 * Set cadence
 	 * @param int $cadence cadence in rpm
 	 */
-	public function setCadence($cadence) { return $this->set('cadence', $cadence); }
+	public function setCadence($cadence) { $this->set('cadence', $cadence); }
 	/**
 	 * Get cadence
 	 * @return int cadence in rpm
@@ -725,7 +745,7 @@ class TrainingObject extends DataObject {
 	 * Set power
 	 * @param int $power power
 	 */
-	public function setPower($power) { return $this->set('power', $power); }
+	public function setPower($power) { $this->set('power', $power); }
 	/**
 	 * Get power
 	 * @return int power value
@@ -737,7 +757,7 @@ class TrainingObject extends DataObject {
 	 * Set ground contact time
 	 * @param int $time ground contact time [ms]
 	 */
-	public function setGroundContactTime($time) { return $this->set('groundcontact', $time); }
+	public function setGroundContactTime($time) { $this->set('groundcontact', $time); }
 	/**
 	 * Get ground contact time
 	 * @return int ground contact time value [ms]
@@ -749,7 +769,7 @@ class TrainingObject extends DataObject {
 	 * Set vertical oscillation
 	 * @param int $oscillation vertical oscillation [cm]
 	 */
-	public function setVerticalOscillation($oscillation) { return $this->set('vertical_oscillation', $oscillation); }
+	public function setVerticalOscillation($oscillation) { $this->set('vertical_oscillation', $oscillation); }
 	/**
 	 * Get vertical oscillation
 	 * @return int vertical oscillation [cm]
@@ -761,7 +781,7 @@ class TrainingObject extends DataObject {
 	 * Set vertical ratio
 	 * @param int $verticalRatio vertical ratio [%]
 	 */
-	public function setVerticalRatio($verticalRatio) { return $this->set('vertical_ratio', $verticalRatio); }
+	public function setVerticalRatio($verticalRatio) { $this->set('vertical_ratio', $verticalRatio); }
 	/**
 	 * Get vertical ratio
 	 * @return int vertical ratio [%]
@@ -772,7 +792,7 @@ class TrainingObject extends DataObject {
 	 * Set ground contact time balance
 	 * @param int $groundContactBalance ground contact time balance [%]
 	 */
-	public function setGroundContactBalance($groundContactBalance) { return $this->set('groundcontact_balance', $groundContactBalance); }
+	public function setGroundContactBalance($groundContactBalance) { $this->set('groundcontact_balance', $groundContactBalance); }
 	/**
 	 * Get ground contact time balance
 	 * @return int ground contact time balance [%]
@@ -1284,6 +1304,11 @@ class TrainingObject extends DataObject {
 	 * @return string activity id from garmin device
 	 */
 	public function getActivityId() { return $this->get('activity_id'); }
+	/**
+	 * Has activity id?
+	 * @return bool True if training has a (positive) distance.
+	 */
+	public function hasActivityId() { return $this->getActivityId() !== NULL; }
 
 
 	/**

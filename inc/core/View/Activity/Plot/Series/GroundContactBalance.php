@@ -6,7 +6,7 @@
 
 namespace Runalyze\View\Activity\Plot\Series;
 
-use Runalyze\Model\Trackdata\Object as Trackdata;
+use Runalyze\Model\Trackdata\Entity as Trackdata;
 use Runalyze\View\Activity;
 
 use Plot;
@@ -39,6 +39,7 @@ class GroundContactBalance extends ActivityPointSeries {
 	 */
 	protected function manipulateData() {
 		$this->Data = array_map(array($this, 'correctUnit'), $this->Data);
+		$this->Data = array_filter($this->Data);
 	}
 
 	/**

@@ -1104,11 +1104,11 @@ tr.ERROR td {
   display: block;
 }
 .panel-menu ul .submenu {
-  z-index: 100;
+  z-index: 105;
   display: none;
-  min-width: 100px;
   position: absolute;
   min-width: 100%;
+  white-space: nowrap;
   border-top: 1px solid #cccccc;
   border-right: 1px solid #cccccc;
   background-color: rgba(255, 255, 255, 0.95);
@@ -1215,7 +1215,7 @@ statistics-containerr {
   border-bottom-color: #000000;
 }
 #statistics-nav ul.submenu {
-  z-index: 100;
+  z-index: 105;
   display: none;
   position: absolute;
   margin: 0 0 0 -1px;
@@ -1933,6 +1933,29 @@ tr.space-line.zebra-corrector td {
 }
 .vdot-ignore {
   opacity: .25;
+}
+.windicon {
+  display: inline-block;
+  width: 13px;
+  height: 13px;
+  line-height: 13px;
+  text-align: center;
+  font-size: 7px;
+  border: 1px solid #333;
+  border-radius: 50%;
+  position: relative;
+  margin: 0 2px;
+}
+.windicon-direction {
+  position: absolute;
+  top: -3px;
+  left: 5px;
+  display: block;
+  width: 0;
+  height: 7px;
+  border-width: 6px 2px;
+  border-style: solid;
+  border-color: #333 transparent transparent transparent;
 }
 .checkbox-icon:before {
   content: "\f096";
