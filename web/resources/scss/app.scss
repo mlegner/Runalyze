@@ -1,18 +1,3 @@
-
-
-@font-face {
-    font-family: 'runalyze-serif';
-    src: url('../fonts/Aleo-Regular-webfont.eot');
-    src: url('../fonts/Aleo-Regular-webfont.eot?#iefix') format('embedded-opentype'),
-         url('../fonts/Aleo-Regular-webfont.woff') format('woff'),
-         url('../fonts/Aleo-Regular-webfont.ttf') format('truetype'),
-         url('../fonts/Aleo-Regular-webfont.svg#bree_serifregular') format('svg');
-    font-weight: normal;
-    font-style: normal;
-
-}
-
-
 @import "settings";
 @import "foundation";
 
@@ -55,409 +40,363 @@
 //   "foundation/components/visibility";
 
 
-
-
 // Small screens
 @media only screen {
 
-    body{
-        background: url(../images/background.jpg) no-repeat;
-        background-size: cover;
-        background-attachment: fixed;
+  body{
+    background: url(../images/background.jpg) no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+  }
 
-    }
+  h1, h2, h3, h4, h5, h6{
+    font-family: $font-family-sans-serif;
+    color: #0f525c;
+    font-style: italic;
+    font-weight: 200;
+  }
 
+  h2{
+    margin: 0 0 1.4em;
+    color: #444;
+    font-weight: 200;
+    font-style: italic;
+    background: none;
+  }
 
-    h1, h2, h3, h4, h5, h6{
-        font-family: $font-family-sans-serif;
-        color: #0f525c;
-        font-style: italic;
-        font-weight: 200;
+  main{
+    padding-right: 50px;
+  }
 
-    }
+  .lightBG{
+    background: rgba(255,255,255,0.95);
+    padding: 90px 0 80px;
+  }
 
-    h2{
-        margin: 0 0 1.4em;
-        color: #444;
-        font-weight: 200;
-        font-style: italic;
-        background: none;
-    }
+  #quickNav{
+    width: 50px;
+    border-right: 10px solid $primary-color;
+    height: 100%;
+    position: fixed;
+    background: rgba(230,230,230,1);
+    right: 0;
+    z-index: 10000;
 
-    .lightBG{
-        background: rgba(255,255,255,0.95);
-        padding: 90px 0 80px;
-    }
+    #userHelper{
+      text-align: right;
 
-    .specialNav{
-      width: 50px;
-      border-right: 10px solid $primary-color;
-      height: 100%;
-      position: fixed;
-      background: rgba(230,230,230,1);
-      right: 0;
-      z-index: 10000;
-
-      .languageSwitcher{
-        font-weight: 500;
-        text-align: center;
-        font-size: 16px;
-        line-height: 1.2em;
-        bottom: 0px;
-        position: absolute;
-        width: 100%;
-
-        right:0;
-        color: #444;
-
-        i{
-          color: #888;
-          font-size: 18px;
-          margin-bottom: 5px;
-        }
+      ul{
+        list-style: none;
+        margin: 10px 0 0;
+        padding: 0;
 
         li{
-          line-height: 1.4em;
+          margin-bottom: 10px;
+          display: block;
+          text-align: center;
 
           a{
-            color: #444;
-          }
-          &.triggered a{
+            display: inline-block;
+            line-height: 14px;
             color: $primary-color;
+            height: 30px;
+            width:30px;
+            background: #f8f8f8;
+            padding: 5px 5px 5px;
+            border-radius: 40px;
+            font-size: 1.2rem;
+
+            &:hover, &.active{
+                background: $secondary-color;
+                color: #fff;
+            }
           }
         }
       }
     }
 
-    .intro{
-        //background: $runalyzegray;
-        padding: 260px 0 0px;
-        color: #fff;
+    #languageSwitcher{
+      font-weight: 500;
+      text-align: center;
+      font-size: 16px;
+      line-height: 1.2em;
+      bottom: -115px;
+      position: absolute;
+      width: 100%;
+      right:0;
+      color: #444;
+      line-height: 1.4em;
+      transition: all 1s ease;
 
-        h2{
-            margin: 150px 0 10px 0;
-            background: rgba(255,255,255,0.95);
-            display: inline-block;
-            padding: 0 15px 0;
-            text-transform: uppercase;
-        }
-
-        p{
-            font-size: 26px;
-            padding-left: 15px;
-            font-weight: 100;
-            line-height: 1.8em;
-
-            span{
-                background: rgba($primary-color, 0.8);
-                padding: 3px 0;
-                box-shadow: 15px 0 0 rgba($primary-color, 0.8), -15px 0 0 rgba($primary-color, 0.8);
-            }
-        }
-    }
-
-    .vorteile{
-        padding: 70px 0 50px;
-        box-shadow: 0 0 3px 0 $iron;
-        background: rgba(221,221,221,0.95);
-        color: #333;
-        margin: 80px 0 0;
-
-        h3{
-            font-size: 1.6rem;
-            font-weight: 200;
-
-            i{
-                color: $secondary-color;
-                padding-right: 10px;
-            }
-        }
-    }
-
-    .teaser{
-
-    }
-
-    .becomeMember{
-        h3{
-
-            i{
-                color: $secondary-color;
-                padding-right: 10px;
-            }
-        }
-    }
-
-
-    nav.mainNav{
-
-    }
-
-    /* Statistics on start/log in page */
-    .statisticsOverview{
-        background: rgba(221,221,221,0.95);
-        padding: 80px 0 70px;
-
-        .headline{
-
-        }
-
-        i{
-            color: #888;
-        }
-
-        h3{
-            font-weight: 200;
-        }
-
-        .statistic{
-            height: 200px;
-            width: 200px;
-            border-radius: 100px;
-            background: rgba(255,255,255,0.9);
-            padding: 5px;
-            margin: 0 auto;
-            color: $tertiary-color;
-
-
-            .inner{
-                border: 2px dotted $primary-color;
-                width:100%;
-                height:100%;
-                border-radius: 100px;
-                font-size: 50px;
-                line-height: 180px;
-                font-weight:bold;
-
-            }
-
-            &.km .inner{
-                font-size: 36px;
-                line-height: 0.9em;
-                padding-top: 40px;
-
-                    .kmspan{
-                        font-size: 20px;
-                        color: rgba($tertiary-color, 0.6);
-                    }
-                }
-            }
-    }
-
-    .alert-box{
-        margin-bottom: 0;
-        @include alert-style($tertiary-color);
-    }
-
-    .valign-center {
-        position: relative;
-        top: 50%;
-        > .content {
-          transform: translateY(-50%);
-          -webkit-transform: translateY(-50%);
-          -o-transform:translateY(-50%);
-          -ms-transform:translateY(-50%);
-        }
+      &.active{
+        bottom: 0;
       }
 
+      i{
+        color: #888;
+        font-size: 18px;
+        margin-bottom: 10px;
+        height: 30px;
+        width:30px;
+        background: #f8f8f8;
+        padding: 6px 5px 5px;
+        border-radius: 40px;
+        font-size: 1.2rem;
+        color: $primary-color;
+      }
 
-    header{
-        position: fixed;
-        width: 100%;
-        z-index: 100;
-
-        .row{
-            padding: 0 40px;
-            max-width: none;
-        }
-
-
-        .headerContent{
-            padding: 20px 0 5px;
-            overflow:visible;
-            position: relative;
-            z-index:5;
-            background-color: rgba(255,255,255,1);
-        }
-
-        .logo{
-            margin:0;
-
-            a{
-                width: 380px;
-                height: 60px;
-                display: inline-block;
-                background: transparent url(../images/logo-runalyze.png) no-repeat center left;
-                background-size: 312px auto;
-                text-indent: -2000px;
-                border-radius: 0 0 5px 5px;
-            }
-        }
-        .loginHeader{
-            background: rgba(15,82,92,0.9);
-            display: inline-block;
-            position: absolute;
-            right:0;
-            height: 69px;
-            width: 510px;
-            padding: 15px 40px 5px 10px;
-
-            &:before{
-                content:'';
-                display: block;
-                width: 0;
-                height: 0;
-                border-left: 51px solid transparent;
-                border-right: 51px solid transparent;
-                border-bottom: 51px solid rgba(15,82,92,0.9);
-                transform: rotate(45deg);
-                position: absolute;
-                top:-10px;
-                left: -69px;
-            }
-
-            label{
-                display: none;
-            }
-
-            input{
-                width: 150px;
-                display: inline-block;
-                margin-bottom:0;
-
-                &[type="submit"]{
-                    width: 100px;
-                }
-            }
-        }
-    }
-
-
-    .quickbar{
-        text-align: right;
-
-        ul{
-            list-style: none;
-            margin: 10px 0 0;
-            padding: 0;
-
-            li{
-                margin-bottom: 10px;
-                display: block;
-                text-align: center;
-
-                a{
-                    display: inline-block;
-                    line-height: 14px;
-                    color: $primary-color;
-                    height: 30px;
-                    width:30px;
-                    background: #f8f8f8;
-                    padding: 5px 5px 5px;
-                    border-radius: 40px;
-
-                    i{
-                        font-size: 1.2rem;
-                    }
-
-                    &:hover, &.active{
-                        background: $secondary-color;
-                        color: #fff;
-                    }
-                }
-            }
-        }
-    }
-
-
-
-
-    .loginBox{
-        position: relative;
-        height: 100%;
-        min-height: 530px;
-        display: none;
-
-        .boxWrapper{
-            background: $white;
-            box-shadow: 0 0 4px 0 #aaa;
-            padding: 20px 30px;
-            position: absolute;
-            top:0;
-            left:0;
-            width: 100%;
-            min-height: 530px;
-            display: block;
-            -webkit-backface-visibility: hidden;
-   	        backface-visibility: hidden;
-            -webkit-transform-style: preserve-3d;
-            transform-style: preserve-3d;
-            transform: rotateY(180deg);
-            transition: all 0.5s linear;
-
-
-            &.active{
-                transform: rotateY(0deg);
-            }
-
-            &#login{
-
-            }
-
-            &#registerFormular{
-
-            }
-
-            &#forgotPassword{
-
-            }
-
-        }
-    }
-
-//
-//
-//    form{
-//        fieldset{
-//
-//
-//            legend{
-////                font-family: $font-family-serif;
-//                margin: 2rem 0 1rem;
-//                padding:0;
-//                color: $secondary-color;
-//                font-size: 1.4rem;
-//                text-align: center;
-//                width:100%;
-//                display: inline-block;
-//                padding-top: 15px;
-//            }
-//        }
-//    }
-
-    footer{
-        padding: 40px 0 30px;
-        background: rgba($primary-color, 0.9);
-        color: $white;
-
-        h1, h2, h3, h4, h5, h6{
-            color: $secondary-color;
-            text-transform: uppercase;
-            font-weight:300;
-            border-bottom: 1px solid;
-            margin-bottom: 1em;
-        }
-
-
+      li{
 
         a{
-            color: $white;
-
-            &:hover{
-                color: $smoke;
-            }
+          color: #444;
         }
+
+        &.triggered a{
+          color: $primary-color;
+        }
+      }
     }
+  }
+
+  #intro{
+    padding: 260px 0 0px;
+    color: #fff;
+
+    h2{
+      margin: 150px 0 10px 0;
+      background: rgba(255,255,255,0.95);
+      display: inline-block;
+      padding: 0 15px 0;
+      text-transform: uppercase;
+    }
+
+    p{
+      font-size: 26px;
+      padding-left: 15px;
+      font-weight: 100;
+      line-height: 1.8em;
+
+      span{
+        background: rgba($primary-color, 0.8);
+        padding: 3px 0;
+        box-shadow: 15px 0 0 rgba($primary-color, 0.8), -15px 0 0 rgba($primary-color, 0.8);
+      }
+    }
+  }
+
+  .vorteile{
+    padding: 70px 0 50px;
+    box-shadow: 0 0 3px 0 $iron;
+    background: rgba(221,221,221,0.95);
+    color: #333;
+    margin: 80px 0 0;
+
+    h3{
+      font-size: 1.6rem;
+      font-weight: 200;
+
+      i{
+        color: $secondary-color;
+        padding-right: 10px;
+      }
+    }
+  }
+
+  .loginBox{
+    display: none;
+  }
+
+
+  /* Statistics on start/log in page */
+  .statisticsOverview{
+    background: rgba(221,221,221,0.95);
+    padding: 80px 0 70px;
+
+    i{
+      color: #888;
+    }
+
+    h3{
+      font-weight: 200;
+    }
+
+    .statistic{
+      height: 200px;
+      width: 200px;
+      border-radius: 100px;
+      background: rgba(255,255,255,0.9);
+      padding: 5px;
+      margin: 0 auto;
+      color: $tertiary-color;
+
+      .inner{
+        border: 2px dotted $primary-color;
+        width:100%;
+        height:100%;
+        border-radius: 100px;
+        font-size: 50px;
+        line-height: 180px;
+        font-weight:bold;
+      }
+
+      &.km .inner{
+        font-size: 36px;
+        line-height: 0.9em;
+        padding-top: 40px;
+
+        .kmspan{
+          font-size: 20px;
+          color: rgba($tertiary-color, 0.6);
+        }
+      }
+    }
+  }
+
+  .alert-box{
+    margin-bottom: 0;
+    @include alert-style($tertiary-color);
+  }
+
+  .valign-center {
+    position: relative;
+    top: 50%;
+
+    > .content {
+      transform: translateY(-50%);
+      -webkit-transform: translateY(-50%);
+      -o-transform:translateY(-50%);
+      -ms-transform:translateY(-50%);
+    }
+  }
+
+  header{
+    position: fixed;
+    width: 100%;
+    z-index: 100;
+    //overflow: hidden;
+
+    .row{
+      padding: 0 40px;
+      max-width: none;
+    }
+
+    .headerContent{
+      overflow:visible;
+      position: relative;
+      z-index:5;
+      max-height: 100px;
+      background-color: rgba(255,255,255,1);
+      transition: max-height 1s ease;
+
+      &.small{
+        max-height: 10px;
+      }
+    }
+
+    .logo{
+      padding: 20px 20px 5px;
+      background: #fff;
+      display: inline-block;
+
+      h1{
+        margin: 0;
+        line-height: 1em;
+      }
+
+      a{
+        width: 290px;
+        height: 54px;
+        display: inline-block;
+        background: transparent url(../images/logo-runalyze.png) no-repeat center left;
+        background-size: 282px auto;
+        text-indent: -2000px;
+        border-radius: 0 0 5px 5px;
+      }
+    }
+  }
+
+  .widget{
+    background: rgba(15,82,92,0.9);
+    display: inline-block;
+    position: absolute;
+    right: -540px;
+    height: 69px;
+    width: 510px;
+    padding: 15px 40px 5px 10px;
+    transition: all 1s ease;
+
+    &.active{
+      right:0;
+    }
+
+    &:before{
+      content:'';
+      display: block;
+      width: 0;
+      height: 0;
+      border-left: 51px solid transparent;
+      border-right: 51px solid transparent;
+      border-bottom: 51px solid rgba(15,82,92,0.9);
+      transform: rotate(45deg);
+      position: absolute;
+      top:-10px;
+      left: -69px;
+    }
+  }
+
+  .loginWidget{
+    label{
+      display: none;
+    }
+
+    input{
+      width: 150px;
+      display: inline-block;
+      margin-bottom:0;
+
+      &[type="submit"]{
+          width: 100px;
+      }
+    }
+  }
+
+  .registerWidget{
+    label{
+      display: none;
+    }
+
+    input{
+      width: 305px;
+      display: inline-block;
+      margin-bottom:0;
+
+      &[type="submit"]{
+          width: 100px;
+      }
+    }
+  }
+
+  footer{
+    padding: 40px 0 30px;
+    background: rgba($primary-color, 0.9);
+    color: $white;
+
+    h1, h2, h3, h4, h5, h6{
+      color: $secondary-color;
+      text-transform: uppercase;
+      font-weight:300;
+      border-bottom: 1px solid;
+      margin-bottom: 1em;
+    }
+
+    a{
+      color: $white;
+
+      &:hover{
+        color: $smoke;
+      }
+    }
+  }
 
 
 } /* Define mobile styles */

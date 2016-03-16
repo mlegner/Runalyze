@@ -2,8 +2,7 @@
 
 {% block content %}
 <main>
-
-  <div class="intro">
+  <div id="intro">
     <div class="row">
       <div class="small-10 columns">
         <h2>{% trans %}RUNALYZE is your running diary{% endtrans %}</h2>
@@ -42,221 +41,197 @@
     </div>
   </div>
 
-
-
-    <div class="statisticsOverview">
+  <div class="statisticsOverview">
+    <div class="row">
+      <div class="small-12 columns" style="text-align: center;">
+        <h2 class="headline"><i class="fa fa-users"></i> Unsere Community</h2>
         <div class="row">
-            <div class="small-12 columns" style="text-align: center;">
-                <h2 class="headline"><i class="fa fa-users"></i> Unsere Community</h2>
-                    <div class="row">
-                        <div class="medium-4 columns">
-
-                            <div class="statistic">
-                                <div class="inner">
-                                    6.430
-                                </div>
-                            </div>
-                            <h3>Registered Athletes</h3>
-                        </div>
-                        <div class="medium-4 columns">
-
-                            <div class="statistic km">
-                                <div class="inner">
-                                    <span class="kmspan">KM</span>
-                                    6.734.345<br>
-
-                                </div>
-                            </div>
-                            <h3>Run so far</h3>
-                        </div>
-                        <div class="medium-4 columns">
-
-                            <div class="statistic">
-                                <div class="inner">
-                                    110
-                                </div>
-                            </div>
-                            <h3>Currently online</h3>
-                        </div>
-                    </div>
-                    {# <p><span>
-                        {% trans %}
-                            Until now <strong>{{ numUser }}</strong> athlete is registered and has logged {{ numKm }}
-                        {% plural numUser %}
-                            Until now <strong>{{ numUser }}</strong> athletes are registered and have logged {{ numKm }}
-                        {% endtrans %}
-                        <br>
-			{% if numUserOnline == 1 %}
-			{% trans %}<strong>One</strong> athlete is online{% endtrans %}
-			{% else %}
-                        {% trans %}
-                            one athlete is online
-                        {% plural numUserOnline %}
-                            <strong>{{ numUserOnline }}</strong> athletes are online
-                        {% endtrans %}
-			{% endif %}
-                    </span></p> #}
-
+          <div class="medium-4 columns">
+            <div class="statistic">
+              <div class="inner">
+                6.430
+              </div>
             </div>
-
+            <h3>Registered Athletes</h3>
+          </div>
+          <div class="medium-4 columns">
+            <div class="statistic km">
+              <div class="inner">
+                <span class="kmspan">KM</span>
+                6.734.345<br>
+              </div>
+            </div>
+            <h3>Run so far</h3>
+          </div>
+          <div class="medium-4 columns">
+            <div class="statistic">
+              <div class="inner">
+                110
+              </div>
+            </div>
+            <h3>Currently online</h3>
+          </div>
         </div>
+              {# <p><span>
+                  {% trans %}
+                      Until now <strong>{{ numUser }}</strong> athlete is registered and has logged {{ numKm }}
+                  {% plural numUser %}
+                      Until now <strong>{{ numUser }}</strong> athletes are registered and have logged {{ numKm }}
+                  {% endtrans %}
+                  <br>
+{% if numUserOnline == 1 %}
+{% trans %}<strong>One</strong> athlete is online{% endtrans %}
+{% else %}
+                  {% trans %}
+                      one athlete is online
+                  {% plural numUserOnline %}
+                      <strong>{{ numUserOnline }}</strong> athletes are online
+                  {% endtrans %}
+{% endif %}
+              </span></p> #}
+
+      </div>
     </div>
+  </div>
 
+  <div class="row" >
 
+    <aside class="loginBox">
+        <div id="login" class="boxWrapper{% if switchpath == 'login' %} active{% endif %}">
 
-        <div class="row" >
+            <form action="login" method="post">
+                <fieldset>
+                    <legend>{% trans "Login" %} <!--{% trans "Please login" %}--></legend>
 
-                <aside class="loginBox">
-                    <div id="login" class="boxWrapper{% if switchpath == 'login' %} active{% endif %}">
-
-                        <form action="login" method="post">
-                            <fieldset>
-                                <legend>{% trans "Login" %} <!--{% trans "Please login" %}--></legend>
-
-                                <div class="">
-                                    <label for="username">
-                                        {% trans "Username" %}
-                                        <input id="username" name="username" class="" type="text" value="">
-                                    </label>
-                                    {% if errorType == 1 %}
-                                    <small class="error">wrong username</small>
-                                    {% endif %}
-                                </div>
-                                <div class="">
-                                    <label for="password" class="error">{% trans "Password" %}
-                                        <input id="password" name="password" class="" type="password">
-                                    </label>
-                                    {% if errorType == 2 %}
-                                    <small class="error">wrong Password</small>
-                                    {% elseif errorType ==3 %}
-                                     <small class="error">Account is not activated</small>
-                                    {% endif %}
-                                </div>
-                                <div class="">
-                                    <div class="switch tiny">
-                                        <input id="autologin" name="autologin" type="checkbox">
-                                        <label for="autologin" class=""></label>
-                                        {% trans "Remember me" %}
-                                    </div>
-                                </div>
-                            </fieldset>
-                            <div class="clearfix">
-                                <input type="submit" value="{% trans "Login" %}" name="submit" class="button secondary small right">
-                            </div>
-                            <div>
-                                <a href="" class="loginBoxChange pwf">{% trans %}Forgot your password?{% endtrans %}</a>
-
-                            </div>
-                        </form>
+                    <div class="">
+                        <label for="username">
+                            {% trans "Username" %}
+                            <input id="username" name="username" class="" type="text" value="">
+                        </label>
+                        {% if errorType == 1 %}
+                        <small class="error">wrong username</small>
+                        {% endif %}
                     </div>
+                    <div class="">
+                        <label for="password" class="error">{% trans "Password" %}
+                            <input id="password" name="password" class="" type="password">
+                        </label>
+                        {% if errorType == 2 %}
+                        <small class="error">wrong Password</small>
+                        {% elseif errorType ==3 %}
+                         <small class="error">Account is not activated</small>
+                        {% endif %}
+                    </div>
+                    <div class="">
+                        <div class="switch tiny">
+                            <input id="autologin" name="autologin" type="checkbox">
+                            <label for="autologin" class=""></label>
+                            {% trans "Remember me" %}
+                        </div>
+                    </div>
+                </fieldset>
+                <div class="clearfix">
+                    <input type="submit" value="{% trans "Login" %}" name="submit" class="button secondary small right">
+                </div>
+                <div>
+                    <a href="" class="loginBoxChange pwf">{% trans %}Forgot your password?{% endtrans %}</a>
+
+                </div>
+            </form>
+        </div>
 
 
-                    <div id="registerFormular"  class="boxWrapper{% if switchpath == 'register' %} active{% endif %}">
-                        {% if regError == true or regError.created is defined %}
+      <div id="registerFormular"  class="boxWrapper{% if switchpath == 'register' %} active{% endif %}">
+            {% if regError == true or regError.created is defined %}
 
-                            {% trans %}Thanks for your registration. You should receive an email within the next minutes with further instructions for activating your account.{% endtrans %}
-                            {{ regError.created }}
-                        {% else %}
-                        <form action="register" method="post">
-                            <fieldset>
-                                <legend onclick="show('log');">{% trans %}Create a new account{% endtrans %}</legend>
-                                <div class="w100 block">
-                                    <label for="new_username">{% trans %}Username{% endtrans %}</label>
-                                    <span class="input-with-unit">
-                                        <input type="text" name="new_username" value="" id="new_username" class="middle-size">
-                                    </span>
-                                  {% if regError.new_username is defined %}
-                                         <small class="error">{{ regError.new_username }} </small>
-                                    {% endif %}
-                                </div>
-
-                                <div class="w100 block ">
-                                    <label for="name">{% trans %}Name{% endtrans %}</label>
-                                    <span class="input-with-unit">
-                                        <input type="text" name="name" value="" id="name" class="middle-size">
-                                    </span>
-                                    {% if regError.name is defined %}
-                                         <small class="error">{{ regError.name }}</small>
-                                    {% endif %}
-                                </div>
-
-                                <div class="w100 block ">
-                                    <label for="email">{% trans %}Email{% endtrans %}</label>
-                                    <span class="input-with-unit">
-                                        <input type="text" name="email" value="" id="email" class="middle-size">
-                                    </span>
-                                    {% if regError.email is defined %}
-                                         <small class="error">{{ regError.email }}</small>
-                                    {% endif %}
-                                </div>
-
-                                <div class="w100 block ">
-                                    <label for="password">{% trans %}Password{% endtrans %}</label>
-                                    <span class="input-with-unit">
-                                        <input type="password" name="password" value="" id="password" class="middle-size">
-                                    </span>
-                                    {% if regError.password is defined%}
-                                         <small class="error">{{ regError.password }}</small>
-                                    {% endif %}
-                                </div>
-
-                                <div class="w100 block ">
-                                    <label for="password_again">{% trans %}Repeat password{% endtrans %}</label>
-                                    <span class="input-with-unit">
-                                        <input type="password" name="password_again" value="" id="password_again" class="middle-size">
-                                    </span>
-                                    {% if regError.password_again is defined%}
-                                         <small class="error">{{ regError.password_again }}</small>
-                                    {% endif %}
-                                </div>
-                            </fieldset>
-
-                            <div class="clearfix">
-                                <input type="submit" value="{% trans "Register" %}" name="submit" class="button secondary small right">
-                            </div>
-
-                        </form>
+                {% trans %}Thanks for your registration. You should receive an email within the next minutes with further instructions for activating your account.{% endtrans %}
+                {{ regError.created }}
+            {% else %}
+            <form action="register" method="post">
+                <fieldset>
+                    <legend onclick="show('log');">{% trans %}Create a new account{% endtrans %}</legend>
+                    <div class="w100 block">
+                        <label for="new_username">{% trans %}Username{% endtrans %}</label>
+                        <span class="input-with-unit">
+                            <input type="text" name="new_username" value="" id="new_username" class="middle-size">
+                        </span>
+                      {% if regError.new_username is defined %}
+                             <small class="error">{{ regError.new_username }} </small>
                         {% endif %}
                     </div>
 
-
-
-                    <div class="forgotPassword  boxWrapper{% if switchpath == 'forgotpw' %} active{% endif %}" id="forgotPassword">
-                        <form action="forgotpw" method="post">
-                            <fieldset>
-                                <legend onclick="show('log');">{% trans %}Forgot password?{% endtrans %}</legend>
-                                <p class="info">
-                                    {% trans %}A link for changing your password will be sent via email.{% endtrans %}
-                                </p>
-                                <div class="">
-                                    <label for="send_username">{% trans %}Username{% endtrans %}
-                                    <input id="send_username" name="send_username" class="" type="text" value="">
-                                    </label>
-                                </div>
-                                 {{ forgotpw }}
-                            </fieldset>
-
-                            <div class="clearfix">
-                                <input type="submit" value="{% trans %}Send link{% endtrans %}" name="submit" class="button secondary small right">
-                            </div>
-
-                            <div>
-                                <a class="loginBoxChange log" href="#" >{% trans "Back to login" %}</a>
-                            </div>
-                        </form>
-
+                    <div class="w100 block ">
+                        <label for="name">{% trans %}Name{% endtrans %}</label>
+                        <span class="input-with-unit">
+                            <input type="text" name="name" value="" id="name" class="middle-size">
+                        </span>
+                        {% if regError.name is defined %}
+                             <small class="error">{{ regError.name }}</small>
+                        {% endif %}
                     </div>
 
+                    <div class="w100 block ">
+                        <label for="email">{% trans %}Email{% endtrans %}</label>
+                        <span class="input-with-unit">
+                            <input type="text" name="email" value="" id="email" class="middle-size">
+                        </span>
+                        {% if regError.email is defined %}
+                             <small class="error">{{ regError.email }}</small>
+                        {% endif %}
+                    </div>
 
-                </aside>
+                    <div class="w100 block ">
+                        <label for="password">{% trans %}Password{% endtrans %}</label>
+                        <span class="input-with-unit">
+                            <input type="password" name="password" value="" id="password" class="middle-size">
+                        </span>
+                        {% if regError.password is defined%}
+                             <small class="error">{{ regError.password }}</small>
+                        {% endif %}
+                    </div>
 
-        </div>
-    </div>
+                    <div class="w100 block ">
+                        <label for="password_again">{% trans %}Repeat password{% endtrans %}</label>
+                        <span class="input-with-unit">
+                            <input type="password" name="password_again" value="" id="password_again" class="middle-size">
+                        </span>
+                        {% if regError.password_again is defined%}
+                             <small class="error">{{ regError.password_again }}</small>
+                        {% endif %}
+                    </div>
+                </fieldset>
 
+                <div class="clearfix">
+                    <input type="submit" value="{% trans "Register" %}" name="submit" class="button secondary small right">
+                </div>
 
-
-
+            </form>
+            {% endif %}
+      </div>
+      <div class="forgotPassword  boxWrapper{% if switchpath == 'forgotpw' %} active{% endif %}" id="forgotPassword">
+        <form action="forgotpw" method="post">
+          <fieldset>
+            <legend onclick="show('log');">{% trans %}Forgot password?{% endtrans %}</legend>
+            <p class="info">
+              {% trans %}A link for changing your password will be sent via email.{% endtrans %}
+            </p>
+            <div class="">
+              <label for="send_username">{% trans %}Username{% endtrans %}
+              <input id="send_username" name="send_username" class="" type="text" value="">
+              </label>
+            </div>
+            {{ forgotpw }}
+          </fieldset>
+          <div class="clearfix">
+            <input type="submit" value="{% trans %}Send link{% endtrans %}" name="submit" class="button secondary small right">
+          </div>
+          <div>
+            <a class="loginBoxChange log" href="#" >{% trans "Back to login" %}</a>
+          </div>
+        </form>
+      </div>
+    </aside>
+  </div>
 </main>
-
 
 {% endblock %}

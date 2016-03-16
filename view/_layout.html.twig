@@ -3,9 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-
 	<link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
-
 	<link rel="alternate" href="/index.php?lang=en" hreflang="en" />
 	<link rel="alternate" href="/index.php?lang=de" hreflang="de" />
 	<link rel="alternate" href="/index.php?lang=pl" hreflang="pl" />
@@ -15,9 +13,7 @@
 
     {% block css %}
         <!-- OLD STYLES -->
-<!--
-        <link rel="stylesheet" href="web/_static/runalyze.css">
--->
+        {# <link rel="stylesheet" href="web/_static/runalyze.css"> #}
         <link rel="stylesheet" href="web/vendor/font-awesome/css/font-awesome.css">
         <!-- NEW STYLES -->
         <link rel="stylesheet" href="web/assets/css/app.css">
@@ -28,122 +24,103 @@
     {% endblock %}
 
 </head>
-    <body>
-			<div class="specialNav">
-				<div class="quickbar">
-					<ul>
-						<li>
-							<a href="" class="active">
-								<i class="fa fa-sign-in"></i>
-							</a>
-						</li>
-						<li>
-							<a href="#" id="">
-								<i class="fa fa-user-plus"></i>
-							</a>
-						</li>
-						<li>
-							<a href="">
-								<i class="fa fa-key"></i>
-							</a>
-						</li>
-
-					</ul>
-				</div>
-				<div class="languageSwitcher">
-					<i class="fa fa-globe"></i>
-					<ul class="no-bullet">
-							<li><a href="?lang=en">EN</a></li>
-							<li class="triggered"><a href="?lang=de">DE</a></li>
-							<li><a href="?lang=pl">PL</a></li>
-							<li><a href="?lang=ca">CA</a></li>
-					</ul>
-				</div>
-			</div>
-        <!--<div class="alert-box" data-alert>{% trans %}We are using cookies to give you the best experience on our site. Cookies are files stored in your browser and are used by most websites to help personalise your web experience.{% endtrans %}<br>{% trans %}By continuing to use our website you agree to our use of cookies.{% endtrans %} <a href="#" class="close">&times;</a></div>-->
-        <header>
-            <div class="headerContent">
-
-                <div class="row">
-                    <div class="small-6 columns">
-                        <h1 class="logo"><a href="/">RUNALYZE</a></h1>
-                    </div>
-                </div>
-            </div>
-            <div class="loginHeader">
-
-                <div>
-                <label for="username">{% trans "Username" %}</label>
-                <input id="username" name="username" placeholder="{% trans "Username" %}" class="" type="text" value="">
-
-                <label for="password">{% trans "Password" %}</label>
-                <input id="password" name="password" placeholder="{% trans "Password" %}" class="" type="password">
-
-                <input type="submit" value="{% trans "Login" %}" name="submit" class="button secondary small">
-                </div>
-                <!--<a href="#" id="">Passwort vergessen?</a>-->
-
-            </div>
-        </header>
-
-        <!--
-        <nav data-magellan-expedition="fixed" class="mainNav">
-            <div class="row">
-              <dl class="sub-nav">
-                <dd data-magellan-arrival="build"><a href="#build">Blog</a></dd>
-                <dd data-magellan-arrival="js"><a href="#js">FAQ</a></dd>
-              </dl>
-            </div>
-        </nav>-->
-
-
-        {% block content %}
-
-        {% endblock %}
-
-
-        <footer>
-            <div class="row">
-                <div class="small-12 large-4 columns">
-                    <h5>{% trans %}Follow us{% endtrans %}</h5>
-                    <a href="https://github.com/Runalyze/Runalyze" title="GitHub &ndash; RUNALYZE"><i class="fa fa-2x fa-git-square"></i></a>
-                    <a href="http://twitter.com/RunalyzeDE" title="Twitter &ndash; RUNALYZE"><i class="fa fa-2x fa-twitter-square"></i></a>
-                    <a href="http://www.facebook.com/Runalyze" title="Facebook &ndash; RUNALYZE"><i class="fa fa-2x fa-facebook-square"></i></a>
-                    <a href="https://plus.google.com/communities/116260192529858591171" title="Google+ &ndash; RUNALYZE"><i class="fa fa-2x fa-google-plus-square"></i></a>
-
-                    <div>
-                        Version {{ RUNALYZE_VERSION }}
-                    </div>
-                </div>
-                <div class="small-12 large-4 columns">
-                    <h5>Visit Us</h5>
-                    <ul class="no-bullet">
-                        <li><a href="http://blog.runalyze.com/" title="RUNALYZE"><i class="fa fa-angle-right"></i> Runalyze Blog</a></li>
-                        <li><a href="http://features.runalyze.com/" title="RUNALYZE"><i class="fa fa-angle-right"></i> {% trans %}Features{% endtrans %}</a></li>
-                        <li><a href="http://faq.runalyze.com/" title="RUNALYZE"><i class="fa fa-angle-right"></i> FAQ</a></li>
-                    </ul>
-
-                </div>
-                <div class="small-12 large-4 columns">
-                    <h5>Service</h5>
-                    <ul class="no-bullet">
-                        <li><a href=""><i class="fa fa-angle-right"></i> {% trans %}Contact{% endtrans %}</a></li>
-                        <li><a href=""><i class="fa fa-angle-right"></i> {% trans %}Impressum{% endtrans %}</a></li>
-                    </ul>
-                    <p>&copy; 2015 Runalyze Team</p>
-                </div>
-
-            </div>
-        </footer>
-
-
-
-
-
-        <div id="ajax-outer">
-
+<body>
+	<div id="quickNav">
+		<div id="userHelper" class="">
+			<ul>
+				<li><a href="#" id="loginHandle" class="login active"><i class="fa fa-sign-in"></i></a></li>
+				<li><a href="#" id="registerHandle" class="register"><i class="fa fa-user-plus"></i></a></li>
+				<li><a href="#" id="pwHandle"><i class="fa fa-key"></i></a></li>
+			</ul>
+		</div>
+		<div id="languageSwitcher" class="">
+			<a href="" class="toggleLanguage"><i class="fa fa-globe"></i></a>
+			<ul class="no-bullet">
+					<li><a href="?lang=en">EN</a></li>
+					<li class="triggered"><a href="?lang=de">DE</a></li>
+					<li><a href="?lang=pl">PL</a></li>
+					<li><a href="?lang=ca">CA</a></li>
+			</ul>
+		</div>
+	</div>
+  <!--<div class="alert-box" data-alert>{% trans %}We are using cookies to give you the best experience on our site. Cookies are files stored in your browser and are used by most websites to help personalise your web experience.{% endtrans %}<br>{% trans %}By continuing to use our website you agree to our use of cookies.{% endtrans %} <a href="#" class="close">&times;</a></div>-->
+  <header class="header">
+    <div class="headerContent">
+      <div class="row">
+        <div class="small-6 columns">
+					<div class="logo">
+          	<h1><a href="/">RUNALYZE</a></h1>
+					</div>
         </div>
+      </div>
+    </div>
+    <div id="loginWidget" class="loginWidget widget active">
+      <div>
+	      <label for="username">{% trans "Username" %}</label>
+	      <input id="username" name="username" placeholder="{% trans "Username" %}" class="" type="text" value="">
 
+	      <label for="password">{% trans "Password" %}</label>
+	      <input id="password" name="password" placeholder="{% trans "Password" %}" class="" type="password">
 
-    </body>
+	      <input type="submit" value="{% trans "Login" %}" name="submit" class="button secondary small">
+      </div>
+    </div>
+		<div id="registerWidget" class="registerWidget widget">
+      <div>
+	      <label for="username">{% trans "Username" %}</label>
+	      <input id="username" name="username" placeholder="{% trans "Username" %}" class="small" type="text" value="">
+
+	      <input type="submit" value="{% trans "Register" %}" name="submit" class="button secondary small">
+      </div>
+    </div>
+  </header>
+
+	{# Was ist das? #}
+  {# <nav data-magellan-expedition="fixed" class="mainNav">
+      <div class="row">
+        <dl class="sub-nav">
+          <dd data-magellan-arrival="build"><a href="#build">Blog</a></dd>
+          <dd data-magellan-arrival="js"><a href="#js">FAQ</a></dd>
+        </dl>
+      </div>
+  </nav> #}
+
+  {% block content %}
+
+  {% endblock %}
+
+  <footer>
+    <div class="row">
+      <div class="small-12 large-4 columns">
+        <h5>{% trans %}Follow us{% endtrans %}</h5>
+        <a href="https://github.com/Runalyze/Runalyze" title="GitHub &ndash; RUNALYZE"><i class="fa fa-2x fa-git-square"></i></a>
+        <a href="http://twitter.com/RunalyzeDE" title="Twitter &ndash; RUNALYZE"><i class="fa fa-2x fa-twitter-square"></i></a>
+        <a href="http://www.facebook.com/Runalyze" title="Facebook &ndash; RUNALYZE"><i class="fa fa-2x fa-facebook-square"></i></a>
+        <a href="https://plus.google.com/communities/116260192529858591171" title="Google+ &ndash; RUNALYZE"><i class="fa fa-2x fa-google-plus-square"></i></a>
+
+        <div>
+            Version {{ RUNALYZE_VERSION }}
+        </div>
+      </div>
+      <div class="small-12 large-4 columns">
+        <h5>Visit Us</h5>
+        <ul class="no-bullet">
+          <li><a href="http://blog.runalyze.com/" title="RUNALYZE"><i class="fa fa-angle-right"></i> Runalyze Blog</a></li>
+          <li><a href="http://features.runalyze.com/" title="RUNALYZE"><i class="fa fa-angle-right"></i> {% trans %}Features{% endtrans %}</a></li>
+          <li><a href="http://faq.runalyze.com/" title="RUNALYZE"><i class="fa fa-angle-right"></i> FAQ</a></li>
+        </ul>
+      </div>
+      <div class="small-12 large-4 columns">
+        <h5>Service</h5>
+        <ul class="no-bullet">
+          <li><a href=""><i class="fa fa-angle-right"></i> {% trans %}Contact{% endtrans %}</a></li>
+          <li><a href=""><i class="fa fa-angle-right"></i> {% trans %}Impressum{% endtrans %}</a></li>
+        </ul>
+        <p>&copy; 2015 Runalyze Team</p>
+      </div>
+    </div>
+  </footer>
+	<div id="ajax-outer">
+	</div>
+</body>
 </html>
