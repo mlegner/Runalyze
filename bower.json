@@ -4,7 +4,8 @@
     "foundation": "zurb/bower-foundation",
     "jquery": "~2.1",
     "leaflet": "~0.7",
-    "font-awesome": "4.2.0",
-    "fontIconPicker": "2.0.0"
+    "font-awesome": "4.4.0",
+    "fontIconPicker": "2.0.0",
+    "fontawesome": "~4.4.0"
   }
 }
