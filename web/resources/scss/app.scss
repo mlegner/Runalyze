@@ -15,7 +15,7 @@
 //   "foundation/components/flex-video",
    "foundation/components/forms",
 //   "foundation/components/grid",
-//   "foundation/components/inline-lists",
+   "foundation/components/inline-lists",
 //   "foundation/components/joyride",
 //   "foundation/components/keystrokes",
 //   "foundation/components/labels",
@@ -29,12 +29,12 @@
 //   "foundation/components/side-nav",
 //   "foundation/components/split-buttons",
 //   "foundation/components/sub-nav",
-  "foundation/components/switches";
+  "foundation/components/switches",
 //   "foundation/components/tables",
 //   "foundation/components/tabs",
 //   "foundation/components/thumbs",
 //   "foundation/components/tooltips",
-//   "foundation/components/top-bar",
+   "foundation/components/top-bar";
 //   "foundation/components/type",
 //   "foundation/components/offcanvas",
 //   "foundation/components/visibility";
@@ -184,6 +184,22 @@
     }
   }
 
+  .navTest{
+    margin: 28px 36px 0 0;
+    font-size: 1.3em;
+
+    li{
+      display: inline-block;
+      margin-left: 20px;
+
+      a{
+        text-transform: uppercase;
+        font-weight: 200;
+        color: #333;
+      }
+    }
+  }
+
   .vorteile{
     padding: 70px 0 50px;
     box-shadow: 0 0 3px 0 $iron;
@@ -281,21 +297,21 @@
     }
 
     .headerContent{
-      overflow:visible;
       position: relative;
+      overflow: hidden;
       z-index:5;
       max-height: 100px;
       background-color: rgba(255,255,255,1);
-      transition: max-height 1s ease;
+      transition: margin 1s ease;
 
       &.small{
-        max-height: 10px;
+        margin-top: -72px;
       }
     }
 
     .logo{
       padding: 20px 20px 5px;
-      background: #fff;
+      background: rgba(255,255,255,0.9);
       display: inline-block;
 
       h1{
