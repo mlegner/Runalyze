@@ -1,11 +1,25 @@
 {
-  "name": "Runalyze",
+  "name": "RUNALYZE",
+  "version": "1.0.0",
+  "authors": [
+    "RUNALYZE"
+  ],
+  "description": "Lorem ipsum dolor",
+  "main": "gulpfile.js",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
   "dependencies": {
-    "foundation": "zurb/bower-foundation",
-    "jquery": "~2.1",
-    "leaflet": "~0.7",
-    "font-awesome": "4.4.0",
-    "fontIconPicker": "2.0.0",
-    "fontawesome": "~4.4.0"
-  }
+    "foundation-sites": "~6.2.0",
+    "motion-ui": "~1.2.2",
+    "font-awesome": "^4.5.0",
+    "leaflet": "^0.7.7",
+    "fontIconPicker": "^2.0.0"
+  },
+  "private": true
 }
