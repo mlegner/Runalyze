@@ -55,18 +55,15 @@ PATHS:
     - "web/vendor/foundation-sites/js/foundation.tabs.js"
     - "web/vendor/foundation-sites/js/foundation.toggler.js"
     - "web/vendor/foundation-sites/js/foundation.tooltip.js"
-    # Runalyze App Scripts
+
     - "lib/jquery.form.js"
     - "lib/jquery.metadata.js"
     - "lib/jquery.tablesorter-2.18.4.js"
     - "lib/jquery.tablesorter-2.18.4.pager.js"
     - "lib/bootstrap-tooltip.js"
-
     - "lib/fineuploader-3.5.0.min.js"
-
     - "lib/jquery.datepicker.js"
     - "lib/jquery.chosen.min.js"
-
     - "lib/runalyze.lib.js"
     - "lib/runalyze.lib.plot.js"
     - "lib/runalyze.lib.plot.options.js"
@@ -82,7 +79,6 @@ PATHS:
     - "lib/runalyze.lib.statistics.js"
     - "lib/runalyze.lib.training.js"
     - "lib/runalyze.lib.feature.js"
-
     - "lib/flot-0.8.3/base64.js"
     - "lib/flot-0.8.3/jquery.flot.min.js"
     - "lib/flot-0.8.3/jquery.flot.resize.min.js"
@@ -96,12 +92,10 @@ PATHS:
     - "lib/flot-0.8.3/jquery.flot.canvas.js"
     - "lib/flot-0.8.3/jquery.flot.time.min.js"
     - "lib/flot-0.8.3/jquery.flot.curvedLines.js"
-
     - "web/vendor/leaflet/dist/leaflet.js"
     - "lib/leaflet/runalyze.leaflet.js"
     - "lib/leaflet/runalyze.leaflet.layers.js"
     - "lib/leaflet/runalyze.leaflet.routes.js"
-
     - "web/vendor/fontIconPicker/jquery.fonticonpicker.js"
     # Paths to your own project code are here
     - "web/resources/js/!(app).js"

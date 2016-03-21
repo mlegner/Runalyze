@@ -5,8 +5,9 @@
 @import 'motion-ui';
 
 @include foundation-global-styles;
-@include foundation-grid;
-// @include foundation-flex-grid;
+//@include foundation-grid;
+@include foundation-flex-classes;
+@include foundation-flex-grid;
 @include foundation-typography;
 @include foundation-button;
 @include foundation-forms;
@@ -49,9 +50,8 @@
 @include motion-ui-transitions;
 @include motion-ui-animations;
 
-$font-family-sans-serif : verdana;
 $iron: #ccc;
-$tertiary-color: #fff;
+$tertiary-color: #4e8f9d;
 $smoke: #fff;
 
 // Small screens
@@ -64,7 +64,6 @@ $smoke: #fff;
   }
 
   h1, h2, h3, h4, h5, h6{
-    font-family: $font-family-sans-serif;
     color: #0f525c;
     font-style: italic;
     font-weight: 200;

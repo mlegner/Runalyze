@@ -147,6 +147,6 @@ $(document).ready(function() {
 
     Runalyze.init();
 
-    app = new runalyze.App();
+    var app = new runalyze.App();
 
 });

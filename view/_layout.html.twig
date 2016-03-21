@@ -19,8 +19,6 @@
         <link rel="stylesheet" href="web/assets/css/app.css">
     {% endblock %}
 
-
-
 </head>
 <body>
 	<div id="quickNav">
@@ -45,12 +43,12 @@
   <header class="header">
     <div class="headerContent">
       <div class="row">
-        <div class="small-6 columns">
+        <div class="small-6 column">
 					<div class="logo">
           	<h1><a href="/">RUNALYZE</a></h1>
 					</div>
         </div>
-				<div class="small-6 columns">
+				<div class="small-6 column">
 					{# <nav class="top-bar">
 						<ul class="title-area right">
 							<li>Download</li>
@@ -66,22 +64,22 @@
       </div>
     </div>
     <div id="loginWidget" class="loginWidget widget active">
-      <div>
+      <form>
 	      <label for="username">{% trans "Username" %}</label>
 	      <input id="username" name="username" placeholder="{% trans "Username" %}" class="" type="text" value="">
 
 	      <label for="password">{% trans "Password" %}</label>
 	      <input id="password" name="password" placeholder="{% trans "Password" %}" class="" type="password">
 
-	      <input type="submit" value="{% trans "Login" %}" name="submit" class="button secondary small">
-      </div>
+	      <input type="submit" value="{% trans "Login" %}" name="submit" class="button secondary">
+      </form>
     </div>
 		<div id="registerWidget" class="registerWidget widget">
       <div>
 	      <label for="username">{% trans "Username" %}</label>
 	      <input id="username" name="username" placeholder="{% trans "Username" %}" class="small" type="text" value="">
 
-	      <input type="submit" value="{% trans "Register" %}" name="submit" class="button secondary small">
+	      <input type="submit" value="{% trans "Register" %}" name="submit" class="button secondary">
       </div>
     </div>
   </header>
@@ -133,6 +131,7 @@
   </footer>
 	<div id="ajax-outer">
 	</div>
+
 
 	{% block javascript %}
 			<script src="web/assets/js/app.js" type="text/javascript"></script>
