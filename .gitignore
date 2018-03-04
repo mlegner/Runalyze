@@ -18,6 +18,7 @@ web/app_dev.php
 #composer
 composer.phar
 /vendor/
+backup
 
 #assets
 node_modules/
